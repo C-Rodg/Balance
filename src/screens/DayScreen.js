@@ -10,6 +10,9 @@ import {
   Button,
 } from 'react-native';
 
+// Styling
+import FONTS from '../styles/fonts';
+
 class DayScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Balance',
@@ -21,7 +24,9 @@ class DayScreen extends Component {
         <StatusBar barStyle="light-content" />
         <SafeAreaView>
           <View style={styles.container}>
-            <Text>Day Screen</Text>
+            <Text style={{ fontFamily: FONTS.family.monoMedium }}>
+              Day Screen
+            </Text>
             <Button
               title="Add Expense"
               onPress={() => this.props.navigation.navigate('AddExpense')}

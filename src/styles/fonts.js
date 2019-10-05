@@ -1,13 +1,13 @@
 const fonts = {
   family: {
-    bold: 'FiraSans-Bold',
-    semiBold: 'FiraSans-SemiBold',
-    medium: 'FiraSans-Medium',
-    regular: 'FiraSans-Regular',
-    light: 'FiraSans-Light',
-    monoRegular: 'FiraMono-Regular',
-    monoMedium: 'FiraMono-Medium',
-    monoBold: 'FiraMono-Bold',
+    bold: 'FiraSans-Bold', // 700
+    semiBold: 'FiraSans-SemiBold', // 600
+    medium: 'FiraSans-Medium', // 500
+    regular: 'FiraSans-Regular', // 400
+    light: 'FiraSans-Light', // 300
+    monoRegular: 'FiraMono-Regular', // 400
+    monoMedium: 'FiraMono-Medium', // 500
+    monoBold: 'FiraMono-Bold', // 700
   },
   weights: {
     bold: '700',
@@ -25,6 +25,28 @@ const fonts = {
     h6: 21,
     p: 18,
   },
+};
+
+// Get font family and matching font weight style object
+export const getFontFamilyStyles = type => {
+  const styles = { fontFamily: fonts.family[type] };
+
+  switch (type) {
+    case 'monoRegular':
+      styles.fontWeight = fonts.weights.regular;
+      break;
+    case 'monoMedium':
+      styles.fontFamily = fonts.weights.medium;
+      break;
+    case 'monoBold':
+      styles.fontFamily = fonts.weights.bold;
+      break;
+    default:
+      styles.fontFamily = fonts.weights[type];
+      break;
+  }
+
+  return styles;
 };
 
 export default fonts;

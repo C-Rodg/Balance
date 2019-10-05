@@ -47,8 +47,8 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- setup app routes
-- fonts
+- setup nav bars
+- colors
 - vector icons
 - async storage
 - figure out login/data storage
