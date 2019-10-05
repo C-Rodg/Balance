@@ -48,7 +48,9 @@ _:app:installDebug failed_
 ## TODO:
 
 - setup app routes
-
+- vector icons
+- async storage
+- redux
 - figure out login/data storage
 
 ## Screens
