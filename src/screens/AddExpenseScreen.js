@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 
 class AddExpenseScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Add Expense',
+  });
+
   render() {
     return (
       <Fragment>

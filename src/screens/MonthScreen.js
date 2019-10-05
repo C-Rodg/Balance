@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 
 class MonthScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'SELECTED_MONTH',
+  });
+
   render() {
     return (
       <Fragment>

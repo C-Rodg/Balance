@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 
 class SettingsScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Settings',
+  });
+
   render() {
     return (
       <Fragment>

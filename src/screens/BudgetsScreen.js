@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 
 class BudgetsScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Budgets',
+  });
+
   render() {
     return (
       <Fragment>

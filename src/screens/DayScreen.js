@@ -11,6 +11,10 @@ import {
 } from 'react-native';
 
 class DayScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Balance',
+  });
+
   render() {
     return (
       <Fragment>

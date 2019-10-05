@@ -5,6 +5,9 @@ const fonts = {
     medium: 'FiraSans-Medium',
     regular: 'FiraSans-Regular',
     light: 'FiraSans-Light',
+    monoRegular: 'FiraMono-Regular',
+    monoMedium: 'FiraMono-Medium',
+    monoBold: 'FiraMono-Bold',
   },
   weights: {
     bold: '700',
