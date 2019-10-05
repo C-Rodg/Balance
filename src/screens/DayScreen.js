@@ -16,6 +16,7 @@ import FONTS from '../styles/fonts';
 import COLORS from '../styles/colors';
 
 class DayScreen extends Component {
+  // Setup navigation bar
   static navigationOptions = ({ navigation }) => ({
     title: 'Balance',
     headerLeftContainerStyle: {
@@ -55,17 +56,10 @@ class DayScreen extends Component {
               title="Add Expense"
               onPress={() => this.props.navigation.navigate('AddExpense')}
             />
-            <Button
-              title="Settings"
-              onPress={() => this.props.navigation.navigate('Settings')}
-            />
+
             <Button
               title="Month"
               onPress={() => this.props.navigation.navigate('Month')}
-            />
-            <Button
-              title="Budgets"
-              onPress={() => this.props.navigation.navigate('Budgets')}
             />
 
             <MaterialCommunityIcon size={32} color="#000" name="arrow-left" />

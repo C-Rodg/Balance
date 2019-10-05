@@ -47,11 +47,9 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- setup nav bars
 - colors
-- vector icons
 - async storage
-- figure out login/data storage
+- figure out login/data storage - firebase?
 
 ## Screens
 
