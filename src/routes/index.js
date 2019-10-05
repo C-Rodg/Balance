@@ -16,11 +16,33 @@ import BudgetsScreen from '../screens/BudgetsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AddExpenseScreen from '../screens/AddExpenseScreen';
 
+import FONTS from '../styles/fonts';
+import COLORS from '../styles/colors';
+
+// Default header props
+const defaultNavigationOptions = {
+  // headerStyle: {
+  // 	elevation: 0, // remove shadow on android
+  // 	borderBottomWidth: 0, // remove border on iOS
+  // },
+  headerTitleStyle: {
+    fontFamily: FONTS.family.medium,
+    fontWeight: FONTS.weights.medium,
+    fontSize: FONTS.sizes.h5,
+    color: COLORS.black,
+  },
+  headerRightContainerStyle: {
+    paddingRight: 10,
+  },
+};
+
 // STACK - Authentication
 const AuthStack = createStackNavigator(
   { StartAuthentication: StartAuthenticationScreen },
   {
     initialRouteName: 'StartAuthentication',
+    headerLayoutPreset: 'center',
+    defaultNavigationOptions,
   },
 );
 
@@ -35,6 +57,8 @@ const HomeStack = createStackNavigator(
   },
   {
     initialRouteName: 'Day',
+    headerLayoutPreset: 'center',
+    defaultNavigationOptions,
   },
 );
 

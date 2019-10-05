@@ -13,10 +13,33 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 
 // Styling
 import FONTS from '../styles/fonts';
+import COLORS from '../styles/colors';
 
 class DayScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Balance',
+    headerLeftContainerStyle: {
+      paddingLeft: 10,
+    },
+    headerLeft: (
+      <MaterialCommunityIcon
+        size={32}
+        color={COLORS.black}
+        name="settings-outline"
+        onPress={() => navigation.navigate('Settings')}
+      />
+    ),
+    headerRightContainerStyle: {
+      paddingRight: 10,
+    },
+    headerRight: (
+      <MaterialCommunityIcon
+        size={32}
+        color={COLORS.black}
+        name="calendar-text-outline"
+        onPress={() => navigation.navigate('Budgets')}
+      />
+    ),
   });
 
   render() {

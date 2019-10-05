@@ -8,10 +8,25 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Styling
+import COLORS from '../styles/colors';
 
 class AddExpenseScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Add Expense',
+    headerLeftContainerStyle: {
+      paddingLeft: 5,
+    },
+    headerLeft: (
+      <MaterialCommunityIcon
+        size={32}
+        color={COLORS.black}
+        name="arrow-left"
+        onPress={() => navigation.goBack(null)}
+      />
+    ),
   });
 
   render() {
