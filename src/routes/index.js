@@ -1,11 +1,8 @@
 // Libraries
 import React from 'react';
 import { Provider } from 'react-redux';
-import {
-  createSwitchNavigator,
-  createStackNavigator,
-  createAppContainer,
-} from 'react-navigation';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 // Redux store
 import { store } from '../redux/store/';
