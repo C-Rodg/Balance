@@ -47,9 +47,9 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- colors
 - async storage
-- figure out login/data storage - firebase?
+- figure out login/data storage - firebase database or firestore*?
+- create plus logo image
 
 ## Screens
 

@@ -3,6 +3,8 @@ const colors = {
   blueMain: '#2D4BBA',
   blueLight: '#3E6EDF',
   blueBackground: '#3C53B0',
+  offWhite: '??',
+  white: '#fff',
 
   // TASTE - remove
   gray: '#ADADAD',

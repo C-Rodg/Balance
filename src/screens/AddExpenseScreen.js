@@ -33,9 +33,21 @@ class AddExpenseScreen extends Component {
     return (
       <Fragment>
         <StatusBar barStyle="light-content" />
-        <SafeAreaView>
-          <View style={styles.container}>
-            <Text>Add Expenses...</Text>
+        <SafeAreaView style={styles.appScreen}>
+          <View style={styles.contentWrapper}>
+            <View style={styles.categorySection}>
+              <MaterialCommunityIcon size={72} color={COLORS.white} name="headphones" />
+              <Text>CATEGORY_NAME_CLICKABLE</Text>
+              <Text>Total Budget is $1,250</Text>
+            </View>
+            <View style={styles.calculatorSection}>
+              <View style={styles.currentExpenseSection}>
+                <Text>$00.00</Text>
+              </View>
+              <View>
+                <Text>Calculator stuff</Text>
+              </View>
+            </View>
           </View>
         </SafeAreaView>
       </Fragment>
@@ -46,9 +58,39 @@ class AddExpenseScreen extends Component {
 export default AddExpenseScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    //flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  appScreen: {
+    flex: 1,
+    backgroundColor: "#fff"
   },
+  contentWrapper: {
+    flex: 1
+  },
+  categorySection: {
+    backgroundColor: COLORS.blueMain,
+    paddingTop: 20,
+    paddingHorizontal: 15,
+    paddingBottom: 40
+  },
+  calculatorSection: {
+    flex: 1,
+    //backgroundColor: COLORS.white,
+    //borderRadius: 20,
+    //paddingTop:20
+    // paddingHorizontal: 15,
+   // paddingVertical: 20,
+    // shadowColor: '#000',
+    // shadowOffset: { width: 0, height: -2 },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 4,
+    //elevation: 1,
+  },
+  currentExpenseSection: {
+    backgroundColor: COLORS.white,
+    borderRadius: 20,
+    marginTop: -20,
+    minHeight: 40,
+    paddingTop:20,
+    paddingHorizontal: 15
+  }
 });
+// TODO FIGURE OUT SHADOW ON TOP ONLY
