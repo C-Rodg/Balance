@@ -9,6 +9,7 @@ import {
   StatusBar,
   Button,
 } from 'react-native';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styling
 import FONTS from '../styles/fonts';
@@ -43,6 +44,8 @@ class DayScreen extends Component {
               title="Budgets"
               onPress={() => this.props.navigation.navigate('Budgets')}
             />
+
+            <MaterialCommunityIcon size={32} color="#000" name="arrow-left" />
           </View>
         </SafeAreaView>
       </Fragment>
