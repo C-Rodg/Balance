@@ -47,9 +47,11 @@ _:app:installDebug failed_
 
 ## TODO:
 
+- style add expense screen
+- add calculator functionality for add expense
+- add plus logo image
+- figure out login/data storage - firebase database or firestore\*?
 - async storage
-- figure out login/data storage - firebase database or firestore*?
-- create plus logo image
 
 ## Screens
 
