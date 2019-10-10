@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>313016291106-b82pk34fokiocd33e8hm1a0v72c0b024.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.313016291106-b82pk34fokiocd33e8hm1a0v72c0b024</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCmtdiQBS4_uhS8Ouaub8FebhmMaVDgclg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>313016291106</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.curtisrodgers.balance</string>
+	<key>PROJECT_ID</key>
+	<string>balance-cr</string>
+	<key>STORAGE_BUCKET</key>
+	<string>balance-cr.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:313016291106:ios:13cb7fa75e9351f64c9f7b</string>
+	<key>DATABASE_URL</key>
+	<string>https://balance-cr.firebaseio.com</string>
+</dict>
+</plist>

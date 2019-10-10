@@ -39,6 +39,7 @@
 		CFE54A067835D59638194A28 /* libPods-Balance-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE5B4DBC6DC15736B985A6FC /* libPods-Balance-tvOS.a */; };
 		D4C2C7AF25E94DDB86641EB6 /* FiraSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10FAFA47B00C4F38B41AD5B2 /* FiraSans-Light.ttf */; };
 		D71F02A0119A4BED8E136560 /* FiraSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0FF08F826B643BEA5C0EB87 /* FiraSans-Black.ttf */; };
+		E98655C0234ED03E005F8996 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E98655BF234ED03E005F8996 /* GoogleService-Info.plist */; };
 		E9EBBAA0234940FE009C9085 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9EBBA9F234940FD009C9085 /* MaterialCommunityIcons.ttf */; };
 		F914EEF746B141AAB7F88738 /* FiraSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CE92D2616B647BFA1E4EBEE /* FiraSans-ExtraLight.ttf */; };
 		F9ADD33E13CE4EE087A7A01B /* FiraSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0BAE0F08FD64F57834BF724 /* FiraSans-ExtraBold.ttf */; };
@@ -107,6 +108,7 @@
 		CBD776A9CBF141F686FD205A /* FiraSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FiraSans-Bold.ttf"; path = "../src/assets/fonts/FiraSans-Bold.ttf"; sourceTree = "<group>"; };
 		CC67C62F9275DF03E4813682 /* libPods-BalanceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BalanceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BAE0F08FD64F57834BF724 /* FiraSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FiraSans-ExtraBold.ttf"; path = "../src/assets/fonts/FiraSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		E98655BF234ED03E005F8996 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E9EBBA9F234940FD009C9085 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -232,6 +234,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				E98655BF234ED03E005F8996 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* Balance */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* BalanceTests */,
@@ -412,6 +415,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				E98655C0234ED03E005F8996 /* GoogleService-Info.plist in Resources */,
 				8D28B4066ED742B78A9330F4 /* FiraMono-Bold.ttf in Resources */,
 				BB8E42A9B2234E71975C2829 /* FiraMono-Medium.ttf in Resources */,
 				8BA3E5A03040470DB605AA16 /* FiraMono-Regular.ttf in Resources */,
