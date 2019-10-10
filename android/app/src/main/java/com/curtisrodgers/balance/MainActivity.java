@@ -1,4 +1,4 @@
-package com.balance;
+package com.curtisrodgers.balance;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

@@ -1,4 +1,4 @@
-package com.balance;
+package com.curtisrodgers.balance;
 
 import android.app.Application;
 import android.content.Context;
