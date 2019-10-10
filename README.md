@@ -47,6 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
+- setup register and login routes
 - style add expense screen
 - add calculator functionality for add expense
 - add plus logo image
