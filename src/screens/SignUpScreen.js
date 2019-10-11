@@ -10,6 +10,7 @@ import {
   TextInput,
   Button,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 class SignUpScreen extends Component {
   state = {
@@ -17,9 +18,21 @@ class SignUpScreen extends Component {
     password: '',
   };
 
-  handleSignUp() {
-    console.log('handle sign up!');
-  }
+  // Sign up the new user
+  handleSignUp = async () => {
+    // TODO: verify valid email and password
+    console.log('handle login!');
+    const { email, password } = this.state;
+    if (!email || !password) {
+      return false;
+    }
+    try {
+      await auth().createUserWithEmailAndPassword(email, password);
+      this.props.navigation.navigate('App');
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   render() {
     return (
@@ -31,12 +44,16 @@ class SignUpScreen extends Component {
             <TextInput
               placeholder="Email"
               autoCapitalize="none"
+              autoCompleteType="email"
+              autoCorrect={false}
               value={this.state.email}
               onChangeText={email => this.setState({ email })}
             />
             <TextInput
               placeholder="Password"
               autoCapitalize="none"
+              autoCompleteType="off"
+              autoCorrect={false}
               value={this.state.password}
               onChangeText={password => this.setState({ password })}
             />

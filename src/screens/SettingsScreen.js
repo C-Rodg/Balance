@@ -7,7 +7,9 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styling
@@ -29,6 +31,16 @@ class SettingsScreen extends Component {
     ),
   });
 
+  // Logout of the application
+  handleLogout = async () => {
+    try {
+      await auth().signOut();
+      this.props.navigation.navigate('Login');
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   render() {
     return (
       <Fragment>
@@ -36,6 +48,7 @@ class SettingsScreen extends Component {
         <SafeAreaView>
           <View style={styles.container}>
             <Text>Settings and things...</Text>
+            <Button title="Logout" onPress={this.handleLogout} />
           </View>
         </SafeAreaView>
       </Fragment>
