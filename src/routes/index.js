@@ -9,7 +9,8 @@ import { store } from '../redux/store/';
 
 // Screens
 import InitializingScreen from '../screens/InitializingScreen';
-import StartAuthenticationScreen from '../screens/StartAuthenticationScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import LoginScreen from '../screens/LoginScreen';
 import DayScreen from '../screens/DayScreen';
 import MonthScreen from '../screens/MonthScreen';
 import BudgetsScreen from '../screens/BudgetsScreen';
@@ -38,9 +39,9 @@ const defaultNavigationOptions = {
 
 // STACK - Authentication
 const AuthStack = createStackNavigator(
-  { StartAuthentication: StartAuthenticationScreen },
+  { Signup: SignUpScreen, Login: LoginScreen },
   {
-    initialRouteName: 'StartAuthentication',
+    initialRouteName: 'Signup',
     headerLayoutPreset: 'center',
     defaultNavigationOptions,
   },

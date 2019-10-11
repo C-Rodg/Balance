@@ -9,14 +9,14 @@ import {
   StatusBar,
 } from 'react-native';
 
-class StartAuthenticationScreen extends Component {
+class SignUpScreen extends Component {
   render() {
     return (
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView>
           <View style={styles.container}>
-            <Text>Start Authentication Screen...</Text>
+            <Text>Sign Up Screen...</Text>
           </View>
         </SafeAreaView>
       </Fragment>
@@ -24,7 +24,7 @@ class StartAuthenticationScreen extends Component {
   }
 }
 
-export default StartAuthenticationScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

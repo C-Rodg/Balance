@@ -8,24 +8,15 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import firebase from 'react-native-firebase';
 
-class InitializingScreen extends Component {
-  componentDidMount() {
-    // Determine if user is logged in or not
-    firebase.auth().onAuthStateChanged(user => {
-      console.log(user);
-      this.props.navigation.navigate(user ? 'App' : 'Auth');
-    });
-  }
-
+class LoginScreen extends Component {
   render() {
     return (
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView>
           <View style={styles.container}>
-            <Text>TODO: LOGO IMAGE or loading indicator</Text>
+            <Text>Log in...</Text>
           </View>
         </SafeAreaView>
       </Fragment>
@@ -33,7 +24,7 @@ class InitializingScreen extends Component {
   }
 }
 
-export default InitializingScreen;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {
