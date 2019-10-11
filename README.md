@@ -47,15 +47,19 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- setup register and login routes
 - style add expense screen
 - add calculator functionality for add expense
+- hook up firestore database
+- figure out structure of saved data
 - add plus logo image
 - figure out login/data storage - firebase database or firestore\*?
 - async storage
 
 ## Screens
 
+- Login
+- Signup
+- Initializing
 - Day (Home)
 - Budgets
 - New Budget
