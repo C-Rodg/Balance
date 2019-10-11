@@ -8,15 +8,22 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import firebase from 'react-native-firebase';
+import auth from '@react-native-firebase/auth';
 
 class InitializingScreen extends Component {
+  _firebaseListener = null;
+
   componentDidMount() {
     // Determine if user is logged in or not
-    firebase.auth().onAuthStateChanged(user => {
+    this._firebaseListener = auth().onAuthStateChanged(user => {
       console.log(user);
-      this.props.navigation.navigate(user ? 'App' : 'Auth');
+      this.props.navigation.navigate(user ? 'App' : 'Signup');
     });
+  }
+
+  componentWillUnmount() {
+    // unsubscribe on unmount
+    this._firebaseListener && this._firebaseListener();
   }
 
   render() {

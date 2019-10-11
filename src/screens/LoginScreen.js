@@ -7,9 +7,15 @@ import {
   View,
   Text,
   StatusBar,
+  TextInput,
+  Button,
 } from 'react-native';
 
 class LoginScreen extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
   render() {
     return (
       <Fragment>
@@ -17,6 +23,23 @@ class LoginScreen extends Component {
         <SafeAreaView>
           <View style={styles.container}>
             <Text>Log in...</Text>
+            <TextInput
+              placeholder="Email"
+              autoCapitalize="none"
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
+            />
+            <TextInput
+              placeholder="Password"
+              autoCapitalize="none"
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })}
+            />
+
+            <Button
+              title="New User? Sign up now"
+              onPress={() => this.props.navigation.navigate('Signup')}
+            />
           </View>
         </SafeAreaView>
       </Fragment>

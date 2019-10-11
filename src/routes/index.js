@@ -37,16 +37,6 @@ const defaultNavigationOptions = {
   },
 };
 
-// STACK - Authentication
-const AuthStack = createStackNavigator(
-  { Signup: SignUpScreen, Login: LoginScreen },
-  {
-    initialRouteName: 'Signup',
-    headerLayoutPreset: 'center',
-    defaultNavigationOptions,
-  },
-);
-
 // STACK - Main Application
 const HomeStack = createStackNavigator(
   {
@@ -69,7 +59,8 @@ const AppContainer = createAppContainer(
     {
       Initializing: InitializingScreen,
       App: HomeStack,
-      Auth: AuthStack,
+      Signup: SignUpScreen,
+      Login: LoginScreen,
     },
     {
       initialRouteName: 'Initializing',
