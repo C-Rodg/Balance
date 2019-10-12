@@ -36,13 +36,13 @@ export const getFontFamilyStyles = type => {
       styles.fontWeight = fonts.weights.regular;
       break;
     case 'monoMedium':
-      styles.fontFamily = fonts.weights.medium;
+      styles.fontWeight = fonts.weights.medium;
       break;
     case 'monoBold':
-      styles.fontFamily = fonts.weights.bold;
+      styles.fontWeight = fonts.weights.bold;
       break;
     default:
-      styles.fontFamily = fonts.weights[type];
+      styles.fontWeight = fonts.weights[type];
       break;
   }
 

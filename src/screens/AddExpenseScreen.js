@@ -13,6 +13,9 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 
 // Styling
 import COLORS from '../styles/colors';
+import FONTS, { getFontFamilyStyles } from '../styles/fonts';
+
+const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
 
 class AddExpenseScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -30,6 +33,48 @@ class AddExpenseScreen extends Component {
     ),
   });
 
+  // Return either number value or icon
+  getKeyboardButtonText = btnText => {
+    if (btnText === 'DONE') {
+      return (
+        <Text style={styles.keyboardButtonDone}>
+          <MaterialCommunityIcon
+            name="check"
+            size={FONTS.sizes.h3}
+            color={COLORS.white}
+          />
+        </Text>
+      );
+    } else if (btnText === 'BACK') {
+      return (
+        <Text style={styles.keyboardButtonText}>
+          <MaterialCommunityIcon name="backspace" size={FONTS.sizes.h4} />
+        </Text>
+      );
+    }
+    return <Text style={styles.keyboardButtonText}>{btnText}</Text>;
+  };
+
+  // Render the key pad buttons
+  _renderKeyboardButtons = () => {
+    return KEYBOARD_BUTTONS.map((row, rowIdx) => {
+      return (
+        <View key={rowIdx} style={styles.keyboardRow}>
+          {row.map((button, buttonIdx) => {
+            return (
+              <TouchableOpacity
+                key={buttonIdx}
+                style={styles.keyboardButton}
+                activeOpacity={0.7}>
+                {this.getKeyboardButtonText(button)}
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      );
+    });
+  };
+
   render() {
     return (
       <Fragment>
@@ -42,50 +87,18 @@ class AddExpenseScreen extends Component {
               color={COLORS.white}
               name="headphones"
             />
-            <Text>CATEGORY_NAME_CLICKABLE</Text>
-            <Text>Total Budget is $1,250</Text>
+            <TouchableOpacity style={styles.switchCategoryButtonText}>
+              <Text style={styles.switchCategoryButtonText}>Concert</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.totalBudgetText}>Total Budget is $1,250</Text>
           </View>
           <View style={styles.calculatorSection}>
             <View style={styles.currentExpenseSection}>
               <Text>$00.00</Text>
             </View>
-            <View>
-              <TouchableOpacity>
-                <Text>1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>2</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>3</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>4</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>5</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>6</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>7</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>8</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>9</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>back</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>0</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text>check</Text>
-              </TouchableOpacity>
+            <View style={styles.keyboardWrapper}>
+              {this._renderKeyboardButtons()}
             </View>
             <SafeAreaView />
           </View>
@@ -105,7 +118,18 @@ const styles = StyleSheet.create({
   categorySection: {
     paddingTop: 20,
     paddingHorizontal: 15,
-    paddingBottom: 40,
+    paddingBottom: 15,
+  },
+  switchCategoryButtonText: {
+    color: COLORS.white,
+    textDecorationLine: 'underline',
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h3,
+  },
+  totalBudgetText: {
+    color: COLORS.white,
+    ...getFontFamilyStyles('regular'),
+    fontSize: FONTS.sizes.h6,
   },
   calculatorSection: {
     flex: 1,
@@ -118,6 +142,28 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 1,
+  },
+  keyboardWrapper: {
+    flex: 1,
+  },
+  keyboardRow: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  keyboardButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  keyboardButtonText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h2,
+  },
+  keyboardButtonDone: {
+    backgroundColor: COLORS.blueMain,
+    borderRadius: 10,
+    padding: 20,
+    overflow: 'hidden',
   },
   currentExpenseSection: {
     // backgroundColor: COLORS.white,
