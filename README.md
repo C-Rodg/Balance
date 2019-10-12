@@ -47,12 +47,13 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style add expense screen
-- add calculator functionality for add expense
+- style day screen
+- style month screen
+- style budget screen
+- style login and register screens
+- style initializing & loading screen
+- style and figure out settings screen
 - hook up firestore database
-- figure out structure of saved data
-- add plus logo image
-- figure out login/data storage - firebase database or firestore\*?
 - async storage
 
 ## Screens

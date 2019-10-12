@@ -3,7 +3,6 @@ import React, { Fragment, Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
@@ -41,7 +40,8 @@ class AddExpenseScreen extends Component {
   handleKeyboardPress = btnText => {
     const { currentAmountString } = this.state;
     if (btnText === 'DONE') {
-      // TODO: navigate back and save expense
+      // TODO: save expense
+      this.props.navigation.pop();
     } else if (btnText === 'BACK') {
       this.setState({
         currentAmountString: currentAmountString.slice(0, -1),
