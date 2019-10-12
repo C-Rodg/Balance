@@ -17,6 +17,8 @@ const fonts = {
     light: '300',
   },
   sizes: {
+    b2: 54,
+    b1: 48,
     h1: 42,
     h2: 36,
     h3: 32,

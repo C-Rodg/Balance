@@ -47,6 +47,11 @@ class AddExpenseScreen extends Component {
         currentAmountString: currentAmountString.slice(0, -1),
       });
     } else {
+      // Ensure that the number isn't too big
+      const currentAmountNumber = parseInt(currentAmountString + btnText, 10);
+      if (!isNaN(currentAmountNumber) && currentAmountNumber > 99999999) {
+        return;
+      }
       this.setState({
         currentAmountString: currentAmountString + btnText,
       });
@@ -102,25 +107,37 @@ class AddExpenseScreen extends Component {
     const currentAmountNumber = parseInt(currentAmountString, 10);
     if (!currentAmountString || currentAmountNumber === 0) {
       return (
-        <Text>
-          <Text>$00.</Text>
-          <Text>00</Text>
-        </Text>
+        <Fragment>
+          <Text style={styles.currentExpenseTextIntegers}>$00.</Text>
+          <Text style={styles.currentExpenseTextDecimals}>00</Text>
+        </Fragment>
       );
     }
 
+    // Handle number formatting
     const formatter = Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
+      minimumIntegerDigits: 2,
     });
     const calculatedNumber = currentAmountNumber / 100;
     const entireFormattedNumber = formatter.format(calculatedNumber);
     const formattedNumberArray = entireFormattedNumber.split('.');
     return (
-      <Text>
-        <Text>{formattedNumberArray[0]}.</Text>
-        <Text>{formattedNumberArray[1]}</Text>
-      </Text>
+      <Fragment>
+        <Text
+          style={styles.currentExpenseTextIntegers}
+          numberOfLines={1}
+          adjustsFontSizeToFit={true}>
+          {formattedNumberArray[0]}.
+        </Text>
+        <Text
+          style={styles.currentExpenseTextDecimals}
+          numberOfLines={1}
+          adjustsFontSizeToFit={true}>
+          {formattedNumberArray[1]}
+        </Text>
+      </Fragment>
     );
   };
 
@@ -139,7 +156,6 @@ class AddExpenseScreen extends Component {
             <TouchableOpacity style={styles.switchCategoryButtonText}>
               <Text style={styles.switchCategoryButtonText}>Concert</Text>
             </TouchableOpacity>
-
             <Text style={styles.totalBudgetText}>Total Budget is $1,250</Text>
           </View>
           <View style={styles.calculatorSection}>
@@ -215,11 +231,22 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   currentExpenseSection: {
-    // backgroundColor: COLORS.white,
-    // borderRadius: 20,
-    // marginTop: -20,
-    // minHeight: 40,
-    // paddingTop: 20,
-    // paddingHorizontal: 15,
+    paddingTop: 20,
+    paddingHorizontal: 15,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'nowrap',
+  },
+  currentExpenseTextIntegers: {
+    ...getFontFamilyStyles('monoMedium'),
+    fontSize: FONTS.sizes.b2,
+    lineHeight: FONTS.sizes.b2 + 8,
+  },
+  currentExpenseTextDecimals: {
+    ...getFontFamilyStyles('monoMedium'),
+    fontSize: FONTS.sizes.h4,
+    textDecorationLine: 'underline',
+    lineHeight: FONTS.sizes.h4 + 10,
+    flexShrink: 0.8,
   },
 });
