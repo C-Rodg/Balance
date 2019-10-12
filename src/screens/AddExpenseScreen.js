@@ -18,6 +18,10 @@ import FONTS, { getFontFamilyStyles } from '../styles/fonts';
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
 
 class AddExpenseScreen extends Component {
+  state = {
+    currentAmountString: '',
+  };
+
   static navigationOptions = ({ navigation }) => ({
     title: 'Add Expense',
     headerLeftContainerStyle: {
@@ -32,6 +36,22 @@ class AddExpenseScreen extends Component {
       />
     ),
   });
+
+  // Keyboard button press
+  handleKeyboardPress = btnText => {
+    const { currentAmountString } = this.state;
+    if (btnText === 'DONE') {
+      // TODO: navigate back and save expense
+    } else if (btnText === 'BACK') {
+      this.setState({
+        currentAmountString: currentAmountString.slice(0, -1),
+      });
+    } else {
+      this.setState({
+        currentAmountString: currentAmountString + btnText,
+      });
+    }
+  };
 
   // Return either number value or icon
   getKeyboardButtonText = btnText => {
@@ -65,7 +85,8 @@ class AddExpenseScreen extends Component {
               <TouchableOpacity
                 key={buttonIdx}
                 style={styles.keyboardButton}
-                activeOpacity={0.7}>
+                activeOpacity={0.7}
+                onPress={() => this.handleKeyboardPress(button)}>
                 {this.getKeyboardButtonText(button)}
               </TouchableOpacity>
             );
@@ -73,6 +94,34 @@ class AddExpenseScreen extends Component {
         </View>
       );
     });
+  };
+
+  // Render the current amount of expense
+  _renderCurrentAmount = () => {
+    const { currentAmountString } = this.state;
+    const currentAmountNumber = parseInt(currentAmountString, 10);
+    if (!currentAmountString || currentAmountNumber === 0) {
+      return (
+        <Text>
+          <Text>$00.</Text>
+          <Text>00</Text>
+        </Text>
+      );
+    }
+
+    const formatter = Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+    const calculatedNumber = currentAmountNumber / 100;
+    const entireFormattedNumber = formatter.format(calculatedNumber);
+    const formattedNumberArray = entireFormattedNumber.split('.');
+    return (
+      <Text>
+        <Text>{formattedNumberArray[0]}.</Text>
+        <Text>{formattedNumberArray[1]}</Text>
+      </Text>
+    );
   };
 
   render() {
@@ -95,7 +144,7 @@ class AddExpenseScreen extends Component {
           </View>
           <View style={styles.calculatorSection}>
             <View style={styles.currentExpenseSection}>
-              <Text>$00.00</Text>
+              {this._renderCurrentAmount()}
             </View>
             <View style={styles.keyboardWrapper}>
               {this._renderKeyboardButtons()}
