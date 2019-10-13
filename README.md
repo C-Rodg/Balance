@@ -57,6 +57,8 @@ _:app:installDebug failed_
 - hook up firestore database
 - async storage
 - add day touch slider to day screen
+- get full standard category list
+- enable change icon libraries
 
 - store money in integers only and always / 100
 

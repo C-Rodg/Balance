@@ -7,11 +7,15 @@ import {
   View,
   Text,
   StatusBar,
+  TouchableHighlight,
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import BottomBarButton from '../Shared/BottomBarButton';
+
+// Config
+import { defaultCategoryList } from '../../config/defaultCategoryList';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -34,7 +38,34 @@ class CategorySelectScreen extends Component {
     ),
   });
 
-  _renderCategories = () => {};
+  // Select a category from the list
+  selectCategory = categoryObject => {
+    // TODO: SET CATEGORY
+    console.log(categoryObject);
+  };
+
+  // List all of the categories that we know about
+  _renderCategories = () => {
+    return defaultCategoryList.map(categoryObject => {
+      return (
+        <TouchableHighlight
+          key={categoryObject.iconLibrary + categoryObject.iconName}
+          underlayColor={COLORS.offWhite}
+          onPress={() => this.selectCategory(categoryObject)}>
+          <View style={styles.categoryItemRow}>
+            <MaterialCommunityIcon
+              name={categoryObject.iconName}
+              size={24}
+              color={COLORS.black}
+            />
+            <Text style={styles.categoryItemText}>
+              {categoryObject.categoryName}
+            </Text>
+          </View>
+        </TouchableHighlight>
+      );
+    });
+  };
 
   render() {
     return (
@@ -77,7 +108,16 @@ const styles = StyleSheet.create({
   },
   categoryScrollView: {
     flex: 1,
-    backgroundColor: 'red',
     marginVertical: 15,
+  },
+  categoryItemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 7,
+  },
+  categoryItemText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h6,
+    marginLeft: 15,
   },
 });
