@@ -25,6 +25,7 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
   overlayCardTitleStyles,
+  cardScrollViewStyles,
 } from '../../styles/cardStyles';
 
 // Calculate the number of columns to render
@@ -109,7 +110,7 @@ class CategoryNewScreen extends Component {
             />
             <Text style={overlayCardTitleStyles}>Choose an Icon:</Text>
             <FlatList
-              style={styles.iconFlatList}
+              style={cardScrollViewStyles}
               data={icons_materialCommunityList}
               renderItem={this._renderIconListItems}
               numColumns={NumberOfColumns}
@@ -139,8 +140,5 @@ const styles = StyleSheet.create({
   textInput: {
     marginTop: 10,
     marginBottom: 35,
-  },
-  iconFlatList: {
-    marginVertical: 15,
   },
 });

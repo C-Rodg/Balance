@@ -34,3 +34,9 @@ export const simpleMessageStyles = {
   fontSize: FONTS.sizes.p,
   //paddingHorizontal: 15,
 };
+
+// ScrollView for cards
+export const cardScrollViewStyles = {
+  flex: 1,
+  marginVertical: 5,
+};

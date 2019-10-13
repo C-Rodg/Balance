@@ -23,6 +23,7 @@ import {
   overlayCardStyles,
   overlayCardTitleStyles,
   simpleMessageStyles,
+  cardScrollViewStyles,
 } from '../../styles/cardStyles';
 
 class DayScreen extends Component {
@@ -109,14 +110,14 @@ class DayScreen extends Component {
     // if no items, render text
     if (todaysExpenses.length === 0) {
       return (
-        <View style={styles.expensesListWrapper}>
+        <View style={cardScrollViewStyles}>
           <Text style={styles.noFoundExpenses}>Nothing yet...</Text>
         </View>
       );
     }
 
     return (
-      <ScrollView style={styles.expensesListWrapper}>
+      <ScrollView style={cardScrollViewStyles}>
         {todaysExpenses.map(item => (
           <ExpenseListItem
             key={item.expenseId}
@@ -254,10 +255,6 @@ const styles = StyleSheet.create({
   expensesTotalSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  expensesListWrapper: {
-    flex: 1,
-    marginVertical: 10,
   },
   overwriteCardScrollViewStyles: {
     paddingRight: 0,

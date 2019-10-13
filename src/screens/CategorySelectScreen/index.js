@@ -23,6 +23,7 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
   overlayCardTitleStyles,
+  cardScrollViewStyles,
 } from '../../styles/cardStyles';
 
 class CategorySelectScreen extends Component {
@@ -78,7 +79,7 @@ class CategorySelectScreen extends Component {
         <View style={styles.container}>
           <View style={overlayCardWithTopMarginStyles}>
             <Text style={overlayCardTitleStyles}>Existing Categories:</Text>
-            <ScrollView style={styles.categoryScrollView}>
+            <ScrollView style={cardScrollViewStyles}>
               {this._renderCategories()}
             </ScrollView>
             <BottomBarButton
@@ -101,10 +102,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.offWhite,
-  },
-  categoryScrollView: {
-    flex: 1,
-    marginVertical: 15,
   },
   categoryItemRow: {
     flexDirection: 'row',

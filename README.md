@@ -47,7 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style month screen
+- style budgets screen
 - style login and register screens
 - style initializing & loading screen
 - check android styling

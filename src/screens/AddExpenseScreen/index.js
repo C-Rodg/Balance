@@ -25,6 +25,7 @@ import {
   topContentSectionStyles,
   topContentSectionTitleStyles,
   topContentSectionSubTitleStyles,
+  blueWrapperStyles,
 } from '../../styles/layout';
 
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
@@ -159,7 +160,7 @@ class AddExpenseScreen extends Component {
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
-        <View style={styles.contentWrapper}>
+        <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
             <MaterialCommunityIcon
               size={72}
@@ -205,10 +206,6 @@ class AddExpenseScreen extends Component {
 export default AddExpenseScreen;
 
 const styles = StyleSheet.create({
-  contentWrapper: {
-    flex: 1,
-    backgroundColor: COLORS.blueMain,
-  },
   switchCategoryButtonText: {
     color: COLORS.white,
     textDecorationLine: 'underline',

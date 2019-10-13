@@ -15,16 +15,17 @@ import CategoryBreakdownItem from './CategoryBreakdownItem';
 
 // Styling
 import COLORS from '../../styles/colors';
-import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardStyles,
   overlayCardTitleStyles,
   simpleMessageStyles,
+  cardScrollViewStyles,
 } from '../../styles/cardStyles';
 import {
   topContentSectionStyles,
   topContentSectionTitleStyles,
   topContentSectionSubTitleStyles,
+  blueWrapperStyles,
 } from '../../styles/layout';
 
 class MonthScreen extends Component {
@@ -117,14 +118,14 @@ class MonthScreen extends Component {
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
-        <View style={styles.contentWrapper}>
+        <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
             <Text style={topContentSectionTitleStyles}>$2,592.50</Text>
             <Text style={topContentSectionSubTitleStyles}>Total Spent</Text>
           </View>
           <View style={overlayCardStyles}>
             <Text style={overlayCardTitleStyles}>Category Breakdown:</Text>
-            <ScrollView style={styles.categoryScrollView}>
+            <ScrollView style={cardScrollViewStyles}>
               {this._renderCategoryBreakdown()}
             </ScrollView>
             <SafeAreaView />
@@ -136,14 +137,3 @@ class MonthScreen extends Component {
 }
 
 export default MonthScreen;
-
-const styles = StyleSheet.create({
-  contentWrapper: {
-    flex: 1,
-    backgroundColor: COLORS.blueMain,
-  },
-  categoryScrollView: {
-    flex: 1,
-    marginVertical: 10,
-  },
-});

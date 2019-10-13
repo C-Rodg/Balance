@@ -2,11 +2,16 @@
 import FONTS, { getFontFamilyStyles } from './fonts';
 import COLORS from './colors';
 
+// Wrapper - blue background
+export const blueWrapperStyles = {
+  flex: 1,
+  backgroundColor: COLORS.blueMain,
+};
+
 // Top section - typically used for info above card
 export const topContentSectionStyles = {
-  paddingTop: 20,
   paddingHorizontal: 15,
-  paddingBottom: 15,
+  paddingVertical: 20,
 };
 
 // Top section - title
