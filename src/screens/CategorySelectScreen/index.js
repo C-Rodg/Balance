@@ -10,8 +10,13 @@ import {
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// Components
+import BottomBarButton from '../Shared/BottomBarButton';
+
 // Styling
 import COLORS from '../../styles/colors';
+import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
+import overlayCardStyles from '../../styles/overlayCardStyles';
 
 class CategorySelectScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -29,15 +34,28 @@ class CategorySelectScreen extends Component {
     ),
   });
 
+  _renderCategories = () => {};
+
   render() {
     return (
       <Fragment>
         <StatusBar barStyle="light-content" />
-        <SafeAreaView>
-          <View style={styles.container}>
-            <Text>Select from list...</Text>
+        <SafeAreaView />
+        <View style={styles.container}>
+          <View style={[overlayCardStyles, styles.cardContainer]}>
+            <Text style={styles.cardTitleText}>Existing Categories</Text>
+            <ScrollView style={styles.categoryScrollView}>
+              {this._renderCategories()}
+            </ScrollView>
+            <BottomBarButton
+              title="Create a new category"
+              onButtonPress={() =>
+                this.props.navigation.navigate('CategoryNew')
+              }
+            />
+            <SafeAreaView />
           </View>
-        </SafeAreaView>
+        </View>
       </Fragment>
     );
   }
@@ -47,8 +65,19 @@ export default CategorySelectScreen;
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
+    backgroundColor: COLORS.offWhite,
+  },
+  cardContainer: {
+    marginTop: 25,
+  },
+  cardTitleText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h6,
+  },
+  categoryScrollView: {
+    flex: 1,
+    backgroundColor: 'red',
+    marginVertical: 15,
   },
 });
