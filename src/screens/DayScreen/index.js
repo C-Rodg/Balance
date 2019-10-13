@@ -19,7 +19,11 @@ import ExpenseListItem from './ExpenseListItem';
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
-import { overlayCardStyles, overlayCardTitle } from '../../styles/cardStyles';
+import {
+  overlayCardStyles,
+  overlayCardTitleStyles,
+  simpleMessageStyles,
+} from '../../styles/cardStyles';
 
 class DayScreen extends Component {
   // Setup navigation bar
@@ -69,35 +73,35 @@ class DayScreen extends Component {
       {
         expenseId: 1,
         categoryIcon: 'cart',
-        category: 'Groceries',
+        categoryName: 'Groceries',
         expenseTitle: 'Ralphs',
         amount: 3243,
       },
       {
         expenseId: 2,
         categoryIcon: 'food-fork-drink',
-        category: 'Snacks',
+        categoryName: 'Snacks',
         expenseTitle: 'Seven Eleven',
         amount: 178,
       },
       {
         expenseId: 3,
         categoryIcon: 'silverware-fork-knife',
-        category: 'Restaurant',
+        categoryName: 'Restaurant',
         expenseTitle: 'Fogo De Chao Restaurant',
         amount: 7249,
       },
       {
         expenseId: 5,
         categoryIcon: 'check',
-        category: 'Electronics',
+        categoryName: 'Electronics',
         expenseTitle: 'Whatever this is a super long name',
         amount: 12812983,
       },
       {
         expenseId: 4,
         categoryIcon: 'cellphone-link',
-        category: 'Electronics',
+        categoryName: 'Electronics',
         expenseTitle: 'Apple',
         amount: 59962,
       },
@@ -106,7 +110,7 @@ class DayScreen extends Component {
     if (todaysExpenses.length === 0) {
       return (
         <View style={styles.expensesListWrapper}>
-          <Text style={styles.noExpensesText}>Nothing yet...</Text>
+          <Text style={styles.noFoundExpenses}>Nothing yet...</Text>
         </View>
       );
     }
@@ -168,12 +172,12 @@ class DayScreen extends Component {
           </View>
           <View
             style={[overlayCardStyles, styles.overwriteCardScrollViewStyles]}>
-            <Text style={[overlayCardTitle, styles.cardPadSides]}>
+            <Text style={[overlayCardTitleStyles, styles.cardPadSides]}>
               Today's Expenses:
             </Text>
             {this._renderExpensesList()}
             <View style={styles.expensesTotalSection}>
-              <Text style={[overlayCardTitle, styles.cardPadSides]}>
+              <Text style={[overlayCardTitleStyles, styles.cardPadSides]}>
                 Total:
               </Text>
               <Text style={styles.expensesTotal}>$2,243.89</Text>
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
   yearText: {
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.h6,
-    color: COLORS.gray,
+    color: COLORS.grayDark,
     textAlign: 'center',
     letterSpacing: 1,
   },
@@ -238,6 +242,10 @@ const styles = StyleSheet.create({
   cardPadSides: {
     paddingHorizontal: 15,
   },
+  noFoundExpenses: {
+    ...simpleMessageStyles,
+    paddingHorizontal: 15,
+  },
   expensesTotal: {
     ...getFontFamilyStyles('monoMedium'),
     fontSize: FONTS.sizes.h6,
@@ -250,11 +258,6 @@ const styles = StyleSheet.create({
   expensesListWrapper: {
     flex: 1,
     marginVertical: 10,
-  },
-  noExpensesText: {
-    ...getFontFamilyStyles('regular'),
-    fontSize: FONTS.sizes.p,
-    paddingHorizontal: 15,
   },
   overwriteCardScrollViewStyles: {
     paddingRight: 0,

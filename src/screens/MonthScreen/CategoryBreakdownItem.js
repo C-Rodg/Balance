@@ -10,61 +10,84 @@ import {
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// Utils
+import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
+
 // Styling
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
-import { overlayCardStyles, overlayCardTitle } from '../../styles/cardStyles';
-import {
-  topContentSection,
-  topContentSectionTitle,
-  topContentSectionSubTitle,
-} from '../../styles/layout';
 
-class MonthScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: "September '21",
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="arrow-left"
-        onPress={() => navigation.goBack(null)}
-      />
-    ),
+function CategoryBreakdownItem({
+  iconName,
+  iconLibrary,
+  categoryName,
+  amountSpent,
+  amountBudgeted,
+}) {
+  const isBudgeted = amountBudgeted !== null;
+  const amountSpentString = convertAmountToCurrencyString({
+    amount: amountSpent,
+    minimumIntegerDigits: 1,
   });
-
-  render() {
-    return (
-      <Fragment>
-        <StatusBar barStyle="light-content" />
-        <SafeAreaView />
-        <View style={styles.contentWrapper}>
-          <View style={topContentSection}>
-            <Text style={topContentSectionTitle}>$2,592.50</Text>
-            <Text style={topContentSectionSubTitle}>Total Spent</Text>
-          </View>
-          <View style={overlayCardStyles}>
-            <Text style={overlayCardTitle}>Category Breakdown:</Text>
-            <ScrollView style={styles.categoryScrollView}></ScrollView>
-            <SafeAreaView />
-          </View>
-        </View>
-      </Fragment>
-    );
+  let budgetString = '';
+  let differenceString = '';
+  let difference = 0;
+  let didSpendTooMuch = false;
+  if (isBudgeted) {
+    budgetString = convertAmountToCurrencyString({
+      amount: amountBudgeted,
+      minimumIntegerDigits: 1,
+    });
+    difference = amountBudgeted - amountSpent;
+    differenceString = convertAmountToCurrencyString({
+      amount: Math.abs(difference),
+      minimumIntegerDigits: 1,
+    });
+    if (difference < 0) {
+      didSpendTooMuch = true;
+      differenceString += ' over budget';
+    } else {
+      differenceString += ' under budget';
+    }
   }
+
+  return (
+    <View style={styles.contentWrapper}>
+      <View style={styles.topRow}>
+        <View style={styles.iconView}>
+          <MaterialCommunityIcon
+            name={iconName}
+            size={36}
+            color={COLORS.blueBackground}
+          />
+        </View>
+        <View>
+          <Text>{categoryName}</Text>
+          <Text>
+            {isBudgeted ? differenceString : `${amountSpentString} spent`}
+          </Text>
+        </View>
+      </View>
+      {isBudgeted && (
+        <View>
+          <Text>amount bar with spent $$ and budgeted $$</Text>
+        </View>
+      )}
+    </View>
+  );
 }
 
-export default MonthScreen;
+export default CategoryBreakdownItem;
 
 const styles = StyleSheet.create({
   contentWrapper: {
-    flex: 1,
-    backgroundColor: COLORS.blueMain,
+    marginBottom: 15,
   },
-  categoryScrollView: {
-    flex: 1,
+  topRow: {
+    flexDirection: 'row',
+  },
+  iconView: {
+    backgroundColor: COLORS.gray,
+    borderRadius: 10,
   },
 });

@@ -23,7 +23,14 @@ export const overlayCardWithTopMarginStyles = {
 };
 
 // Title for card element
-export const overlayCardTitle = {
+export const overlayCardTitleStyles = {
   ...getFontFamilyStyles('medium'),
   fontSize: FONTS.sizes.h6,
+};
+
+// Simple message - commonly used for 'not found', etc.
+export const simpleMessageStyles = {
+  ...getFontFamilyStyles('regular'),
+  fontSize: FONTS.sizes.p,
+  //paddingHorizontal: 15,
 };

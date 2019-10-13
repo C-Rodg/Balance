@@ -22,7 +22,7 @@ import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
-  overlayCardTitle,
+  overlayCardTitleStyles,
 } from '../../styles/cardStyles';
 
 class CategorySelectScreen extends Component {
@@ -53,7 +53,7 @@ class CategorySelectScreen extends Component {
       return (
         <TouchableHighlight
           key={categoryObject.iconLibrary + categoryObject.iconName}
-          underlayColor={COLORS.offWhite}
+          underlayColor={COLORS.gray}
           onPress={() => this.selectCategory(categoryObject)}>
           <View style={styles.categoryItemRow}>
             <MaterialCommunityIcon
@@ -77,7 +77,7 @@ class CategorySelectScreen extends Component {
         <SafeAreaView />
         <View style={styles.container}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={overlayCardTitle}>Existing Categories:</Text>
+            <Text style={overlayCardTitleStyles}>Existing Categories:</Text>
             <ScrollView style={styles.categoryScrollView}>
               {this._renderCategories()}
             </ScrollView>

@@ -24,7 +24,7 @@ import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
-  overlayCardTitle,
+  overlayCardTitleStyles,
 } from '../../styles/cardStyles';
 
 // Calculate the number of columns to render
@@ -69,7 +69,7 @@ class CategoryNewScreen extends Component {
     return (
       <TouchableHighlight
         id={item}
-        underlayColor={!isSelected ? COLORS.offWhite : '#555555'}
+        underlayColor={!isSelected ? COLORS.gray : COLORS.blueBackground}
         onPress={() => this.selectIcon(item)}
         style={{
           flex: 1,
@@ -79,7 +79,7 @@ class CategoryNewScreen extends Component {
           justifyContent: 'center',
           paddingVertical: 5,
           borderRadius: 4,
-          backgroundColor: !isSelected ? '#fff' : COLORS.blueBackground,
+          backgroundColor: !isSelected ? '#fff' : COLORS.blueMain,
         }}>
         <MaterialCommunityIcon
           color={!isSelected ? COLORS.black : COLORS.white}
@@ -97,7 +97,7 @@ class CategoryNewScreen extends Component {
         <SafeAreaView />
         <View style={styles.container}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={overlayCardTitle}>Enter a Name:</Text>
+            <Text style={overlayCardTitleStyles}>Enter a Name:</Text>
             <IconTextInput
               value={this.state.newCategoryName}
               label="Category Name"
@@ -107,7 +107,7 @@ class CategoryNewScreen extends Component {
                 this.setState({ newCategoryName: ev.nativeEvent.text })
               }
             />
-            <Text style={overlayCardTitle}>Choose an Icon:</Text>
+            <Text style={overlayCardTitleStyles}>Choose an Icon:</Text>
             <FlatList
               style={styles.iconFlatList}
               data={icons_materialCommunityList}
