@@ -1,7 +1,7 @@
 // Props
 import COLORS from './colors';
 
-const overlayCardStyles = {
+export const overlayCardStyles = {
   flex: 1,
   backgroundColor: COLORS.white,
   borderRadius: 20,
@@ -14,4 +14,7 @@ const overlayCardStyles = {
   elevation: 1,
 };
 
-export default overlayCardStyles;
+export const overlayCardWithTopMarginStyles = {
+  ...overlayCardStyles,
+  marginTop: 25,
+};

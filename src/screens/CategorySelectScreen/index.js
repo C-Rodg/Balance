@@ -20,7 +20,7 @@ import { defaultCategoryList } from '../../config/defaultCategoryList';
 // Styling
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
-import overlayCardStyles from '../../styles/overlayCardStyles';
+import { overlayCardWithTopMarginStyles } from '../../styles/cardStyles';
 
 class CategorySelectScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -73,7 +73,7 @@ class CategorySelectScreen extends Component {
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
         <View style={styles.container}>
-          <View style={[overlayCardStyles, styles.cardContainer]}>
+          <View style={overlayCardWithTopMarginStyles}>
             <Text style={styles.cardTitleText}>Existing Categories</Text>
             <ScrollView style={styles.categoryScrollView}>
               {this._renderCategories()}
@@ -98,9 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.offWhite,
-  },
-  cardContainer: {
-    marginTop: 25,
   },
   cardTitleText: {
     ...getFontFamilyStyles('medium'),

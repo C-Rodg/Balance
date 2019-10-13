@@ -19,7 +19,7 @@ import ExpenseListItem from './ExpenseListItem';
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
-import overlayCardStyles from '../../styles/overlayCardStyles';
+import { overlayCardStyles } from '../../styles/cardStyles';
 
 class DayScreen extends Component {
   // Setup navigation bar

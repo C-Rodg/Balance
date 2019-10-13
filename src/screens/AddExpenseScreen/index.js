@@ -20,7 +20,7 @@ import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 // Styling
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
-import overlayCardStyles from '../../styles/overlayCardStyles';
+import { overlayCardStyles } from '../../styles/cardStyles';
 
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
 
