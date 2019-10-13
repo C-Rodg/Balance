@@ -47,15 +47,21 @@ class DayScreen extends Component {
   });
 
   _renderExpensesList = () => {
-    const todaysExpenses = [];
+    const todaysExpenses = ['a'];
     // if no items, render text
     if (todaysExpenses.length === 0) {
       return (
-        <View style={styles.noExpensesWrapper}>
+        <View style={styles.expensesListWrapper}>
           <Text style={styles.noExpensesText}>Nothing yet...</Text>
         </View>
       );
     }
+
+    return (
+      <ScrollView style={styles.expensesListWrapper}>
+        <Text>SWIPEABLE - icon - expense - amount</Text>
+      </ScrollView>
+    );
   };
 
   render() {
@@ -171,12 +177,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  noExpensesWrapper: {
+  expensesListWrapper: {
     flex: 1,
+    marginVertical: 10,
   },
   noExpensesText: {
     ...getFontFamilyStyles('regular'),
     fontSize: FONTS.sizes.p,
-    marginVertical: 10,
   },
 });
