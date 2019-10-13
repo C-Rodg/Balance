@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// Components
+import BottomBarButton from '../Shared/BottomBarButton';
+
 // Styling
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
@@ -42,6 +45,21 @@ class BudgetsScreen extends Component {
     ),
   });
 
+  // Render the list of budgets
+  _renderBudgetList = () => {
+    const SAMPLE_BUDGETS = [];
+
+    if (SAMPLE_BUDGETS.length === 0) {
+      return (
+        <Text style={[simpleMessageStyles, styles.sidePadding]}>
+          No budgets created...
+        </Text>
+      );
+    }
+
+    // TODO: MAP THROUGH BUDGETS. Make swipeable...
+  };
+
   render() {
     return (
       <Fragment>
@@ -53,8 +71,21 @@ class BudgetsScreen extends Component {
             <Text style={topContentSectionSubTitleStyles}>Total Budgeted</Text>
           </View>
           <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
-            <Text style={overlayCardTitleStyles}>Current Budgets:</Text>
-            <ScrollView style={cardScrollViewStyles}></ScrollView>
+            <Text style={[overlayCardTitleStyles, styles.sidePadding]}>
+              Current Budgets:
+            </Text>
+            <ScrollView style={cardScrollViewStyles}>
+              {this._renderBudgetList()}
+            </ScrollView>
+            <View style={styles.sidePadding}>
+              <BottomBarButton
+                title="Create a new budget"
+                onButtonPress={() =>
+                  this.props.navigation.navigate('BudgetsNew')
+                }
+              />
+            </View>
+
             <SafeAreaView />
           </View>
         </View>
@@ -68,5 +99,8 @@ export default BudgetsScreen;
 const styles = StyleSheet.create({
   overwriteCardStyles: {
     paddingHorizontal: 0,
+  },
+  sidePadding: {
+    paddingHorizontal: 15,
   },
 });
