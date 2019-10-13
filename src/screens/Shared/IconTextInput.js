@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   },
   label: {
     backgroundColor: 'transparent',
-    color: '#333333',
+    color: '#6f6f6f',
     ...getFontFamilyStyles('semiBold'),
   },
   textInput: {

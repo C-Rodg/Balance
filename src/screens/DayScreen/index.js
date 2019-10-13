@@ -19,7 +19,7 @@ import ExpenseListItem from './ExpenseListItem';
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
-import { overlayCardStyles } from '../../styles/cardStyles';
+import { overlayCardStyles, overlayCardTitle } from '../../styles/cardStyles';
 
 class DayScreen extends Component {
   // Setup navigation bar
@@ -168,10 +168,14 @@ class DayScreen extends Component {
           </View>
           <View
             style={[overlayCardStyles, styles.overwriteCardScrollViewStyles]}>
-            <Text style={styles.expensesText}>Today's Expenses</Text>
+            <Text style={[overlayCardTitle, styles.cardPadSides]}>
+              Today's Expenses:
+            </Text>
             {this._renderExpensesList()}
             <View style={styles.expensesTotalSection}>
-              <Text style={styles.expensesText}>Total</Text>
+              <Text style={[overlayCardTitle, styles.cardPadSides]}>
+                Total:
+              </Text>
               <Text style={styles.expensesTotal}>$2,243.89</Text>
             </View>
             <SafeAreaView />
@@ -231,9 +235,7 @@ const styles = StyleSheet.create({
     height: undefined,
     width: undefined,
   },
-  expensesText: {
-    ...getFontFamilyStyles('medium'),
-    fontSize: FONTS.sizes.h6,
+  cardPadSides: {
     paddingHorizontal: 15,
   },
   expensesTotal: {

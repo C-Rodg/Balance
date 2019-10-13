@@ -1,5 +1,6 @@
 // Props
 import COLORS from './colors';
+import FONTS, { getFontFamilyStyles } from './fonts';
 
 export const overlayCardStyles = {
   flex: 1,
@@ -17,4 +18,9 @@ export const overlayCardStyles = {
 export const overlayCardWithTopMarginStyles = {
   ...overlayCardStyles,
   marginTop: 25,
+};
+
+export const overlayCardTitle = {
+  ...getFontFamilyStyles('medium'),
+  fontSize: FONTS.sizes.h6,
 };

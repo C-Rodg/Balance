@@ -47,18 +47,18 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style new category screen
-- hook up save (memory), edit, and delete today's expenses
-- style month screen
 - style budget screen
+- style month screen
 - style login and register screens
 - style initializing & loading screen
+- check android styling
+- hook up save (memory), edit, and delete today's expenses
 - style and figure out settings screen
 - hook up firestore database
 - async storage
 - add day touch slider to day screen
 - get full standard category list
-- enable change icon libraries
+- enable change icon libraries and filter out some current icons
 
 - store money in integers only and always / 100
 
