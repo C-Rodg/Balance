@@ -162,11 +162,15 @@ class AddExpenseScreen extends Component {
               name="headphones"
             />
             <TouchableOpacity style={styles.switchCategoryButtonText}>
-              <Text style={styles.switchCategoryButtonText}>
+              <Text
+                style={styles.switchCategoryButtonText}
+                onPress={() =>
+                  this.props.navigation.navigate('CategorySelect')
+                }>
                 -select a category-
               </Text>
             </TouchableOpacity>
-            <Text style={styles.totalBudgetText}>Total Budget is...</Text>
+            <Text style={styles.totalBudgetText}>No budget set...</Text>
           </View>
           <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
             <IconTextInput

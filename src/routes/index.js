@@ -16,6 +16,8 @@ import MonthScreen from '../screens/MonthScreen';
 import BudgetsScreen from '../screens/BudgetsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AddExpenseScreen from '../screens/AddExpenseScreen';
+import CategorySelectScreen from '../screens/CategorySelectScreen';
+import CategoryNewScreen from '../screens/CategoryNewScreen';
 
 import FONTS from '../styles/fonts';
 import COLORS from '../styles/colors';
@@ -45,6 +47,8 @@ const HomeStack = createStackNavigator(
     Month: MonthScreen,
     Budgets: BudgetsScreen,
     Settings: SettingsScreen,
+    CategorySelect: CategorySelectScreen,
+    CategoryNew: CategoryNewScreen,
   },
   {
     initialRouteName: 'Day',
