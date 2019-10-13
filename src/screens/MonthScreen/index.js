@@ -71,7 +71,7 @@ class MonthScreen extends Component {
       {
         iconName: 'cart',
         iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Groceries',
+        categoryName: 'Groceries about the USA of America',
         amountSpent: 4800,
         amountBudgeted: 5125,
       },
@@ -88,6 +88,13 @@ class MonthScreen extends Component {
         categoryName: 'Rent',
         amountSpent: 228979,
         amountBudgeted: 9999,
+      },
+      {
+        iconName: 'glass-cocktail',
+        iconLibrary: 'MaterialCommunityIcons',
+        categoryName: 'Bars',
+        amountSpent: 1289,
+        amountBudgeted: 7324,
       },
     ];
 

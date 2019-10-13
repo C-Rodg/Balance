@@ -7,6 +7,7 @@ const colors = {
   white: '#fff',
   gray: '#e9edf6',
   grayDark: '#8d8d8d',
+  red: '#C1292E',
 
   // TASTE - remove
   //gray: '#ADADAD',

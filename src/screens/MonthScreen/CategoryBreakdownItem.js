@@ -61,9 +61,15 @@ function CategoryBreakdownItem({
             color={COLORS.blueBackground}
           />
         </View>
-        <View>
-          <Text>{categoryName}</Text>
-          <Text>
+        <View style={styles.mainTextView}>
+          <Text style={styles.categoryTitle} numberOfLines={1}>
+            {categoryName}
+          </Text>
+          <Text
+            style={[
+              styles.categorySubTitle,
+              didSpendTooMuch ? styles.overSpend : {},
+            ]}>
             {isBudgeted ? differenceString : `${amountSpentString} spent`}
           </Text>
         </View>
@@ -85,9 +91,31 @@ const styles = StyleSheet.create({
   },
   topRow: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   iconView: {
     backgroundColor: COLORS.gray,
     borderRadius: 10,
+    width: 56,
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  mainTextView: {
+    overflow: 'hidden',
+    flexShrink: 1,
+  },
+  categoryTitle: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h6,
+  },
+  categorySubTitle: {
+    ...getFontFamilyStyles('regular'),
+    fontSize: FONTS.sizes.p,
+    color: COLORS.grayDark,
+  },
+  overSpend: {
+    color: COLORS.red,
   },
 });
