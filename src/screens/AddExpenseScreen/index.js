@@ -6,9 +6,13 @@ import {
   View,
   Text,
   StatusBar,
+  Keyboard,
   TouchableOpacity,
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Components
+import IconTextInput from '../Shared/IconTextInput';
 
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
@@ -19,9 +23,10 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import overlayCardStyles from '../../styles/overlayCardStyles';
 
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
-// TODO: Add input for expenseTitle
+
 class AddExpenseScreen extends Component {
   state = {
+    expenseTitle: '',
     currentAmountString: '',
   };
 
@@ -42,6 +47,9 @@ class AddExpenseScreen extends Component {
 
   // Keyboard button press
   handleKeyboardPress = btnText => {
+    // dismiss keyboard if it's up - added to the text input, so may not be needed
+    //Keyboard.dismiss();
+
     const { currentAmountString } = this.state;
     if (btnText === 'DONE') {
       // TODO: save expense
@@ -154,11 +162,21 @@ class AddExpenseScreen extends Component {
               name="headphones"
             />
             <TouchableOpacity style={styles.switchCategoryButtonText}>
-              <Text style={styles.switchCategoryButtonText}>Concert</Text>
+              <Text style={styles.switchCategoryButtonText}>
+                -select a category-
+              </Text>
             </TouchableOpacity>
-            <Text style={styles.totalBudgetText}>Total Budget is $1,250</Text>
+            <Text style={styles.totalBudgetText}>Total Budget is...</Text>
           </View>
-          <View style={overlayCardStyles}>
+          <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
+            <IconTextInput
+              value={this.state.expenseTitle}
+              label="What's this for?"
+              iconName="pencil"
+              onChange={ev =>
+                this.setState({ expenseTitle: ev.nativeEvent.text })
+              }
+            />
             <View style={styles.currentExpenseSection}>
               {this._renderCurrentAmount()}
             </View>
@@ -196,6 +214,9 @@ const styles = StyleSheet.create({
     ...getFontFamilyStyles('regular'),
     fontSize: FONTS.sizes.h6,
   },
+  overwriteCardStyles: {
+    paddingTop: 3,
+  },
   keyboardWrapper: {
     flex: 1,
   },
@@ -220,7 +241,7 @@ const styles = StyleSheet.create({
   },
   currentExpenseSection: {
     paddingTop: 20,
-    paddingHorizontal: 15,
+    paddingHorizontal: 0,
     flexDirection: 'row',
     alignItems: 'flex-start',
     flexWrap: 'nowrap',

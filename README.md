@@ -47,7 +47,8 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- add 'expenseTitle' to add expense page
+- style select category screen
+- hook up save (memory), edit, and delete today's expenses
 - style month screen
 - style budget screen
 - style login and register screens
