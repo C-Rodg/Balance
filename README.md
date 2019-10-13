@@ -47,7 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style select category screen
+- style new category screen
 - hook up save (memory), edit, and delete today's expenses
 - style month screen
 - style budget screen
