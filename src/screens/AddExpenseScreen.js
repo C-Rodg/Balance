@@ -13,6 +13,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 // Styling
 import COLORS from '../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../styles/fonts';
+import overlayCardStyles from '../styles/overlayCardStyles';
 
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
 
@@ -158,7 +159,7 @@ class AddExpenseScreen extends Component {
             </TouchableOpacity>
             <Text style={styles.totalBudgetText}>Total Budget is $1,250</Text>
           </View>
-          <View style={styles.calculatorSection}>
+          <View style={overlayCardStyles}>
             <View style={styles.currentExpenseSection}>
               {this._renderCurrentAmount()}
             </View>
@@ -195,18 +196,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     ...getFontFamilyStyles('regular'),
     fontSize: FONTS.sizes.h6,
-  },
-  calculatorSection: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    borderRadius: 20,
-    paddingHorizontal: 15,
-    paddingVertical: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 1,
   },
   keyboardWrapper: {
     flex: 1,

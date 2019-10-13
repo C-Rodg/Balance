@@ -16,6 +16,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 // Styling
 import FONTS, { getFontFamilyStyles } from '../styles/fonts';
 import COLORS from '../styles/colors';
+import overlayCardStyles from '../styles/overlayCardStyles';
 
 class DayScreen extends Component {
   // Setup navigation bar
@@ -44,6 +45,18 @@ class DayScreen extends Component {
       />
     ),
   });
+
+  _renderExpensesList = () => {
+    const todaysExpenses = [];
+    // if no items, render text
+    if (todaysExpenses.length === 0) {
+      return (
+        <View style={styles.noExpensesWrapper}>
+          <Text style={styles.noExpensesText}>Nothing yet...</Text>
+        </View>
+      );
+    }
+  };
 
   render() {
     return (
@@ -86,7 +99,15 @@ class DayScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.expenseSection}></View>
+          <View style={overlayCardStyles}>
+            <Text style={styles.expensesText}>Today's Expenses</Text>
+            {this._renderExpensesList()}
+            <View style={styles.expensesTotalSection}>
+              <Text style={styles.expensesText}>Total</Text>
+              <Text style={styles.expensesText}>$2,243.89</Text>
+            </View>
+            <SafeAreaView />
+          </View>
         </View>
       </Fragment>
     );
@@ -105,10 +126,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 20,
     paddingHorizontal: 15,
-  },
-  expenseSection: {
-    flex: 1,
-    backgroundColor: COLORS.white,
   },
   yearText: {
     ...getFontFamilyStyles('medium'),
@@ -145,5 +162,21 @@ const styles = StyleSheet.create({
     flex: 1,
     height: undefined,
     width: undefined,
+  },
+  expensesText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h6,
+  },
+  expensesTotalSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  noExpensesWrapper: {
+    flex: 1,
+  },
+  noExpensesText: {
+    ...getFontFamilyStyles('regular'),
+    fontSize: FONTS.sizes.p,
+    marginVertical: 10,
   },
 });
