@@ -136,7 +136,6 @@ class IconTextInput extends Component {
     const AnimatedIcon = Animated.createAnimatedComponent(
       MaterialCommunityIcon,
     );
-    console.log(inputHeight + inputPadding);
     return (
       <View
         style={[
