@@ -56,6 +56,8 @@ _:app:installDebug failed_
 - hook up firestore database
 - async storage
 
+- store money in integers only and always / 100
+
 ## Screens
 
 - Login

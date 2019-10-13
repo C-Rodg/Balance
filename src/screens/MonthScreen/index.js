@@ -11,7 +11,7 @@ import {
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styling
-import COLORS from '../styles/colors';
+import COLORS from '../../styles/colors';
 
 class MonthScreen extends Component {
   static navigationOptions = ({ navigation }) => ({

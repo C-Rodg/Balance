@@ -14,9 +14,9 @@ import {
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styling
-import FONTS, { getFontFamilyStyles } from '../styles/fonts';
-import COLORS from '../styles/colors';
-import overlayCardStyles from '../styles/overlayCardStyles';
+import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
+import COLORS from '../../styles/colors';
+import overlayCardStyles from '../../styles/overlayCardStyles';
 
 class DayScreen extends Component {
   // Setup navigation bar
@@ -46,8 +46,35 @@ class DayScreen extends Component {
     ),
   });
 
+  _renderExpenseItem = item => {};
+
   _renderExpensesList = () => {
-    const todaysExpenses = ['a'];
+    const todaysExpenses = [
+      {
+        categoryIcon: 'cart',
+        category: 'Groceries',
+        title: 'Ralphs',
+        amount: 3243,
+      },
+      {
+        categoryIcon: 'food-fork-drink',
+        category: 'Snacks',
+        title: 'Seven Eleven',
+        amount: 178,
+      },
+      {
+        categoryIcon: 'silverware-fork-knife',
+        category: 'Restaurant',
+        title: 'Fogo De Chao Restaurant',
+        amount: 7249,
+      },
+      {
+        categoryIcon: 'cellphone-link',
+        category: 'Electronics',
+        title: 'Apple',
+        amount: 59962,
+      },
+    ];
     // if no items, render text
     if (todaysExpenses.length === 0) {
       return (
@@ -101,7 +128,7 @@ class DayScreen extends Component {
               <Image
                 style={styles.addExpenseButtonImage}
                 resizeMode="contain"
-                source={require('../assets/AddExpenseLogo.png')}
+                source={require('../../assets/AddExpenseLogo.png')}
               />
             </TouchableOpacity>
           </View>

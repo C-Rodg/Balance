@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styling
-import COLORS from '../styles/colors';
+import COLORS from '../../styles/colors';
 
 class SettingsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({

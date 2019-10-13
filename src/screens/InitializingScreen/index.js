@@ -1,13 +1,6 @@
 // Libraries
 import React, { Fragment, Component } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, StatusBar } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 class InitializingScreen extends Component {
