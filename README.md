@@ -47,7 +47,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style budget screen
 - style month screen
 - style login and register screens
 - style initializing & loading screen

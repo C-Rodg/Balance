@@ -84,13 +84,15 @@ function CategoryBreakdownItem({
           </Text>
         </View>
       </View>
-      {isBudgeted && (
+      {isBudgeted ? (
         <ProgressBar
           showLabels={true}
           labelMin={amountSpentString}
           labelMax={budgetString}
           percent={percentageSpent}
         />
+      ) : (
+        <Text style={styles.noBudgetSetText}>No budget set...</Text>
       )}
     </View>
   );
@@ -101,6 +103,7 @@ export default CategoryBreakdownItem;
 const styles = StyleSheet.create({
   contentWrapper: {
     marginBottom: 15,
+    minHeight: 110,
   },
   topRow: {
     flexDirection: 'row',
@@ -130,5 +133,11 @@ const styles = StyleSheet.create({
   },
   overSpend: {
     color: COLORS.red,
+  },
+  noBudgetSetText: {
+    ...getFontFamilyStyles('regular'),
+    fontSize: FONTS.sizes.s1,
+    color: COLORS.grayDark,
+    marginTop: 10,
   },
 });
