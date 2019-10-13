@@ -10,13 +10,16 @@ import {
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// Utils
+import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
+
 // Styling
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import overlayCardStyles from '../../styles/overlayCardStyles';
 
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
-
+// TODO: Add input for expenseTitle
 class AddExpenseScreen extends Component {
   state = {
     currentAmountString: '',
@@ -116,13 +119,9 @@ class AddExpenseScreen extends Component {
     }
 
     // Handle number formatting
-    const formatter = Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumIntegerDigits: 2,
+    const entireFormattedNumber = convertAmountToCurrencyString({
+      amount: currentAmountNumber,
     });
-    const calculatedNumber = currentAmountNumber / 100;
-    const entireFormattedNumber = formatter.format(calculatedNumber);
     const formattedNumberArray = entireFormattedNumber.split('.');
     return (
       <Fragment>

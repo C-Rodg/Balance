@@ -13,6 +13,9 @@ import {
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+// Components
+import ExpenseListItem from './ExpenseListItem';
+
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
@@ -46,32 +49,41 @@ class DayScreen extends Component {
     ),
   });
 
-  _renderExpenseItem = item => {};
-
   _renderExpensesList = () => {
     const todaysExpenses = [
       {
+        id: 1,
         categoryIcon: 'cart',
         category: 'Groceries',
-        title: 'Ralphs',
+        expenseTitle: 'Ralphs',
         amount: 3243,
       },
       {
+        id: 2,
         categoryIcon: 'food-fork-drink',
         category: 'Snacks',
-        title: 'Seven Eleven',
+        expenseTitle: 'Seven Eleven',
         amount: 178,
       },
       {
+        id: 3,
         categoryIcon: 'silverware-fork-knife',
         category: 'Restaurant',
-        title: 'Fogo De Chao Restaurant',
+        expenseTitle: 'Fogo De Chao Restaurant',
         amount: 7249,
       },
       {
+        id: 5,
+        categoryIcon: 'check',
+        category: 'Electronics',
+        expenseTitle: 'Whatever this is a super long name',
+        amount: 12812983,
+      },
+      {
+        id: 4,
         categoryIcon: 'cellphone-link',
         category: 'Electronics',
-        title: 'Apple',
+        expenseTitle: 'Apple',
         amount: 59962,
       },
     ];
@@ -86,7 +98,9 @@ class DayScreen extends Component {
 
     return (
       <ScrollView style={styles.expensesListWrapper}>
-        <Text>SWIPEABLE - icon - expense - amount</Text>
+        {todaysExpenses.map(item => (
+          <ExpenseListItem key={item.id} {...item} />
+        ))}
       </ScrollView>
     );
   };
@@ -132,12 +146,13 @@ class DayScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={overlayCardStyles}>
+          <View
+            style={[overlayCardStyles, styles.overwriteCardScrollViewStyles]}>
             <Text style={styles.expensesText}>Today's Expenses</Text>
             {this._renderExpensesList()}
             <View style={styles.expensesTotalSection}>
               <Text style={styles.expensesText}>Total</Text>
-              <Text style={styles.expensesText}>$2,243.89</Text>
+              <Text style={styles.expensesTotal}>$2,243.89</Text>
             </View>
             <SafeAreaView />
           </View>
@@ -199,6 +214,12 @@ const styles = StyleSheet.create({
   expensesText: {
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.h6,
+    paddingRight: 15,
+  },
+  expensesTotal: {
+    ...getFontFamilyStyles('monoMedium'),
+    fontSize: FONTS.sizes.h6,
+    paddingRight: 15,
   },
   expensesTotalSection: {
     flexDirection: 'row',
@@ -211,5 +232,9 @@ const styles = StyleSheet.create({
   noExpensesText: {
     ...getFontFamilyStyles('regular'),
     fontSize: FONTS.sizes.p,
+    paddingRight: 15,
+  },
+  overwriteCardScrollViewStyles: {
+    paddingRight: 0,
   },
 });
