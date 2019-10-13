@@ -47,7 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style day screen
+- add 'expenseTitle' to add expense page
 - style month screen
 - style budget screen
 - style login and register screens
@@ -55,6 +55,7 @@ _:app:installDebug failed_
 - style and figure out settings screen
 - hook up firestore database
 - async storage
+- add day touch slider to day screen
 
 - store money in integers only and always / 100
 
