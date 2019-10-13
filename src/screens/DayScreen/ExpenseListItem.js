@@ -15,13 +15,18 @@ import COLORS from '../../styles/colors';
 class ExpenseListItem extends Component {
   // Render the individual action button
   _renderRightAction = (type, icon, color, x, progress, dragX) => {
+    const { onDelete, onEdit, expenseId } = this.props;
     const trans = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [x, 0],
     });
     const pressHandler = () => {
       this.close();
-      alert(type);
+      if (type === 'EDIT') {
+        onEdit(expenseId);
+      } else {
+        onDelete(expenseId);
+      }
     };
     return (
       <Animated.View style={{ flex: 1, transform: [{ translateX: trans }] }}>
@@ -82,10 +87,12 @@ class ExpenseListItem extends Component {
         <RectButton style={styles.rectButton}>
           <MaterialCommunityIcon
             name={categoryIcon}
-            size={24}
+            size={21}
             color={COLORS.black}
           />
-          <Text style={styles.itemName} numberOfLines={1}>{expenseTitle}</Text>
+          <Text style={styles.itemName} numberOfLines={1}>
+            {expenseTitle}
+          </Text>
           <Text style={styles.itemAmount}>{formattedAmount}</Text>
         </RectButton>
       </Swipeable>
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 60,
     paddingVertical: 10,
-    paddingLeft: 2,
+    paddingLeft: 15,
     paddingRight: 5,
     flexDirection: 'row',
     alignItems: 'center',

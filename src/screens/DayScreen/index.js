@@ -49,38 +49,53 @@ class DayScreen extends Component {
     ),
   });
 
+  // Functionality - delete an expense
+  handleDeleteExpense = expenseItem => {
+    console.log('DELETE');
+    console.log(expenseItem);
+    // TODO: delete expense item
+  };
+
+  // Functionality - edit an expense
+  handleEditExpense = expenseItem => {
+    console.log('EDIT');
+    console.log(expenseItem);
+    // TODO: edit expense item
+  };
+
+  // Render - expenses list
   _renderExpensesList = () => {
     const todaysExpenses = [
       {
-        id: 1,
+        expenseId: 1,
         categoryIcon: 'cart',
         category: 'Groceries',
         expenseTitle: 'Ralphs',
         amount: 3243,
       },
       {
-        id: 2,
+        expenseId: 2,
         categoryIcon: 'food-fork-drink',
         category: 'Snacks',
         expenseTitle: 'Seven Eleven',
         amount: 178,
       },
       {
-        id: 3,
+        expenseId: 3,
         categoryIcon: 'silverware-fork-knife',
         category: 'Restaurant',
         expenseTitle: 'Fogo De Chao Restaurant',
         amount: 7249,
       },
       {
-        id: 5,
+        expenseId: 5,
         categoryIcon: 'check',
         category: 'Electronics',
         expenseTitle: 'Whatever this is a super long name',
         amount: 12812983,
       },
       {
-        id: 4,
+        expenseId: 4,
         categoryIcon: 'cellphone-link',
         category: 'Electronics',
         expenseTitle: 'Apple',
@@ -99,7 +114,12 @@ class DayScreen extends Component {
     return (
       <ScrollView style={styles.expensesListWrapper}>
         {todaysExpenses.map(item => (
-          <ExpenseListItem key={item.id} {...item} />
+          <ExpenseListItem
+            key={item.expenseId}
+            {...item}
+            onDelete={this.handleDeleteExpense}
+            onEdit={this.handleEditExpense}
+          />
         ))}
       </ScrollView>
     );
@@ -214,7 +234,7 @@ const styles = StyleSheet.create({
   expensesText: {
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.h6,
-    paddingRight: 15,
+    paddingHorizontal: 15,
   },
   expensesTotal: {
     ...getFontFamilyStyles('monoMedium'),
@@ -232,9 +252,10 @@ const styles = StyleSheet.create({
   noExpensesText: {
     ...getFontFamilyStyles('regular'),
     fontSize: FONTS.sizes.p,
-    paddingRight: 15,
+    paddingHorizontal: 15,
   },
   overwriteCardScrollViewStyles: {
     paddingRight: 0,
+    paddingLeft: 0,
   },
 });
