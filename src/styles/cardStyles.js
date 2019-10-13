@@ -2,6 +2,7 @@
 import COLORS from './colors';
 import FONTS, { getFontFamilyStyles } from './fonts';
 
+// Card
 export const overlayCardStyles = {
   flex: 1,
   backgroundColor: COLORS.white,
@@ -15,11 +16,13 @@ export const overlayCardStyles = {
   elevation: 1,
 };
 
+// Card with consistent top spacing
 export const overlayCardWithTopMarginStyles = {
   ...overlayCardStyles,
   marginTop: 25,
 };
 
+// Title for card element
 export const overlayCardTitle = {
   ...getFontFamilyStyles('medium'),
   fontSize: FONTS.sizes.h6,

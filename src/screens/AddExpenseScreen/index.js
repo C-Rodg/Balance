@@ -21,6 +21,11 @@ import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import { overlayCardStyles } from '../../styles/cardStyles';
+import {
+  topContentSection,
+  topContentSectionTitle,
+  topContentSectionSubTitle,
+} from '../../styles/layout';
 
 const KEYBOARD_BUTTONS = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['BACK', 0, 'DONE']];
 
@@ -155,7 +160,7 @@ class AddExpenseScreen extends Component {
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
         <View style={styles.contentWrapper}>
-          <View style={styles.categorySection}>
+          <View style={topContentSection}>
             <MaterialCommunityIcon
               size={72}
               color={COLORS.white}
@@ -170,7 +175,7 @@ class AddExpenseScreen extends Component {
                 -select a category-
               </Text>
             </TouchableOpacity>
-            <Text style={styles.totalBudgetText}>No budget set...</Text>
+            <Text style={topContentSectionSubTitle}>No budget set...</Text>
           </View>
           <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
             <IconTextInput
@@ -202,21 +207,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.blueMain,
   },
-  categorySection: {
-    paddingTop: 20,
-    paddingHorizontal: 15,
-    paddingBottom: 15,
-  },
   switchCategoryButtonText: {
     color: COLORS.white,
     textDecorationLine: 'underline',
-    ...getFontFamilyStyles('medium'),
-    fontSize: FONTS.sizes.h3,
-  },
-  totalBudgetText: {
-    color: COLORS.white,
-    ...getFontFamilyStyles('regular'),
-    fontSize: FONTS.sizes.h6,
+    ...topContentSectionTitle,
   },
   overwriteCardStyles: {
     paddingTop: 3,
