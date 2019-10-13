@@ -1,5 +1,5 @@
 // Libraries
-import React, { Fragment, Component } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,6 +9,9 @@ import {
   StatusBar,
 } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Components
+import ProgressBar from '../Shared/ProgressBar';
 
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
@@ -33,11 +36,15 @@ function CategoryBreakdownItem({
   let differenceString = '';
   let difference = 0;
   let didSpendTooMuch = false;
+  let percentageSpent = 0;
   if (isBudgeted) {
+    // Get the budge formatted string
     budgetString = convertAmountToCurrencyString({
       amount: amountBudgeted,
       minimumIntegerDigits: 1,
     });
+
+    // Determine if we are above or below the budget
     difference = amountBudgeted - amountSpent;
     differenceString = convertAmountToCurrencyString({
       amount: Math.abs(difference),
@@ -49,6 +56,9 @@ function CategoryBreakdownItem({
     } else {
       differenceString += ' under budget';
     }
+
+    // Determine the percentage spent
+    percentageSpent = (amountSpent / amountBudgeted) * 100;
   }
 
   return (
@@ -75,9 +85,12 @@ function CategoryBreakdownItem({
         </View>
       </View>
       {isBudgeted && (
-        <View>
-          <Text>amount bar with spent $$ and budgeted $$</Text>
-        </View>
+        <ProgressBar
+          showLabels={true}
+          labelMin={amountSpentString}
+          labelMax={budgetString}
+          percent={percentageSpent}
+        />
       )}
     </View>
   );
