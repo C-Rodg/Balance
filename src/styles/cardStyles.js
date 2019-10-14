@@ -32,7 +32,6 @@ export const overlayCardTitleStyles = {
 export const simpleMessageStyles = {
   ...getFontFamilyStyles('regular'),
   fontSize: FONTS.sizes.p,
-  //paddingHorizontal: 15,
 };
 
 // ScrollView for cards

@@ -1,10 +1,10 @@
 // Libraries
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import ProgressBar from '../Shared/ProgressBar';
+import IconWrapper from '../Shared/IconWrapper';
 
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
@@ -57,13 +57,7 @@ function CategoryBreakdownItem({
   return (
     <View style={styles.contentWrapper}>
       <View style={styles.topRow}>
-        <View style={styles.iconView}>
-          <MaterialCommunityIcon
-            name={iconName}
-            size={36}
-            color={COLORS.blueBackground}
-          />
-        </View>
+        <IconWrapper iconName={iconName} />
         <View style={styles.mainTextView}>
           <Text style={styles.categoryTitle} numberOfLines={1}>
             {categoryName}
@@ -101,15 +95,6 @@ const styles = StyleSheet.create({
   topRow: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  iconView: {
-    backgroundColor: COLORS.gray,
-    borderRadius: 10,
-    width: 56,
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 15,
   },
   mainTextView: {
     overflow: 'hidden',

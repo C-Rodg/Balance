@@ -13,13 +13,20 @@ import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
 
-function ExpenseListItem({ categoryIcon, expenseTitle, amount, expenseId }) {
+function ExpenseListItem({
+  categoryIcon,
+  expenseTitle,
+  amount,
+  expenseId,
+  onEdit,
+  onDelete,
+}) {
   const formattedAmount = convertAmountToCurrencyString({
     amount,
     minimumIntegerDigits: 1,
   });
   return (
-    <SwipeableRow rowId={expenseId}>
+    <SwipeableRow rowId={expenseId} onEdit={onEdit} onDelete={onDelete}>
       <MaterialCommunityIcon
         name={categoryIcon}
         size={21}

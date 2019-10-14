@@ -68,6 +68,7 @@ class SwipeableRow extends Component {
   };
 
   render() {
+    const providedStyles = this.props.styles || {};
     return (
       <Swipeable
         ref={this.updateRef}
@@ -75,7 +76,9 @@ class SwipeableRow extends Component {
         leftThreshold={30}
         rightThreshold={40}
         renderRightActions={this._renderRightActions}>
-        <RectButton style={styles.rectButton}>{this.props.children}</RectButton>
+        <RectButton style={[styles.rectButton, providedStyles]}>
+          {this.props.children}
+        </RectButton>
       </Swipeable>
     );
   }
