@@ -47,18 +47,33 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- figure out how to structure state for categories, expenses, and budgets
-- style new/edit budgets screen
+- hook up Feather and Ionicons
+- replace defaultCategoryList with standardCategoryList that can map to different icon libraries. Also, organize alphabetically?
+- add feather & ionicons to create category icon list page
+- add search on create category page
+
+---
+
 - style login and register screens
 - style initializing & loading screen
+
+---
+
+- figure out how to structure state for categories, expenses, and budgets
+- style new/edit budgets screen
+
+---
+
 - check android styling
-- hook up save (memory), edit, and delete today's expenses
+- hook up save (memory), edit, and delete today's expenses - firestore
 - style and figure out settings screen
-- hook up firestore database
-- async storage
+- async storage?
+
+---
+
 - add day touch slider to day screen
-- get full standard category list
-- enable change icon libraries and filter out some current icons
+
+## Notes
 
 - store money in integers only and always / 100
 

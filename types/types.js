@@ -30,20 +30,20 @@ const EXPENSE_LIST_ITEM = {
 
 // ------ RE WORKED ------ //
 const CATEGORY = {
-  id: 'NAME-LIBRARY-ICONNAME',
+  categoryId: 'categoryname-iconname-iconlibrary',
   categoryName: 'Shopping',
   iconLibrary: 'MaterialCommunityIcon',
   iconName: 'cart',
 };
 
 const BUDGET = {
-  id: '', // date?
-  categoryId: 'NAME-LIBRARY-ICONNAME', // ties it to a category
+  budgetId: '', // date?
+  categoryId: 'categoryname-iconname-iconlibrary', // ties it to a category
   amountBudgeted: 200,
 };
 
 const EXPENSE = {
-  id: '',
+  expenseId: '',
   categoryId: '', // ties it to a category
   expneseTitle: 'Chipotle',
   amount: 896,
