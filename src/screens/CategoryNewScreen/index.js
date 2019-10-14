@@ -98,17 +98,20 @@ class CategoryNewScreen extends Component {
         <SafeAreaView />
         <View style={styles.container}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={overlayCardTitleStyles}>Enter a Name:</Text>
-            <IconTextInput
-              value={this.state.newCategoryName}
-              label="Category Name"
-              iconName="pencil"
-              style={styles.textInput}
-              onChange={ev =>
-                this.setState({ newCategoryName: ev.nativeEvent.text })
-              }
-            />
-            <Text style={overlayCardTitleStyles}>Choose an Icon:</Text>
+            <Text style={styles.titleStyles}>Enter a Name:</Text>
+            <View style={styles.horizontalPadding}>
+              <IconTextInput
+                value={this.state.newCategoryName}
+                label="Category Name"
+                iconName="pencil"
+                style={styles.textInput}
+                onChange={ev =>
+                  this.setState({ newCategoryName: ev.nativeEvent.text })
+                }
+              />
+            </View>
+
+            <Text style={styles.titleStyles}>Choose an Icon:</Text>
             <FlatList
               style={cardScrollViewStyles}
               data={icons_materialCommunityList}
@@ -140,5 +143,12 @@ const styles = StyleSheet.create({
   textInput: {
     marginTop: 10,
     marginBottom: 35,
+  },
+  titleStyles: {
+    ...overlayCardTitleStyles,
+    paddingHorizontal: 15,
+  },
+  horizontalPadding: {
+    paddingHorizontal: 15,
   },
 });

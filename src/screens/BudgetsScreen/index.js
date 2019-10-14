@@ -50,11 +50,7 @@ class BudgetsScreen extends Component {
     const SAMPLE_BUDGETS = [];
 
     if (SAMPLE_BUDGETS.length === 0) {
-      return (
-        <Text style={[simpleMessageStyles, styles.sidePadding]}>
-          No budgets created...
-        </Text>
-      );
+      return <Text style={simpleMessageStyles}>No budgets created...</Text>;
     }
 
     // TODO: MAP THROUGH BUDGETS. Make swipeable...
@@ -70,7 +66,7 @@ class BudgetsScreen extends Component {
             <Text style={topContentSectionTitleStyles}>$3,598.45</Text>
             <Text style={topContentSectionSubTitleStyles}>Total Budgeted</Text>
           </View>
-          <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
+          <View style={overlayCardStyles}>
             <Text style={[overlayCardTitleStyles, styles.sidePadding]}>
               Current Budgets:
             </Text>
@@ -97,9 +93,6 @@ class BudgetsScreen extends Component {
 export default BudgetsScreen;
 
 const styles = StyleSheet.create({
-  overwriteCardStyles: {
-    paddingHorizontal: 0,
-  },
   sidePadding: {
     paddingHorizontal: 15,
   },

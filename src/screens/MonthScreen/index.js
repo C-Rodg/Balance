@@ -124,7 +124,7 @@ class MonthScreen extends Component {
             <Text style={topContentSectionSubTitleStyles}>Total Spent</Text>
           </View>
           <View style={overlayCardStyles}>
-            <Text style={overlayCardTitleStyles}>Category Breakdown:</Text>
+            <Text style={styles.scrollTitles}>Category Breakdown:</Text>
             <ScrollView style={cardScrollViewStyles}>
               {this._renderCategoryBreakdown()}
             </ScrollView>
@@ -135,5 +135,13 @@ class MonthScreen extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  scrollTitles: {
+    ...overlayCardTitleStyles,
+    paddingHorizontal: 15,
+    paddingBottom: 5,
+  },
+});
 
 export default MonthScreen;

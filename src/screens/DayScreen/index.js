@@ -110,14 +110,14 @@ class DayScreen extends Component {
     // if no items, render text
     if (todaysExpenses.length === 0) {
       return (
-        <View style={cardScrollViewStyles}>
+        <View style={styles.scrollViewExpenses}>
           <Text style={styles.noFoundExpenses}>Nothing yet...</Text>
         </View>
       );
     }
 
     return (
-      <ScrollView style={cardScrollViewStyles}>
+      <ScrollView style={styles.scrollViewExpenses}>
         {todaysExpenses.map(item => (
           <ExpenseListItem
             key={item.expenseId}
@@ -171,8 +171,7 @@ class DayScreen extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View
-            style={[overlayCardStyles, styles.overwriteCardScrollViewStyles]}>
+          <View style={overlayCardStyles}>
             <Text style={[overlayCardTitleStyles, styles.cardPadSides]}>
               Today's Expenses:
             </Text>
@@ -247,6 +246,11 @@ const styles = StyleSheet.create({
     ...simpleMessageStyles,
     paddingHorizontal: 15,
   },
+  scrollViewExpenses: {
+    ...cardScrollViewStyles,
+    paddingRight: 0,
+    paddingLeft: 2,
+  },
   expensesTotal: {
     ...getFontFamilyStyles('monoMedium'),
     fontSize: FONTS.sizes.h6,
@@ -255,9 +259,5 @@ const styles = StyleSheet.create({
   expensesTotalSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  overwriteCardScrollViewStyles: {
-    paddingRight: 0,
-    paddingLeft: 0,
   },
 });

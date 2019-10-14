@@ -7,7 +7,7 @@ export const overlayCardStyles = {
   flex: 1,
   backgroundColor: COLORS.white,
   borderRadius: 20,
-  paddingHorizontal: 15,
+  paddingHorizontal: 0,
   paddingVertical: 20,
   shadowColor: '#000',
   shadowOffset: { width: 0, height: -2 },
@@ -39,4 +39,5 @@ export const simpleMessageStyles = {
 export const cardScrollViewStyles = {
   flex: 1,
   marginVertical: 5,
+  paddingHorizontal: 15,
 };

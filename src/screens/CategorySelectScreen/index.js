@@ -78,16 +78,19 @@ class CategorySelectScreen extends Component {
         <SafeAreaView />
         <View style={styles.container}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={overlayCardTitleStyles}>Existing Categories:</Text>
+            <Text style={styles.titleStyles}>Existing Categories:</Text>
             <ScrollView style={cardScrollViewStyles}>
               {this._renderCategories()}
             </ScrollView>
-            <BottomBarButton
-              title="Create a new category"
-              onButtonPress={() =>
-                this.props.navigation.navigate('CategoryNew')
-              }
-            />
+            <View style={styles.horizontalPadding}>
+              <BottomBarButton
+                title="Create a new category"
+                onButtonPress={() =>
+                  this.props.navigation.navigate('CategoryNew')
+                }
+              />
+            </View>
+
             <SafeAreaView />
           </View>
         </View>
@@ -112,5 +115,12 @@ const styles = StyleSheet.create({
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.h6,
     marginLeft: 15,
+  },
+  horizontalPadding: {
+    paddingHorizontal: 15,
+  },
+  titleStyles: {
+    ...overlayCardTitleStyles,
+    paddingHorizontal: 15,
   },
 });

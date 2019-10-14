@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
   },
   overwriteCardStyles: {
     paddingTop: 3,
+    paddingHorizontal: 15,
   },
   keyboardWrapper: {
     flex: 1,
