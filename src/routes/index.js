@@ -43,9 +43,9 @@ const defaultNavigationOptions = {
 const HomeStack = createStackNavigator(
   {
     Day: DayScreen,
-    AddExpense: AddExpenseScreen,
+    Expense: AddExpenseScreen,
     Month: MonthScreen,
-    Budgets: BudgetsScreen,
+    BudgetsList: BudgetsScreen,
     Settings: SettingsScreen,
     CategorySelect: CategorySelectScreen,
     CategoryNew: CategoryNewScreen,

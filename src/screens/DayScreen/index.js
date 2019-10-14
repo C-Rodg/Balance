@@ -49,23 +49,24 @@ class DayScreen extends Component {
         size={32}
         color={COLORS.black}
         name="calendar-text-outline"
-        onPress={() => navigation.navigate('Budgets')}
+        onPress={() => navigation.navigate('BudgetsList')}
       />
     ),
   });
 
   // Functionality - delete an expense
-  handleDeleteExpense = expenseItem => {
+  handleDeleteExpense = expenseId => {
     console.log('DELETE');
-    console.log(expenseItem);
+    console.log(expenseId);
     // TODO: delete expense item
   };
 
   // Functionality - edit an expense
-  handleEditExpense = expenseItem => {
+  handleEditExpense = expenseId => {
     console.log('EDIT');
-    console.log(expenseItem);
+    console.log(expenseId);
     // TODO: edit expense item
+    this.props.navigation.navigate('Expense');
   };
 
   // Render - expenses list
@@ -163,7 +164,7 @@ class DayScreen extends Component {
             </View>
             <TouchableOpacity
               style={styles.addExpenseButton}
-              onPress={() => this.props.navigation.navigate('AddExpense')}>
+              onPress={() => this.props.navigation.navigate('Expense')}>
               <Image
                 style={styles.addExpenseButtonImage}
                 resizeMode="contain"

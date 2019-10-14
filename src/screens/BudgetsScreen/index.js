@@ -54,6 +54,7 @@ class BudgetsScreen extends Component {
   onBudgetEdit = budgetId => {
     // TODO: go to edit budget
     console.log('EDITING BUDGET-' + budgetId);
+    this.props.navigation.navigate('EditBudget');
   };
 
   // Delete the selected budget
