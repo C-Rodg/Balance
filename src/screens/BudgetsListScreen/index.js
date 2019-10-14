@@ -34,7 +34,7 @@ import {
   blueWrapperStyles,
 } from '../../styles/layout';
 
-class BudgetsScreen extends Component {
+class BudgetsListScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Budgets',
     headerLeftContainerStyle: {
@@ -54,7 +54,7 @@ class BudgetsScreen extends Component {
   onBudgetEdit = budgetId => {
     // TODO: go to edit budget
     console.log('EDITING BUDGET-' + budgetId);
-    this.props.navigation.navigate('EditBudget');
+    this.props.navigation.navigate('BudgetsEdit');
   };
 
   // Delete the selected budget
@@ -182,7 +182,7 @@ class BudgetsScreen extends Component {
               <BottomBarButton
                 title="Create a new budget"
                 onButtonPress={() =>
-                  this.props.navigation.navigate('BudgetsNew')
+                  this.props.navigation.navigate('BudgetsEdit')
                 }
               />
             </View>
@@ -195,7 +195,7 @@ class BudgetsScreen extends Component {
   }
 }
 
-export default BudgetsScreen;
+export default BudgetsListScreen;
 
 const styles = StyleSheet.create({
   sidePadding: {

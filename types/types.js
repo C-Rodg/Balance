@@ -27,3 +27,25 @@ const EXPENSE_LIST_ITEM = {
   expenseTitle: 'Chipotle',
   amount: 896,
 };
+
+// ------ RE WORKED ------ //
+const CATEGORY = {
+  id: 'NAME-LIBRARY-ICONNAME',
+  categoryName: 'Shopping',
+  iconLibrary: 'MaterialCommunityIcon',
+  iconName: 'cart',
+};
+
+const BUDGET = {
+  id: '', // date?
+  categoryId: 'NAME-LIBRARY-ICONNAME', // ties it to a category
+  amountBudgeted: 200,
+};
+
+const EXPENSE = {
+  id: '',
+  categoryId: '', // ties it to a category
+  expneseTitle: 'Chipotle',
+  amount: 896,
+  expenseDate: '2019-08-06',
+};

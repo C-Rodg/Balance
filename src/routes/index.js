@@ -13,11 +13,12 @@ import SignUpScreen from '../screens/SignUpScreen';
 import LoginScreen from '../screens/LoginScreen';
 import DayScreen from '../screens/DayScreen';
 import MonthScreen from '../screens/MonthScreen';
-import BudgetsScreen from '../screens/BudgetsScreen';
+import BudgetsListScreen from '../screens/BudgetsListScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AddExpenseScreen from '../screens/AddExpenseScreen';
 import CategorySelectScreen from '../screens/CategorySelectScreen';
 import CategoryNewScreen from '../screens/CategoryNewScreen';
+import BudgetsEditScreen from '../screens/BudgetsEditScreen';
 
 import FONTS from '../styles/fonts';
 import COLORS from '../styles/colors';
@@ -45,7 +46,8 @@ const HomeStack = createStackNavigator(
     Day: DayScreen,
     Expense: AddExpenseScreen,
     Month: MonthScreen,
-    BudgetsList: BudgetsScreen,
+    BudgetsList: BudgetsListScreen,
+    BudgetsEdit: BudgetsEditScreen,
     Settings: SettingsScreen,
     CategorySelect: CategorySelectScreen,
     CategoryNew: CategoryNewScreen,
