@@ -11,10 +11,12 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import ExpenseListItem from './ExpenseListItem';
+
+// Utils
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
@@ -33,26 +35,26 @@ class DayScreen extends Component {
     headerLeftContainerStyle: {
       paddingLeft: 10,
     },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="settings-outline"
-        onPress={() => navigation.navigate('Settings')}
-      />
-    ),
+    headerLeft: getIcon({
+      name: 'settings-outline',
+      size: 32,
+      onPress: () => navigation.navigate('Settings'),
+    }),
     headerRightContainerStyle: {
       paddingRight: 10,
     },
-    headerRight: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="calendar-text-outline"
-        onPress={() => navigation.navigate('BudgetsList')}
-      />
-    ),
+    headerRight: getIcon({
+      name: 'calendar-text-outline',
+      size: 32,
+      onPress: () => navigation.navigate('BudgetsList'),
+    }),
   });
+
+  // Functionality - go to the previous or next month
+  goToMonth = next => {
+    console.log('NEXT MONTH');
+    // TODO: navigate to next month or previous
+  };
 
   // Functionality - delete an expense
   handleDeleteExpense = expenseId => {
@@ -140,23 +142,25 @@ class DayScreen extends Component {
           <View style={styles.dateSection}>
             <Text style={styles.yearText}>2020</Text>
             <View style={styles.monthSection}>
-              <TouchableOpacity style={styles.monthArrow}>
-                <MaterialCommunityIcon
-                  size={38}
-                  color={COLORS.black}
-                  name="chevron-left"
-                />
+              <TouchableOpacity
+                style={styles.monthArrow}
+                onPress={() => this.goToMonth(false)}>
+                {getIcon({
+                  size: 38,
+                  name: 'chevron-left',
+                })}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Month')}>
                 <Text style={styles.monthText}>September</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.monthArrow}>
-                <MaterialCommunityIcon
-                  size={38}
-                  color={COLORS.black}
-                  name="chevron-right"
-                />
+              <TouchableOpacity
+                style={styles.monthArrow}
+                onPress={() => this.goToMonth(true)}>
+                {getIcon({
+                  size: 38,
+                  name: 'chevron-right',
+                })}
               </TouchableOpacity>
             </View>
             <View>
