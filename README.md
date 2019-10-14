@@ -47,7 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- hook up Feather and Ionicons
+- replace imports of icon libraries with the 'getIcon' icon normalizer
 - replace defaultCategoryList with standardCategoryList that can map to different icon libraries. Also, organize alphabetically?
 - add feather & ionicons to create category icon list page
 - add search on create category page
