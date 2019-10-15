@@ -22,5 +22,5 @@ export const getIcon = ({
   ...rest
 }) => {
   const TheIcon = iconMap[library.toLowerCase()];
-  return <TheIcon size={size} name={name} color={color} {...rest} />;
+  return <TheIcon {...rest} size={size} name={name} color={color} />;
 };

@@ -14,7 +14,7 @@ import {
 import BottomBarButton from '../Shared/BottomBarButton';
 
 // Config
-import { defaultCategoryList } from '../../config/defaultCategoryList';
+import { standardCategoryList } from '../../config/standardCategoryList';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -48,18 +48,20 @@ class CategorySelectScreen extends Component {
     console.log(categoryObject);
   };
 
-  // List all of the categories that we know about
   _renderCategories = () => {
-    return defaultCategoryList.map(categoryObject => {
+    return standardCategoryList.map(categoryObject => {
+      console.log(categoryObject.categoryId);
       return (
         <TouchableHighlight
-          key={categoryObject.iconLibrary + categoryObject.iconName}
+          key={categoryObject.categoryId}
           underlayColor={COLORS.gray}
-          onPress={() => this.selectCategory(categoryObject)}>
+          onPress={() => this.selectCategory(categoryObject.categoryId)}>
           <View style={styles.categoryItemRow}>
             {getIcon({
               name: categoryObject.iconName,
               library: categoryObject.iconLibrary,
+              //library: 'Feather',
+              //name: 'star',
               size: 24,
               color: COLORS.black,
             })}
