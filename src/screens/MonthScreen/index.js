@@ -8,10 +8,12 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import CategoryBreakdownItem from './CategoryBreakdownItem';
+
+// Utils
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -35,14 +37,12 @@ class MonthScreen extends Component {
     headerLeftContainerStyle: {
       paddingLeft: 5,
     },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="arrow-left"
-        onPress={() => navigation.goBack(null)}
-      />
-    ),
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      color: COLORS.black,
+      size: 32,
+      onPress: () => navigation.goBack(null),
+    }),
   });
 
   // Render the list of category breakdowns

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Keyboard,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styles
 import COLORS from '../../styles/colors';
@@ -134,7 +134,7 @@ class IconTextInput extends Component {
     } = this.props;
     const { width, focusedAnim } = this.state;
     const AnimatedIcon = Animated.createAnimatedComponent(
-      MaterialCommunityIcon,
+      MaterialCommunityIcons,
     );
     return (
       <View

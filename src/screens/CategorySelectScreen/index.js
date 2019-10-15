@@ -9,13 +9,15 @@ import {
   StatusBar,
   TouchableHighlight,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import BottomBarButton from '../Shared/BottomBarButton';
 
 // Config
 import { defaultCategoryList } from '../../config/defaultCategoryList';
+
+// Utils
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -32,14 +34,12 @@ class CategorySelectScreen extends Component {
     headerLeftContainerStyle: {
       paddingLeft: 5,
     },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="arrow-left"
-        onPress={() => navigation.goBack(null)}
-      />
-    ),
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      size: 32,
+      color: COLORS.black,
+      onPress: () => navigation.goBack(null),
+    }),
   });
 
   // Select a category from the list
@@ -57,11 +57,12 @@ class CategorySelectScreen extends Component {
           underlayColor={COLORS.gray}
           onPress={() => this.selectCategory(categoryObject)}>
           <View style={styles.categoryItemRow}>
-            <MaterialCommunityIcon
-              name={categoryObject.iconName}
-              size={24}
-              color={COLORS.black}
-            />
+            {getIcon({
+              name: categoryObject.iconName,
+              library: categoryObject.iconLibrary,
+              size: 24,
+              color: COLORS.black,
+            })}
             <Text style={styles.categoryItemText}>
               {categoryObject.categoryName}
             </Text>

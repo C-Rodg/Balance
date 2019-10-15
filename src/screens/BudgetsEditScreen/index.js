@@ -11,13 +11,15 @@ import {
   TouchableHighlight,
   Dimensions,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import IconTextInput from '../Shared/IconTextInput';
 
 // Config
 import { icons_materialCommunityList } from '../../config/icons_materialCommunityList';
+
+// Utils
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -45,14 +47,12 @@ class BudgetsEditScreen extends Component {
     headerLeftContainerStyle: {
       paddingLeft: 5,
     },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="arrow-left"
-        onPress={() => navigation.goBack(null)}
-      />
-    ),
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      size: 32,
+      color: COLORS.black,
+      onPress: () => navigation.goBack(null),
+    }),
     headerRight: (
       <TouchableOpacity onPress={() => navigation.goBack(null)}>
         <Text style={styles.navigationSaveText}>Save</Text>
@@ -85,11 +85,11 @@ class BudgetsEditScreen extends Component {
           borderRadius: 4,
           backgroundColor: !isSelected ? '#fff' : COLORS.blueMain,
         }}>
-        <MaterialCommunityIcon
-          color={!isSelected ? COLORS.black : COLORS.white}
-          size={36}
-          name={item}
-        />
+        {getIcon({
+          name: item,
+          size: 36,
+          color: !isSelected ? COLORS.black : COLORS.white,
+        })}
       </TouchableHighlight>
     );
   };

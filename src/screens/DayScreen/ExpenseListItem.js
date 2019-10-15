@@ -1,13 +1,13 @@
 // Libraries
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import SwipeableRow from '../Shared/SwipeableRow';
 
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
@@ -27,11 +27,11 @@ function ExpenseListItem({
   });
   return (
     <SwipeableRow rowId={expenseId} onEdit={onEdit} onDelete={onDelete}>
-      <MaterialCommunityIcon
-        name={categoryIcon}
-        size={21}
-        color={COLORS.black}
-      />
+      {getIcon({
+        name: categoryIcon,
+        size: 21,
+        color: COLORS.black,
+      })}
       <Text style={styles.itemName} numberOfLines={1}>
         {expenseTitle}
       </Text>

@@ -9,13 +9,13 @@ import {
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import IconTextInput from '../Shared/IconTextInput';
 
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -41,14 +41,11 @@ class AddExpenseScreen extends Component {
     headerLeftContainerStyle: {
       paddingLeft: 5,
     },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="arrow-left"
-        onPress={() => navigation.goBack(null)}
-      />
-    ),
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      size: 32,
+      onPress: () => navigation.goBack(null),
+    }),
   });
 
   // Keyboard button press
@@ -81,17 +78,20 @@ class AddExpenseScreen extends Component {
     if (btnText === 'DONE') {
       return (
         <Text style={styles.keyboardButtonDone}>
-          <MaterialCommunityIcon
-            name="check"
-            size={FONTS.sizes.h3}
-            color={COLORS.white}
-          />
+          {getIcon({
+            name: 'check',
+            size: FONTS.sizes.h3,
+            color: COLORS.white,
+          })}
         </Text>
       );
     } else if (btnText === 'BACK') {
       return (
         <Text style={styles.keyboardButtonText}>
-          <MaterialCommunityIcon name="backspace" size={FONTS.sizes.h4} />
+          {getIcon({
+            name: 'backspace',
+            size: FONTS.sizes.h4,
+          })}
         </Text>
       );
     }
@@ -162,11 +162,11 @@ class AddExpenseScreen extends Component {
         <SafeAreaView />
         <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
-            <MaterialCommunityIcon
-              size={72}
-              color={COLORS.white}
-              name="headphones"
-            />
+            {getIcon({
+              name: 'headphones',
+              color: COLORS.white,
+              size: 72,
+            })}
             <TouchableOpacity style={styles.switchCategoryButtonText}>
               <Text
                 style={styles.switchCategoryButtonText}

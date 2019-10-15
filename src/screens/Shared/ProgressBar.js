@@ -1,11 +1,10 @@
 // Libraries
-import React, { Component, createRef } from 'react';
+import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Styles
 import COLORS from '../../styles/colors';
-import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
+import { getFontFamilyStyles } from '../../styles/fonts';
 
 function ProgressBar({ showLabels, labelMin, labelMax, percent }) {
   const fixedPercent = percent > 100 ? 100 : percent;

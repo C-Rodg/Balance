@@ -8,7 +8,6 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // Components
 import BottomBarButton from '../Shared/BottomBarButton';
@@ -17,6 +16,7 @@ import IconWrapper from '../Shared/IconWrapper';
 
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -40,14 +40,12 @@ class BudgetsListScreen extends Component {
     headerLeftContainerStyle: {
       paddingLeft: 5,
     },
-    headerLeft: (
-      <MaterialCommunityIcon
-        size={32}
-        color={COLORS.black}
-        name="arrow-left"
-        onPress={() => navigation.goBack(null)}
-      />
-    ),
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      size: 32,
+      color: COLORS.black,
+      onPress: () => navigation.goBack(null),
+    }),
   });
 
   // Edit the selected budget
@@ -68,61 +66,61 @@ class BudgetsListScreen extends Component {
     const SAMPLE_BUDGETS = [
       {
         iconName: 'cart',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Candy',
         amountBudgeted: 200,
       },
       {
         iconName: 'home-city',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Groceries',
         amountBudgeted: 22500,
       },
       {
         iconName: 'truck',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Snacks',
         amountBudgeted: 1350,
       },
       {
         iconName: 'silverware-fork-knife',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Restaurants',
         amountBudgeted: 15000,
       },
       {
         iconName: 'glass-cocktail',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Bars',
         amountBudgeted: 4000,
       },
       {
         iconName: 'airplane',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Traveling All Around the World',
         amountBudgeted: 17300,
       },
       {
         iconName: 'currency-usd',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Investments',
         amountBudgeted: 5500,
       },
       {
         iconName: 'home',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Rent',
         amountBudgeted: 280000,
       },
       {
         iconName: 'dumbbell',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Gym',
         amountBudgeted: 500,
       },
       {
         iconName: 'wallet-giftcard',
-        iconLibrary: 'MaterialCommunityIcon',
+        iconLibrary: 'MaterialCommunityIcons',
         categoryName: 'Wallets and clothes',
         amountBudgeted: 120,
       },

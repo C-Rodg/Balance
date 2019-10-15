@@ -1,7 +1,9 @@
 // Libraries
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Utils
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -9,11 +11,12 @@ import COLORS from '../../styles/colors';
 function IconWrapper({ iconName, iconLibrary }) {
   return (
     <View style={styles.iconView}>
-      <MaterialCommunityIcon
-        name={iconName}
-        size={36}
-        color={COLORS.blueBackground}
-      />
+      {getIcon({
+        name: iconName,
+        size: 36,
+        library: iconLibrary,
+        color: COLORS.blueBackground,
+      })}
     </View>
   );
 }

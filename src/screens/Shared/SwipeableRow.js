@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+// Utils
+import { getIcon } from '../../utils/iconNormalizer';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -29,7 +31,11 @@ class SwipeableRow extends Component {
         <RectButton
           style={[styles.rightAction, { backgroundColor: color }]}
           onPress={pressHandler}>
-          <MaterialCommunityIcon name={icon} size={32} color={COLORS.white} />
+          {getIcon({
+            name: icon,
+            size: 32,
+            color: COLORS.white,
+          })}
         </RectButton>
       </Animated.View>
     );
