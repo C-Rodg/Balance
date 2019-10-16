@@ -12,6 +12,7 @@ import {
 
 // Components
 import BottomBarButton from '../Shared/BottomBarButton';
+import IconTextInput from '../Shared/IconTextInput';
 
 // Config
 import { standardCategoryList } from '../../config/standardCategoryList';
@@ -24,11 +25,18 @@ import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
-  overlayCardTitleStyles,
+  overlayCardTitleWithPaddingStyles,
   cardScrollViewStyles,
+  textInputStyles,
 } from '../../styles/cardStyles';
+import { offWhiteWrapperStyles } from '../../styles/layout';
+import { horizontalSpacingStyles } from '../../styles/spacing';
 
 class CategorySelectScreen extends Component {
+  state = {
+    searchTerm: '',
+  };
+
   static navigationOptions = ({ navigation }) => ({
     title: 'Select a Category',
     headerLeftContainerStyle: {
@@ -48,30 +56,35 @@ class CategorySelectScreen extends Component {
     console.log(categoryObject);
   };
 
+  // Render the category list
   _renderCategories = () => {
-    return standardCategoryList.map(categoryObject => {
-      console.log(categoryObject.categoryId);
-      return (
-        <TouchableHighlight
-          key={categoryObject.categoryId}
-          underlayColor={COLORS.gray}
-          onPress={() => this.selectCategory(categoryObject.categoryId)}>
-          <View style={styles.categoryItemRow}>
-            {getIcon({
-              name: categoryObject.iconName,
-              library: categoryObject.iconLibrary,
-              //library: 'Feather',
-              //name: 'star',
-              size: 24,
-              color: COLORS.black,
-            })}
-            <Text style={styles.categoryItemText}>
-              {categoryObject.categoryName}
-            </Text>
-          </View>
-        </TouchableHighlight>
-      );
-    });
+    const upperSearchTerm = this.state.searchTerm.toUpperCase();
+
+    return standardCategoryList
+      .filter(categoryObject => {
+        const upperCategoryName = categoryObject.categoryName.toUpperCase();
+        return upperCategoryName.indexOf(upperSearchTerm) > -1;
+      })
+      .map(categoryObject => {
+        return (
+          <TouchableHighlight
+            key={categoryObject.categoryId}
+            underlayColor={COLORS.gray}
+            onPress={() => this.selectCategory(categoryObject.categoryId)}>
+            <View style={styles.categoryItemRow}>
+              {getIcon({
+                name: categoryObject.iconName,
+                library: categoryObject.iconLibrary,
+                size: 24,
+                color: COLORS.black,
+              })}
+              <Text style={styles.categoryItemText}>
+                {categoryObject.categoryName}
+              </Text>
+            </View>
+          </TouchableHighlight>
+        );
+      });
   };
 
   render() {
@@ -79,9 +92,22 @@ class CategorySelectScreen extends Component {
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
-        <View style={styles.container}>
+        <View style={offWhiteWrapperStyles}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={styles.titleStyles}>Existing Categories:</Text>
+            <Text style={overlayCardTitleWithPaddingStyles}>
+              Existing Categories:
+            </Text>
+            <View style={horizontalSpacingStyles}>
+              <IconTextInput
+                value={this.state.searchTerm}
+                label="Search for a category"
+                iconName="magnify"
+                style={textInputStyles}
+                onChange={ev =>
+                  this.setState({ searchTerm: ev.nativeEvent.text })
+                }
+              />
+            </View>
             <ScrollView style={cardScrollViewStyles}>
               {this._renderCategories()}
             </ScrollView>
@@ -120,10 +146,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   horizontalPadding: {
-    paddingHorizontal: 15,
-  },
-  titleStyles: {
-    ...overlayCardTitleStyles,
     paddingHorizontal: 15,
   },
 });

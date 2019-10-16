@@ -28,6 +28,12 @@ export const overlayCardTitleStyles = {
   fontSize: FONTS.sizes.h6,
 };
 
+// Title for card element with padding
+export const overlayCardTitleWithPaddingStyles = {
+  ...overlayCardTitleStyles,
+  paddingHorizontal: 15,
+};
+
 // Simple message - commonly used for 'not found', etc.
 export const simpleMessageStyles = {
   ...getFontFamilyStyles('regular'),
@@ -39,4 +45,10 @@ export const cardScrollViewStyles = {
   flex: 1,
   marginVertical: 5,
   paddingHorizontal: 15,
+};
+
+// Text input styling
+export const textInputStyles = {
+  marginTop: 10,
+  marginBottom: 35,
 };

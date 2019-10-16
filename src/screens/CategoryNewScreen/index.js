@@ -26,9 +26,12 @@ import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
-  overlayCardTitleStyles,
+  overlayCardTitleWithPaddingStyles,
   cardScrollViewStyles,
+  textInputStyles,
 } from '../../styles/cardStyles';
+import { offWhiteWrapperStyles } from '../../styles/layout';
+import { horizontalSpacingStyles } from '../../styles/spacing';
 
 // Calculate the number of columns to render
 const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
@@ -96,15 +99,15 @@ class CategoryNewScreen extends Component {
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
-        <View style={styles.container}>
+        <View style={offWhiteWrapperStyles}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={styles.titleStyles}>Enter a Name:</Text>
-            <View style={styles.horizontalPadding}>
+            <Text style={overlayCardTitleWithPaddingStyles}>Enter a Name:</Text>
+            <View style={horizontalSpacingStyles}>
               <IconTextInput
                 value={this.state.newCategoryName}
                 label="Category Name"
                 iconName="pencil"
-                style={styles.textInput}
+                style={textInputStyles}
                 onChange={ev =>
                   this.setState({ newCategoryName: ev.nativeEvent.text })
                 }
@@ -139,16 +142,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.offWhite,
-  },
-  textInput: {
-    marginTop: 10,
-    marginBottom: 35,
-  },
-  titleStyles: {
-    ...overlayCardTitleStyles,
-    paddingHorizontal: 15,
-  },
-  horizontalPadding: {
-    paddingHorizontal: 15,
   },
 });

@@ -8,6 +8,12 @@ export const blueWrapperStyles = {
   backgroundColor: COLORS.blueMain,
 };
 
+// Wrapper - off white background
+export const offWhiteWrapperStyles = {
+  flex: 1,
+  backgroundColor: COLORS.offWhite,
+};
+
 // Top section - typically used for info above card
 export const topContentSectionStyles = {
   paddingHorizontal: 15,
