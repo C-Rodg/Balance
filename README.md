@@ -47,10 +47,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- organize standardCategoryList - alphabetically? search? how?
-- add feather & ionicons to create category icon list page
-- add search on create category page
-
 ---
 
 - style login and register screens
@@ -71,6 +67,8 @@ _:app:installDebug failed_
 ---
 
 - add day touch slider to day screen
+- SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
+- NEW CATEGORY: search or narrow down icons
 
 ## Notes
 

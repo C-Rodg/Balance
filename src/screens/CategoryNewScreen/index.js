@@ -17,6 +17,8 @@ import IconTextInput from '../Shared/IconTextInput';
 
 // Config
 import { icons_materialCommunityList } from '../../config/icons_materialCommunityList';
+import { icons_feather } from '../../config/icons_feather';
+import { icons_ionicons } from '../../config/icons_ionicons';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -35,6 +37,12 @@ import { horizontalSpacingStyles } from '../../styles/spacing';
 
 // Calculate the number of columns to render
 const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
+
+const ICON_ARRAY = [
+  ...icons_feather,
+  ...icons_ionicons,
+  ...icons_materialCommunityList,
+];
 
 class CategoryNewScreen extends Component {
   state = {
@@ -69,12 +77,12 @@ class CategoryNewScreen extends Component {
 
   // Render the list of icons
   _renderIconListItems = ({ item }) => {
-    const isSelected = item === this.state.newCategoryIcon;
+    const isSelected = item.icon === this.state.newCategoryIcon;
     return (
       <TouchableHighlight
-        id={item}
+        id={item.icon}
         underlayColor={!isSelected ? COLORS.gray : COLORS.blueBackground}
-        onPress={() => this.selectIcon(item)}
+        onPress={() => this.selectIcon(item.icon)}
         style={{
           flex: 1,
           flexDirection: 'column',
@@ -86,9 +94,10 @@ class CategoryNewScreen extends Component {
           backgroundColor: !isSelected ? '#fff' : COLORS.blueMain,
         }}>
         {getIcon({
-          name: item,
+          name: item.icon,
           size: 36,
           color: !isSelected ? COLORS.black : COLORS.white,
+          library: item.library,
         })}
       </TouchableHighlight>
     );
@@ -114,13 +123,15 @@ class CategoryNewScreen extends Component {
               />
             </View>
 
-            <Text style={styles.titleStyles}>Choose an Icon:</Text>
+            <Text style={overlayCardTitleWithPaddingStyles}>
+              Choose an Icon:
+            </Text>
             <FlatList
               style={cardScrollViewStyles}
-              data={icons_materialCommunityList}
+              data={ICON_ARRAY}
               renderItem={this._renderIconListItems}
               numColumns={NumberOfColumns}
-              keyExtractor={item => item}
+              keyExtractor={item => `${item.icon}-${item.library}`}
             />
             <SafeAreaView />
           </View>

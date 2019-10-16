@@ -1,5 +1,4 @@
 // Using Ionicons, Feather, and MaterialCommunityIcons
-
 export const standardCategoryList = [
   {
     categoryName: 'Air Travel',
@@ -37,7 +36,6 @@ export const standardCategoryList = [
     iconName: 'baby-buggy',
     iconLibrary: 'MaterialCommunityIcons',
   },
-
   {
     categoryName: 'Books',
     categoryId: 'books-book-open-variant-materialcommunityicons',
@@ -140,7 +138,6 @@ export const standardCategoryList = [
     iconName: 'md-gift',
     iconLibrary: 'Ionicons',
   },
-
   {
     categoryName: 'Groceries',
     categoryId: 'groceries-cart-materialcommunityicons',
@@ -159,7 +156,6 @@ export const standardCategoryList = [
     iconName: 'md-cut',
     iconLibrary: 'Ionicons',
   },
-
   {
     categoryName: 'Health Insurance',
     categoryId: 'healthinsurance-md-medkit-ionicons',
@@ -244,7 +240,12 @@ export const standardCategoryList = [
     iconName: 'paperclip',
     iconLibrary: 'Feather',
   },
-
+  {
+    categoryName: 'Other',
+    categoryId: 'other-help-circle-materialcommunityicons',
+    iconName: 'help-circle',
+    iconLibrary: 'MaterialCommunityIcons',
+  },
   {
     categoryName: 'Parking',
     categoryId: 'parking-parking-materialcommunityicons',
@@ -287,7 +288,6 @@ export const standardCategoryList = [
     iconName: 'silverware-fork-knife',
     iconLibrary: 'MaterialCommunityIcons',
   },
-
   {
     categoryName: 'Rideshares & Taxis',
     categoryId: 'taxisrideshares-taxi-materialcommunityicons',
@@ -312,7 +312,6 @@ export const standardCategoryList = [
     iconName: 'truck',
     iconLibrary: 'MaterialCommunityIcons',
   },
-
   {
     categoryName: 'Software',
     categoryId: 'software-logo-windows-ionicons',
@@ -404,12 +403,5 @@ export const standardCategoryList = [
     categoryId: 'vacation-map-feather',
     iconName: 'map',
     iconLibrary: 'Feather',
-  },
-
-  {
-    categoryName: 'Other',
-    categoryId: 'other-help-circle-materialcommunityicons',
-    iconName: 'help-circle',
-    iconLibrary: 'MaterialCommunityIcons',
   },
 ];
