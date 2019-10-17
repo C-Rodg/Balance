@@ -47,8 +47,8 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- figure out how to structure state for categories, expenses, and budgets
 - style new/edit budgets screen
+- figure out how to structure state for categories, expenses, and budgets
 
 ---
 
