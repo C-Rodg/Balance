@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 // Components
-import BottomBarButton from '../Shared/BottomBarButton';
+import BlockButton from '../Shared/BlockButton';
 import IconTextInput from '../Shared/IconTextInput';
 
 // Config
@@ -112,7 +112,7 @@ class CategorySelectScreen extends Component {
               {this._renderCategories()}
             </ScrollView>
             <View style={styles.horizontalPadding}>
-              <BottomBarButton
+              <BlockButton
                 title="Create a new category"
                 onButtonPress={() =>
                   this.props.navigation.navigate('CategoryNew')

@@ -66,7 +66,7 @@ _:app:installDebug failed_
 
 ---
 
-- add day touch slider to day screen
+- DAY SCREEN: add day touch slider to day screen
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - NEW CATEGORY: search or narrow down icons
 

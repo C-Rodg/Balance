@@ -6,10 +6,20 @@ import {
   View,
   Text,
   StatusBar,
-  TextInput,
+  TouchableOpacity,
   Button,
+  Image,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
+
+// Components
+import IconTextInput from '../Shared/IconTextInput';
+import BlockButton from '../Shared/BlockButton';
+import SecondaryButton from '../Shared/SecondaryButton';
+
+// Props
+import COLORS from '../../styles/colors';
+import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
 class LoginScreen extends Component {
   state = {
@@ -46,34 +56,61 @@ class LoginScreen extends Component {
     return (
       <Fragment>
         <StatusBar barStyle="light-content" />
-        <SafeAreaView>
+        <SafeAreaView style={styles.safeArea}>
           <View style={styles.container}>
-            <Text>Log in...</Text>
-            <TextInput
-              placeholder="Email"
-              autoCapitalize="none"
-              autoCompleteType="email"
-              autoCorrect={false}
-              value={this.state.email}
-              onChangeText={email => this.setState({ email })}
-            />
-            <TextInput
-              placeholder="Password"
-              autoCapitalize="none"
-              autoCompleteType="off"
-              autoCorrect={false}
-              value={this.state.password}
-              onChangeText={password => this.setState({ password })}
-            />
-            <Button title="Login" onPress={this.handleLogin} />
-            <Button
-              title="New User? Sign up now"
-              onPress={() => this.props.navigation.navigate('Signup')}
-            />
-            <Button
-              title="Send Password Reset Email"
-              onPress={this.handlePasswordReset}
-            />
+            <View style={styles.logoWrapper}>
+              <Image
+                resizeMode="contain"
+                style={styles.logoImage}
+                source={require('../../assets/BalanceLogo.png')}
+              />
+              <Text style={styles.balanceText}>Balance</Text>
+              <Text style={styles.balanceSubText}>balance your life</Text>
+            </View>
+            <View style={styles.inputWrapperSection}>
+              <IconTextInput
+                iconName="email"
+                label="Email"
+                value={this.state.email}
+                iconColor={COLORS.grayDark}
+                autoCompleteType="email"
+                keyboardType="email-address"
+                textContentType="emailAddress"
+                onChange={ev => this.setState({ email: ev.nativeEvent.text })}
+              />
+              <IconTextInput
+                iconName="lock"
+                label="Password"
+                value={this.state.password}
+                iconColor={COLORS.grayDark}
+                autoCompleteType="password"
+                textContentType="password"
+                secureTextEntry={true}
+                onChange={ev =>
+                  this.setState({ password: ev.nativeEvent.text })
+                }
+              />
+
+              <View style={{ marginVertical: 35 }}>
+                <BlockButton title="Login" onButtonPress={this.handleLogin} />
+                <TouchableOpacity onPress={this.handlePasswordReset}>
+                  <Text style={styles.forgottenText}>Forgot password?</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.bottomSection}>
+                <View style={styles.bottomSectionRow}>
+                  <Text style={styles.bottomItemText}>
+                    Don't have an account?
+                  </Text>
+                  <SecondaryButton
+                    title="Create"
+                    onButtonPress={() =>
+                      this.props.navigation.navigate('Signup')
+                    }
+                  />
+                </View>
+              </View>
+            </View>
           </View>
         </SafeAreaView>
       </Fragment>
@@ -84,9 +121,61 @@ class LoginScreen extends Component {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   container: {
-    //flex: 1,
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  logoWrapper: {
+    flex: 2,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoImage: {
+    width: 220,
+    height: undefined,
+    alignItems: 'center',
+    flex: 1,
+  },
+  balanceText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.h4,
+    color: COLORS.black,
+  },
+  balanceSubText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.s1,
+    color: COLORS.black,
+    opacity: 0.7,
+  },
+  inputWrapperSection: {
+    flex: 4,
+    paddingTop: 15,
+    paddingHorizontal: 15,
+  },
+  forgottenText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.s1,
+    color: COLORS.black,
+    opacity: 0.7,
+    textAlign: 'center',
+    paddingVertical: 10,
+  },
+  bottomSection: {
+    flexGrow: 1,
+    justifyContent: 'flex-end',
+  },
+  bottomSectionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bottomItemText: {
+    ...getFontFamilyStyles('medium'),
+    fontSize: FONTS.sizes.p,
+    color: COLORS.black,
+    marginRight: 15,
   },
 });

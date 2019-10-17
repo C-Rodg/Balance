@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 // Components
-import BottomBarButton from '../Shared/BottomBarButton';
+import BlockButton from '../Shared/BlockButton';
 import SwipeableRow from '../Shared/SwipeableRow';
 import IconWrapper from '../Shared/IconWrapper';
 
@@ -177,7 +177,7 @@ class BudgetsListScreen extends Component {
               {this._renderBudgetList()}
             </ScrollView>
             <View style={styles.sidePadding}>
-              <BottomBarButton
+              <BlockButton
                 title="Create a new budget"
                 onButtonPress={() =>
                   this.props.navigation.navigate('BudgetsEdit')

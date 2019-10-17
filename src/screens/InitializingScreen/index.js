@@ -10,7 +10,7 @@ class InitializingScreen extends Component {
     // Determine if user is logged in or not
     this._firebaseListener = auth().onAuthStateChanged(user => {
       console.log(user);
-      this.props.navigation.navigate(user ? 'App' : 'Signup');
+      this.props.navigation.navigate(user ? 'App' : 'Login');
     });
   }
 

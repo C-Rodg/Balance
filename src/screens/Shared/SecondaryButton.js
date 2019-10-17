@@ -6,7 +6,7 @@ import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
-function BottomBarButton({ title, onButtonPress }) {
+function SecondaryButton({ title, onButtonPress }) {
   return (
     <TouchableOpacity
       onPress={onButtonPress}
@@ -17,18 +17,18 @@ function BottomBarButton({ title, onButtonPress }) {
   );
 }
 
-export default BottomBarButton;
+export default SecondaryButton;
 
 const styles = StyleSheet.create({
   buttonTouch: {
-    backgroundColor: COLORS.blueMain,
+    backgroundColor: COLORS.blueLight2,
     borderRadius: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 17,
+    paddingHorizontal: 13,
+    paddingVertical: 10,
   },
   buttonText: {
     ...getFontFamilyStyles('medium'),
-    fontSize: FONTS.sizes.h5,
+    fontSize: FONTS.sizes.p,
     color: COLORS.white,
     textAlign: 'center',
     letterSpacing: 0.5,

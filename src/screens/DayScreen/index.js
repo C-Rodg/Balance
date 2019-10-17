@@ -7,7 +7,6 @@ import {
   View,
   Text,
   StatusBar,
-  Button,
   TouchableOpacity,
   Image,
 } from 'react-native';
@@ -27,6 +26,7 @@ import {
   simpleMessageStyles,
   cardScrollViewStyles,
 } from '../../styles/cardStyles';
+import { offWhiteWrapperStyles } from '../../styles/layout';
 
 class DayScreen extends Component {
   // Setup navigation bar
@@ -138,7 +138,7 @@ class DayScreen extends Component {
       <Fragment>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView />
-        <View style={styles.container}>
+        <View style={offWhiteWrapperStyles}>
           <View style={styles.dateSection}>
             <Text style={styles.yearText}>2020</Text>
             <View style={styles.monthSection}>
@@ -198,10 +198,6 @@ class DayScreen extends Component {
 export default DayScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.offWhite,
-  },
   dateSection: {
     flex: 1,
     paddingTop: 40,
