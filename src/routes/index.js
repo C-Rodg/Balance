@@ -9,8 +9,7 @@ import { store } from '../redux/store/';
 
 // Screens
 import InitializingScreen from '../screens/InitializingScreen';
-import SignUpScreen from '../screens/SignUpScreen';
-import LoginScreen from '../screens/LoginScreen';
+import AuthenticationScreen from '../screens/AuthenticationScreen';
 import DayScreen from '../screens/DayScreen';
 import MonthScreen from '../screens/MonthScreen';
 import BudgetsListScreen from '../screens/BudgetsListScreen';
@@ -65,8 +64,7 @@ const AppContainer = createAppContainer(
     {
       Initializing: InitializingScreen,
       App: HomeStack,
-      Signup: SignUpScreen,
-      Login: LoginScreen,
+      Auth: AuthenticationScreen,
     },
     {
       initialRouteName: 'Initializing',
