@@ -35,7 +35,7 @@ class SettingsScreen extends Component {
   handleLogout = async () => {
     try {
       await auth().signOut();
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Auth');
     } catch (err) {
       console.log(err.message);
     }

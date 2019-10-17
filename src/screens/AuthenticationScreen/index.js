@@ -72,7 +72,9 @@ class AuthenticationScreen extends Component {
                 label="Email"
                 value={this.state.email}
                 iconColor={COLORS.grayDark}
+                autoCapitalize="none"
                 autoCompleteType="email"
+                autoCap
                 keyboardType="email-address"
                 textContentType="emailAddress"
                 onChange={ev => this.setState({ email: ev.nativeEvent.text })}
@@ -82,6 +84,7 @@ class AuthenticationScreen extends Component {
                 label="Password"
                 value={this.state.password}
                 iconColor={COLORS.grayDark}
+                autoCapitalize="none"
                 autoCompleteType="password"
                 textContentType={
                   this.state.isRegisteringAsNew ? 'newPassword' : 'password'

@@ -44,7 +44,7 @@ class IconTextInput extends Component {
     if (this.props.value !== prevProps.value) {
       const isFocused = this.inputRef().isFocused();
       if (!isFocused) {
-        const isActive = Boolean(newValue);
+        const isActive = Boolean(this.props.value);
         if (isActive !== this.isActive) {
           this._toggle(isActive);
         }
