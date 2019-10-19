@@ -3,12 +3,33 @@
 // object shapes used within the application
 // **************************************************** //
 
-// Default Category Item
-const DEFAULT_CATEGORY_ITEM = {
-  iconName: 'cart',
+const ICON = {
   iconLibrary: 'MaterialCommunityIcon',
-  categoryName: 'Shopping',
+  iconName: 'cart',
 };
+
+const EXPENSE = {
+  expenseId: '',
+  categoryId: '', // ties it to a category
+  expenseTitle: 'Chipotle',
+  amount: 896,
+  expenseDate: '2019-08-06',
+};
+
+const CATEGORY = {
+  categoryId: 'categoryname-iconname-iconlibrary',
+  categoryName: 'Shopping',
+  iconLibrary: 'MaterialCommunityIcon',
+  iconName: 'cart',
+};
+
+const BUDGET = {
+  budgetId: '',
+  categoryId: 'categoryname-iconname-iconlibrary', // ties it to a category
+  amountBudgeted: 780,
+};
+
+// --------- FOOO --- //
 
 // Category Breakdown
 const CATEGORY_BREAKDOWN = {
@@ -40,12 +61,4 @@ const BUDGET = {
   budgetId: '', // date?
   categoryId: 'categoryname-iconname-iconlibrary', // ties it to a category
   amountBudgeted: 200,
-};
-
-const EXPENSE = {
-  expenseId: '',
-  categoryId: '', // ties it to a category
-  expneseTitle: 'Chipotle',
-  amount: 896,
-  expenseDate: '2019-08-06',
 };

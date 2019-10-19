@@ -30,14 +30,14 @@ const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
 
 const ICON_ARRAY = [
   ...icons_feather,
-  ...icons_ionicons,
-  ...icons_materialCommunityList,
+  // ...icons_ionicons,
+  //...icons_materialCommunityList,
 ];
 
 class IconSelectionSection extends Component {
   // Render the list of icons
   _renderIconListItems = ({ item }) => {
-    const isSelected = item.icon === this.props.selectedName;
+    const isSelected = item.iconName === this.props.selectedName;
     const selectedStyles = isSelected
       ? { backgroundColor: COLORS.blueMain }
       : {};
@@ -48,10 +48,10 @@ class IconSelectionSection extends Component {
         onPress={() => this.props.onIconSelect(item)}
         style={[styles.iconItemStyles, selectedStyles]}>
         {getIcon({
-          name: item.icon,
+          name: item.iconName,
           size: 36,
           color: !isSelected ? COLORS.black : COLORS.white,
-          library: item.library,
+          library: item.iconLibrary,
         })}
       </TouchableHighlight>
     );
@@ -68,7 +68,7 @@ class IconSelectionSection extends Component {
           numColumns={NumberOfColumns}
           extraData={this.props.selectedName}
           keyExtractor={item => {
-            return `${item.library}-${item.icon}`;
+            return `${item.iconLibrary}-${item.iconName}`;
           }}
         />
       </Fragment>
