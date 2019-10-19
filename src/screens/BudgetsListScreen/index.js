@@ -25,7 +25,7 @@ import {
   overlayCardStyles,
   overlayCardTitleStyles,
   simpleMessageStyles,
-  cardScrollViewStyles,
+  cardScrollViewSwipeableStyles,
 } from '../../styles/cardStyles';
 import {
   topContentSectionStyles,
@@ -173,7 +173,7 @@ class BudgetsListScreen extends Component {
             <Text style={[overlayCardTitleStyles, styles.sidePadding]}>
               Current Budgets:
             </Text>
-            <ScrollView style={styles.scrollViewCategories}>
+            <ScrollView style={cardScrollViewSwipeableStyles}>
               {this._renderBudgetList()}
             </ScrollView>
             <View style={styles.sidePadding}>
@@ -198,11 +198,6 @@ export default BudgetsListScreen;
 const styles = StyleSheet.create({
   sidePadding: {
     paddingHorizontal: 15,
-  },
-  scrollViewCategories: {
-    ...cardScrollViewStyles,
-    paddingRight: 0,
-    paddingLeft: 2,
   },
   budgetTextView: {
     overflow: 'hidden',

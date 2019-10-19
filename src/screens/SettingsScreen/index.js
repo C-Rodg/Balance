@@ -41,6 +41,11 @@ class SettingsScreen extends Component {
     }
   };
 
+  // Reset the category list
+  resetCategoryList = () => {
+    // TODO:
+  };
+
   render() {
     return (
       <Fragment>
@@ -49,6 +54,7 @@ class SettingsScreen extends Component {
           <View style={styles.container}>
             <Text>Settings and things...</Text>
             <Button title="Logout" onPress={this.handleLogout} />
+            <Button title="Reset Categories" onPress={this.resetCategoryList} />
           </View>
         </SafeAreaView>
       </Fragment>

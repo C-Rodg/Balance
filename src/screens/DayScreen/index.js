@@ -24,7 +24,7 @@ import {
   overlayCardStyles,
   overlayCardTitleStyles,
   simpleMessageStyles,
-  cardScrollViewStyles,
+  cardScrollViewSwipeableStyles,
 } from '../../styles/cardStyles';
 import { offWhiteWrapperStyles } from '../../styles/layout';
 
@@ -120,7 +120,7 @@ class DayScreen extends Component {
     }
 
     return (
-      <ScrollView style={styles.scrollViewExpenses}>
+      <ScrollView style={cardScrollViewSwipeableStyles}>
         {todaysExpenses.map(item => (
           <ExpenseListItem
             key={item.expenseId}
@@ -249,11 +249,6 @@ const styles = StyleSheet.create({
   noFoundExpenses: {
     ...simpleMessageStyles,
     paddingHorizontal: 15,
-  },
-  scrollViewExpenses: {
-    ...cardScrollViewStyles,
-    paddingRight: 0,
-    paddingLeft: 2,
   },
   expensesTotal: {
     ...getFontFamilyStyles('monoMedium'),

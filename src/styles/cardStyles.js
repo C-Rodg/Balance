@@ -48,6 +48,13 @@ export const cardScrollViewStyles = {
   paddingHorizontal: 15,
 };
 
+// Scrollview with swipeables
+export const cardScrollViewSwipeableStyles = {
+  ...cardScrollViewStyles,
+  paddingRight: 0,
+  paddingLeft: 2,
+};
+
 // Text input styling
 export const textInputStyles = {
   marginTop: 10,

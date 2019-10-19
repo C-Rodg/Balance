@@ -13,7 +13,7 @@ export const standardCategoryList = [
     iconLibrary: 'MaterialCommunityIcons',
   },
   {
-    categoryName: 'Auto Insurancce',
+    categoryName: 'Auto Insurance',
     categoryId: 'autoinsurance-car-materialcommunityicons',
     iconName: 'car',
     iconLibrary: 'MaterialCommunityIcons',

@@ -13,6 +13,7 @@ import {
 // Components
 import BlockButton from '../Shared/BlockButton';
 import IconTextInput from '../Shared/IconTextInput';
+import SwipeableRow from '../Shared/SwipeableRow';
 
 // Config
 import { standardCategoryList } from '../../config/standardCategoryList';
@@ -26,7 +27,7 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
   overlayCardTitleWithPaddingStyles,
-  cardScrollViewStyles,
+  cardScrollViewSwipeableStyles,
   textInputStyles,
 } from '../../styles/cardStyles';
 import { offWhiteWrapperStyles } from '../../styles/layout';
@@ -51,9 +52,19 @@ class CategoryListScreen extends Component {
   });
 
   // Select a category from the list
-  selectCategory = categoryObject => {
+  selectCategory = categoryId => {
     // TODO: SET CATEGORY
-    console.log(categoryObject);
+    console.log(categoryId);
+  };
+
+  onCategoryEdit = categoryId => {
+    // TODO: EDIT CATEGORY
+    console.log(categoryId);
+  };
+
+  onCategoryDelete = categoryId => {
+    // TODO: DELETE CATEGORY
+    console.log(categoryId);
   };
 
   // Render the category list
@@ -67,22 +78,27 @@ class CategoryListScreen extends Component {
       })
       .map(categoryObject => {
         return (
-          <TouchableHighlight
+          <SwipeableRow
+            rowId={categoryObject.categoryId}
             key={categoryObject.categoryId}
-            underlayColor={COLORS.gray}
-            onPress={() => this.selectCategory(categoryObject.categoryId)}>
-            <View style={styles.categoryItemRow}>
-              {getIcon({
-                name: categoryObject.iconName,
-                library: categoryObject.iconLibrary,
-                size: 24,
-                color: COLORS.black,
-              })}
-              <Text style={styles.categoryItemText}>
-                {categoryObject.categoryName}
-              </Text>
-            </View>
-          </TouchableHighlight>
+            onEdit={this.onCategoryEdit}
+            onDelete={this.onCategoryDelete}>
+            <TouchableHighlight
+              underlayColor={COLORS.gray}
+              onPress={() => this.selectCategory(categoryObject.categoryId)}>
+              <View style={styles.categoryItemRow}>
+                {getIcon({
+                  name: categoryObject.iconName,
+                  library: categoryObject.iconLibrary,
+                  size: 24,
+                  color: COLORS.black,
+                })}
+                <Text style={styles.categoryItemText}>
+                  {categoryObject.categoryName}
+                </Text>
+              </View>
+            </TouchableHighlight>
+          </SwipeableRow>
         );
       });
   };
@@ -108,7 +124,7 @@ class CategoryListScreen extends Component {
                 }
               />
             </View>
-            <ScrollView style={cardScrollViewStyles}>
+            <ScrollView style={cardScrollViewSwipeableStyles}>
               {this._renderCategories()}
             </ScrollView>
             <View style={styles.horizontalPadding}>
@@ -138,7 +154,6 @@ const styles = StyleSheet.create({
   categoryItemRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 7,
   },
   categoryItemText: {
     ...getFontFamilyStyles('medium'),
