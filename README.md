@@ -47,6 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
+- set category list to be swipeable
 - pass data through navigating to show 'edit' routes
 - figure out how to structure state for categories, expenses, and budgets
 
