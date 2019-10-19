@@ -47,12 +47,13 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style new/edit budgets screen
+- find place for budget amount
+- check android styling
+- pass data through navigating to show 'edit' routes
 - figure out how to structure state for categories, expenses, and budgets
 
 ---
 
-- check android styling
 - hook up save (memory), edit, and delete today's expenses - firestore
 - style and figure out settings screen
 - async storage?
