@@ -23,7 +23,7 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import { overlayCardStyles } from '../../styles/cardStyles';
 import {
   topContentSectionStyles,
-  topContentSectionTitleStyles,
+  topContentSectionTitleLinkStyles,
   topContentSectionSubTitleStyles,
   blueWrapperStyles,
 } from '../../styles/layout';
@@ -167,10 +167,9 @@ class AddExpenseScreen extends Component {
               color: COLORS.white,
               size: 72,
             })}
-            <TouchableOpacity style={styles.switchCategoryButtonText}>
-              <Text
-                style={styles.switchCategoryButtonText}
-                onPress={() => this.props.navigation.navigate('CategoryList')}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('CategoryList')}>
+              <Text style={topContentSectionTitleLinkStyles}>
                 -select a category-
               </Text>
             </TouchableOpacity>
@@ -204,11 +203,6 @@ class AddExpenseScreen extends Component {
 export default AddExpenseScreen;
 
 const styles = StyleSheet.create({
-  switchCategoryButtonText: {
-    color: COLORS.white,
-    textDecorationLine: 'underline',
-    ...topContentSectionTitleStyles,
-  },
   overwriteCardStyles: {
     paddingTop: 3,
     paddingHorizontal: 15,

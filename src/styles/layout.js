@@ -27,6 +27,12 @@ export const topContentSectionTitleStyles = {
   fontSize: FONTS.sizes.h3,
 };
 
+// Top section - clickable title
+export const topContentSectionTitleLinkStyles = {
+  ...topContentSectionTitleStyles,
+  textDecorationLine: 'underline',
+};
+
 // Top section - subtitle
 export const topContentSectionSubTitleStyles = {
   color: COLORS.white,

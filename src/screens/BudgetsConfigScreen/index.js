@@ -20,11 +20,15 @@ import { getIcon } from '../../utils/iconNormalizer';
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
-  overlayCardWithTopMarginStyles,
+  overlayCardStyles,
   overlayCardTitleWithPaddingStyles,
   textInputStyles,
 } from '../../styles/cardStyles';
-import { offWhiteWrapperStyles } from '../../styles/layout';
+import {
+  blueWrapperStyles,
+  topContentSectionStyles,
+  topContentSectionTitleLinkStyles,
+} from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
 class BudgetsConfigScreen extends Component {
@@ -65,8 +69,16 @@ class BudgetsConfigScreen extends Component {
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
-        <View style={offWhiteWrapperStyles}>
-          <View style={overlayCardWithTopMarginStyles}>
+        <View style={blueWrapperStyles}>
+          <View style={topContentSectionStyles}>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('BudgetsAmount')}>
+              <Text style={topContentSectionTitleLinkStyles}>
+                -set an amount-
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={overlayCardStyles}>
             <Text style={overlayCardTitleWithPaddingStyles}>
               Enter a Budget Name:
             </Text>

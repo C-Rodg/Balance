@@ -61,7 +61,6 @@ _:app:installDebug failed_
 
 - DAY SCREEN: add day touch slider to day screen
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
-- NEW CATEGORY: search or narrow down icons
 - ENTIRE APP: currently hardcoded to USD/en-US
 
 ## Notes
