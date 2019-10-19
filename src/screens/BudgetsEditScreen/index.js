@@ -17,6 +17,8 @@ import IconTextInput from '../Shared/IconTextInput';
 
 // Config
 import { icons_materialCommunityList } from '../../config/icons_materialCommunityList';
+import { icons_feather } from '../../config/icons_feather';
+import { icons_ionicons } from '../../config/icons_ionicons';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -26,31 +28,40 @@ import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
-  overlayCardTitleStyles,
+  overlayCardTitleWithPaddingStyles,
   cardScrollViewStyles,
+  textInputStyles,
 } from '../../styles/cardStyles';
+import { offWhiteWrapperStyles } from '../../styles/layout';
+import { horizontalSpacingStyles } from '../../styles/spacing';
 
 // Calculate the number of columns to render
 const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
+
+const ICON_ARRAY = [
+  ...icons_feather,
+  ...icons_ionicons,
+  ...icons_materialCommunityList,
+];
 
 // TODO: THIS IS ALL JUST PLACEHOLDER CONTENT
 // probably need to select a already created category first
 class BudgetsEditScreen extends Component {
   state = {
     newCategoryName: '',
-    newCategoryIcon: '',
+    newCategoryIconName: '',
+    newCategoryIconLibrary: '',
   };
 
   static navigationOptions = ({ navigation }) => ({
-    // TODO: change name based off edit or new
-    title: 'New Budget',
+    title: 'New Budget', // TODO: CHANGE TO EDIT OR NEW
     headerLeftContainerStyle: {
       paddingLeft: 5,
     },
     headerLeft: getIcon({
       name: 'arrow-left',
-      size: 32,
       color: COLORS.black,
+      size: 32,
       onPress: () => navigation.goBack(null),
     }),
     headerRight: (
@@ -61,18 +72,21 @@ class BudgetsEditScreen extends Component {
   });
 
   // Select an icon
-  selectIcon = newCategoryIcon => {
+  selectIcon = ({ icon, library }) => {
     this.setState({
-      newCategoryIcon,
+      newCategoryIconName: icon,
+      newCategoryIconLibrary: library,
     });
   };
 
   // Render the list of icons
   _renderIconListItems = ({ item }) => {
-    const isSelected = item === this.state.newCategoryIcon;
+    const iconKey = `${item.library}-${item.icon}`;
+    const isSelected =
+      iconKey ===
+      `${this.state.newCategoryIconLibrary}-${this.state.newCategoryIconName}`;
     return (
       <TouchableHighlight
-        id={item}
         underlayColor={!isSelected ? COLORS.gray : COLORS.blueBackground}
         onPress={() => this.selectIcon(item)}
         style={{
@@ -86,9 +100,10 @@ class BudgetsEditScreen extends Component {
           backgroundColor: !isSelected ? '#fff' : COLORS.blueMain,
         }}>
         {getIcon({
-          name: item,
+          name: item.icon,
           size: 36,
           color: !isSelected ? COLORS.black : COLORS.white,
+          library: item.library,
         })}
       </TouchableHighlight>
     );
@@ -99,28 +114,33 @@ class BudgetsEditScreen extends Component {
       <Fragment>
         <StatusBar barStyle="light-content" />
         <SafeAreaView />
-        <View style={styles.container}>
+        <View style={offWhiteWrapperStyles}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={styles.titleStyles}>Enter a Name:</Text>
-            <View style={styles.horizontalPadding}>
+            <Text style={overlayCardTitleWithPaddingStyles}>Enter a Name:</Text>
+            <View style={horizontalSpacingStyles}>
               <IconTextInput
                 value={this.state.newCategoryName}
                 label="Category Name"
                 iconName="pencil"
-                style={styles.textInput}
+                style={textInputStyles}
                 onChange={ev =>
                   this.setState({ newCategoryName: ev.nativeEvent.text })
                 }
               />
             </View>
 
-            <Text style={styles.titleStyles}>Choose an Icon:</Text>
+            <Text style={overlayCardTitleWithPaddingStyles}>
+              Choose an Icon:
+            </Text>
             <FlatList
               style={cardScrollViewStyles}
-              data={icons_materialCommunityList}
+              data={ICON_ARRAY}
               renderItem={this._renderIconListItems}
               numColumns={NumberOfColumns}
-              keyExtractor={item => item}
+              extraData={this.state.newCategoryIconName}
+              keyExtractor={item => {
+                return `${item.library}-${item.icon}`;
+              }}
             />
             <SafeAreaView />
           </View>
@@ -142,16 +162,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.offWhite,
-  },
-  textInput: {
-    marginTop: 10,
-    marginBottom: 35,
-  },
-  titleStyles: {
-    ...overlayCardTitleStyles,
-    paddingHorizontal: 15,
-  },
-  horizontalPadding: {
-    paddingHorizontal: 15,
   },
 });

@@ -47,7 +47,8 @@ const ICON_ARRAY = [
 class CategoryNewScreen extends Component {
   state = {
     newCategoryName: '',
-    newCategoryIcon: '',
+    newCategoryIconName: '',
+    newCategoryIconLibrary: '',
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -69,20 +70,23 @@ class CategoryNewScreen extends Component {
   });
 
   // Select an icon
-  selectIcon = newCategoryIcon => {
+  selectIcon = ({ icon, library }) => {
     this.setState({
-      newCategoryIcon,
+      newCategoryIconName: icon,
+      newCategoryIconLibrary: library,
     });
   };
 
   // Render the list of icons
   _renderIconListItems = ({ item }) => {
-    const isSelected = item.icon === this.state.newCategoryIcon;
+    const iconKey = `${item.library}-${item.icon}`;
+    const isSelected =
+      iconKey ===
+      `${this.state.newCategoryIconLibrary}-${this.state.newCategoryIconName}`;
     return (
       <TouchableHighlight
-        id={item.icon}
         underlayColor={!isSelected ? COLORS.gray : COLORS.blueBackground}
-        onPress={() => this.selectIcon(item.icon)}
+        onPress={() => this.selectIcon(item)}
         style={{
           flex: 1,
           flexDirection: 'column',
@@ -131,7 +135,10 @@ class CategoryNewScreen extends Component {
               data={ICON_ARRAY}
               renderItem={this._renderIconListItems}
               numColumns={NumberOfColumns}
-              keyExtractor={item => `${item.icon}-${item.library}`}
+              extraData={this.state.newCategoryIconName}
+              keyExtractor={item => {
+                return `${item.library}-${item.icon}`;
+              }}
             />
             <SafeAreaView />
           </View>
