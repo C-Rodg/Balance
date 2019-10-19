@@ -9,9 +9,7 @@ import {
 } from 'react-native';
 
 // Config
-import { icons_materialCommunityList } from '../../config/icons_materialCommunityList';
-import { icons_feather } from '../../config/icons_feather';
-import { icons_ionicons } from '../../config/icons_ionicons';
+import ICON_LIST from '../../config/iconList';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -27,12 +25,6 @@ import COLORS from '../../styles/colors';
 
 // Calculate the number of columns to render
 const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
-
-const ICON_ARRAY = [
-  ...icons_feather,
-  // ...icons_ionicons,
-  //...icons_materialCommunityList,
-];
 
 class IconSelectionSection extends Component {
   // Render the list of icons
@@ -63,7 +55,7 @@ class IconSelectionSection extends Component {
         <Text style={overlayCardTitleWithPaddingStyles}>Choose an Icon:</Text>
         <FlatList
           style={cardScrollViewStyles}
-          data={ICON_ARRAY}
+          data={ICON_LIST}
           renderItem={this._renderIconListItems}
           numColumns={NumberOfColumns}
           extraData={this.props.selectedName}
