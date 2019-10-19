@@ -3,22 +3,15 @@ import React, { Fragment, Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  FlatList,
   View,
   Text,
   StatusBar,
   TouchableOpacity,
-  TouchableHighlight,
-  Dimensions,
 } from 'react-native';
 
 // Components
 import IconTextInput from '../Shared/IconTextInput';
-
-// Config
-import { icons_materialCommunityList } from '../../config/icons_materialCommunityList';
-import { icons_feather } from '../../config/icons_feather';
-import { icons_ionicons } from '../../config/icons_ionicons';
+import IconSelectionSection from '../Shared/IconSelectionSection';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -29,28 +22,16 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardWithTopMarginStyles,
   overlayCardTitleWithPaddingStyles,
-  cardScrollViewStyles,
   textInputStyles,
 } from '../../styles/cardStyles';
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
-// Calculate the number of columns to render
-const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
-
-const ICON_ARRAY = [
-  ...icons_feather,
-  ...icons_ionicons,
-  ...icons_materialCommunityList,
-];
-
-// TODO: THIS IS ALL JUST PLACEHOLDER CONTENT
-// probably need to select a already created category first
 class BudgetsEditScreen extends Component {
   state = {
-    newCategoryName: '',
-    newCategoryIconName: '',
-    newCategoryIconLibrary: '',
+    newBudgetName: '',
+    newBudgetIconName: '',
+    newBudgetIconLibrary: '',
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -74,39 +55,9 @@ class BudgetsEditScreen extends Component {
   // Select an icon
   selectIcon = ({ icon, library }) => {
     this.setState({
-      newCategoryIconName: icon,
-      newCategoryIconLibrary: library,
+      newBudgetIconName: icon,
+      newBudgetIconLibrary: library,
     });
-  };
-
-  // Render the list of icons
-  _renderIconListItems = ({ item }) => {
-    const iconKey = `${item.library}-${item.icon}`;
-    const isSelected =
-      iconKey ===
-      `${this.state.newCategoryIconLibrary}-${this.state.newCategoryIconName}`;
-    return (
-      <TouchableHighlight
-        underlayColor={!isSelected ? COLORS.gray : COLORS.blueBackground}
-        onPress={() => this.selectIcon(item)}
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          margin: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingVertical: 5,
-          borderRadius: 4,
-          backgroundColor: !isSelected ? '#fff' : COLORS.blueMain,
-        }}>
-        {getIcon({
-          name: item.icon,
-          size: 36,
-          color: !isSelected ? COLORS.black : COLORS.white,
-          library: item.library,
-        })}
-      </TouchableHighlight>
-    );
   };
 
   render() {
@@ -116,31 +67,24 @@ class BudgetsEditScreen extends Component {
         <SafeAreaView />
         <View style={offWhiteWrapperStyles}>
           <View style={overlayCardWithTopMarginStyles}>
-            <Text style={overlayCardTitleWithPaddingStyles}>Enter a Name:</Text>
+            <Text style={overlayCardTitleWithPaddingStyles}>
+              Enter a Budget Name:
+            </Text>
             <View style={horizontalSpacingStyles}>
               <IconTextInput
-                value={this.state.newCategoryName}
-                label="Category Name"
+                value={this.state.newBudgetName}
+                label="Budget Name"
                 iconName="pencil"
                 style={textInputStyles}
                 onChange={ev =>
-                  this.setState({ newCategoryName: ev.nativeEvent.text })
+                  this.setState({ newBudgetName: ev.nativeEvent.text })
                 }
               />
             </View>
 
-            <Text style={overlayCardTitleWithPaddingStyles}>
-              Choose an Icon:
-            </Text>
-            <FlatList
-              style={cardScrollViewStyles}
-              data={ICON_ARRAY}
-              renderItem={this._renderIconListItems}
-              numColumns={NumberOfColumns}
-              extraData={this.state.newCategoryIconName}
-              keyExtractor={item => {
-                return `${item.library}-${item.icon}`;
-              }}
+            <IconSelectionSection
+              selectedName={this.state.newBudgetIconName}
+              onIconSelect={this.selectIcon}
             />
             <SafeAreaView />
           </View>
