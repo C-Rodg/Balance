@@ -6,14 +6,15 @@ import FONTS, { getFontFamilyStyles } from './fonts';
 export const overlayCardStyles = {
   flex: 1,
   backgroundColor: COLORS.white,
-  borderRadius: 20,
+  borderTopRightRadius: 20,
+  borderTopLeftRadius: 20,
   paddingHorizontal: 0,
   paddingVertical: 20,
   shadowColor: '#000',
   shadowOffset: { width: 0, height: -2 },
   shadowOpacity: 0.3,
   shadowRadius: 4,
-  elevation: 1,
+  elevation: 10,
 };
 
 // Card with consistent top spacing

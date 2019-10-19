@@ -48,7 +48,6 @@ _:app:installDebug failed_
 ## TODO:
 
 - find place for budget amount
-- check android styling
 - pass data through navigating to show 'edit' routes
 - figure out how to structure state for categories, expenses, and budgets
 
@@ -63,6 +62,7 @@ _:app:installDebug failed_
 - DAY SCREEN: add day touch slider to day screen
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - NEW CATEGORY: search or narrow down icons
+- ENTIRE APP: currently hardcoded to USD/en-US
 
 ## Notes
 

@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    paddingVertical: 15,
   },
   inputWrapperSection: {
     flex: 4,

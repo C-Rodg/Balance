@@ -136,7 +136,7 @@ class DayScreen extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
         <SafeAreaView />
         <View style={offWhiteWrapperStyles}>
           <View style={styles.dateSection}>
@@ -200,7 +200,7 @@ export default DayScreen;
 const styles = StyleSheet.create({
   dateSection: {
     flex: 1,
-    paddingTop: 40,
+    paddingTop: 30,
     paddingBottom: 20,
     paddingHorizontal: 15,
   },
@@ -210,6 +210,7 @@ const styles = StyleSheet.create({
     color: COLORS.grayDark,
     textAlign: 'center',
     letterSpacing: 1,
+    lineHeight: FONTS.sizes.h6,
   },
   monthSection: {
     marginTop: 5,
@@ -230,15 +231,17 @@ const styles = StyleSheet.create({
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.b4,
     textAlign: 'center',
+    lineHeight: FONTS.sizes.b4 + 10,
   },
   addExpenseButton: {
     flex: 1,
-    flexShrink: 1,
+    flexShrink: 0,
   },
   addExpenseButtonImage: {
     flex: 1,
     height: undefined,
     width: undefined,
+    minHeight: 120,
   },
   cardPadSides: {
     paddingHorizontal: 15,
