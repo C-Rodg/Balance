@@ -27,7 +27,7 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
-class BudgetsEditScreen extends Component {
+class BudgetsConfigScreen extends Component {
   state = {
     newBudgetName: '',
     newBudgetIconName: '',
@@ -94,7 +94,7 @@ class BudgetsEditScreen extends Component {
   }
 }
 
-export default BudgetsEditScreen;
+export default BudgetsConfigScreen;
 
 const styles = StyleSheet.create({
   navigationSaveText: {

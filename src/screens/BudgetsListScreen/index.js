@@ -52,7 +52,7 @@ class BudgetsListScreen extends Component {
   onBudgetEdit = budgetId => {
     // TODO: go to edit budget
     console.log('EDITING BUDGET-' + budgetId);
-    this.props.navigation.navigate('BudgetsEdit');
+    this.props.navigation.navigate('BudgetsConfig');
   };
 
   // Delete the selected budget
@@ -180,7 +180,7 @@ class BudgetsListScreen extends Component {
               <BlockButton
                 title="Create a new budget"
                 onButtonPress={() =>
-                  this.props.navigation.navigate('BudgetsEdit')
+                  this.props.navigation.navigate('BudgetsConfig')
                 }
               />
             </View>

@@ -15,9 +15,9 @@ import MonthScreen from '../screens/MonthScreen';
 import BudgetsListScreen from '../screens/BudgetsListScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import AddExpenseScreen from '../screens/AddExpenseScreen';
-import CategorySelectScreen from '../screens/CategorySelectScreen';
-import CategoryNewScreen from '../screens/CategoryNewScreen';
-import BudgetsEditScreen from '../screens/BudgetsEditScreen';
+import CategoryListScreen from '../screens/CategoryListScreen';
+import CategoryConfigScreen from '../screens/CategoryConfigScreen';
+import BudgetsConfigScreen from '../screens/BudgetsConfigScreen';
 
 import FONTS from '../styles/fonts';
 import COLORS from '../styles/colors';
@@ -43,13 +43,13 @@ const defaultNavigationOptions = {
 const HomeStack = createStackNavigator(
   {
     Day: DayScreen,
-    Expense: AddExpenseScreen,
     Month: MonthScreen,
+    Expense: AddExpenseScreen,
+    CategoryList: CategoryListScreen,
+    CategoryConfig: CategoryConfigScreen,
     BudgetsList: BudgetsListScreen,
-    BudgetsEdit: BudgetsEditScreen,
+    BudgetsConfig: BudgetsConfigScreen,
     Settings: SettingsScreen,
-    CategorySelect: CategorySelectScreen,
-    CategoryNew: CategoryNewScreen,
   },
   {
     initialRouteName: 'Day',

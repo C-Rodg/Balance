@@ -170,9 +170,7 @@ class AddExpenseScreen extends Component {
             <TouchableOpacity style={styles.switchCategoryButtonText}>
               <Text
                 style={styles.switchCategoryButtonText}
-                onPress={() =>
-                  this.props.navigation.navigate('CategorySelect')
-                }>
+                onPress={() => this.props.navigation.navigate('CategoryList')}>
                 -select a category-
               </Text>
             </TouchableOpacity>

@@ -32,7 +32,7 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
-class CategorySelectScreen extends Component {
+class CategoryListScreen extends Component {
   state = {
     searchTerm: '',
   };
@@ -115,7 +115,7 @@ class CategorySelectScreen extends Component {
               <BlockButton
                 title="Create a new category"
                 onButtonPress={() =>
-                  this.props.navigation.navigate('CategoryNew')
+                  this.props.navigation.navigate('CategoryConfig')
                 }
               />
             </View>
@@ -128,7 +128,7 @@ class CategorySelectScreen extends Component {
   }
 }
 
-export default CategorySelectScreen;
+export default CategoryListScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -27,7 +27,7 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
-class CategoryNewScreen extends Component {
+class CategoryConfigScreen extends Component {
   state = {
     newCategoryName: '',
     newCategoryIconName: '',
@@ -94,7 +94,7 @@ class CategoryNewScreen extends Component {
   }
 }
 
-export default CategoryNewScreen;
+export default CategoryConfigScreen;
 
 const styles = StyleSheet.create({
   navigationSaveText: {
