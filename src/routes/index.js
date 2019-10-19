@@ -15,11 +15,12 @@ import AuthenticationScreen from '../screens/AuthenticationScreen';
 import DayScreen from '../screens/DayScreen';
 import MonthScreen from '../screens/MonthScreen';
 import BudgetsListScreen from '../screens/BudgetsListScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import BudgetsConfigScreen from '../screens/BudgetsConfigScreen';
+import BudgetsAmountScreen from '../screens/BudgetsAmountScreen';
 import AddExpenseScreen from '../screens/AddExpenseScreen';
 import CategoryListScreen from '../screens/CategoryListScreen';
 import CategoryConfigScreen from '../screens/CategoryConfigScreen';
-import BudgetsConfigScreen from '../screens/BudgetsConfigScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 import FONTS from '../styles/fonts';
 import COLORS from '../styles/colors';
@@ -51,6 +52,7 @@ const HomeStack = createStackNavigator(
     CategoryConfig: CategoryConfigScreen,
     BudgetsList: BudgetsListScreen,
     BudgetsConfig: BudgetsConfigScreen,
+    BudgetsAmount: BudgetsAmountScreen,
     Settings: SettingsScreen,
   },
   {
