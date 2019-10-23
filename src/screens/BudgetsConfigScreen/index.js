@@ -57,10 +57,10 @@ class BudgetsConfigScreen extends Component {
   });
 
   // Select an icon
-  selectIcon = ({ icon, library }) => {
+  selectIcon = ({ iconName, iconLibrary }) => {
     this.setState({
-      newBudgetIconName: icon,
-      newBudgetIconLibrary: library,
+      newBudgetIconName: iconName,
+      newBudgetIconLibrary: iconLibrary,
     });
   };
 

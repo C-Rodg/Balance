@@ -53,10 +53,10 @@ class CategoryConfigScreen extends Component {
   });
 
   // Select an icon
-  selectIcon = ({ icon, library }) => {
+  selectIcon = ({ iconName, iconLibrary }) => {
     this.setState({
-      newCategoryIconName: icon,
-      newCategoryIconLibrary: library,
+      newCategoryIconName: iconName,
+      newCategoryIconLibrary: iconLibrary,
     });
   };
 

@@ -52,7 +52,7 @@ _:app:installDebug failed_
 
 ---
 
-- hook up save (memory), edit, and delete today's expenses - firestore
+- hook up save (memory), edit, and delete today's expenses - firestore. Remove redux and use context?
 - style and figure out settings screen
 - async storage?
 
