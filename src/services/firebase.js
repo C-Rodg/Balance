@@ -1,6 +1,6 @@
 // Libraries
 import authModule from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import firestoreModule from '@react-native-firebase/firestore';
 
 // ----------------- AUTHENTICATION ------------------------------ //
 // Auth module
@@ -23,22 +23,18 @@ export const sendPasswordResetEmail = email =>
 
 // ----------------- DATABASE ------------------------------ //
 
-//const firestore = firestoreModule();
+export const firestore = firestoreModule();
 
 // Create the user profile in the database and get it
 export const createUserProfileDocument = async (user, additionalData = {}) => {
   if (!user) return;
 
   // Get a reference to the correct place in database
-  //const userRef = await firestore.collection('users').doc(`${user.uid}`);
-  const userRef = firestore().doc(`users/${user.uid}`);
-  console.log('USER REF:', userRef);
+  const userRef = firestore.doc(`users/${user.uid}`);
 
   // Go fetch the document from that location
-  const snapshot = await userRef.get(); // PROBLEM HERE TODO:
+  const snapshot = await userRef.get();
 
-  console.log('AFTER SNAPSHOTTTT');
-  console.log(snapshot);
   if (!snapshot.exists) {
     const { email } = user; // may want to pull off photoURL, displayName at some point
     const createdAt = new Date();
@@ -61,7 +57,7 @@ export const getUserDocument = async uid => {
   if (!uid) return null;
 
   try {
-    const userDocument = await firestore()
+    const userDocument = await firestore
       .collection('users')
       .doc(uid)
       .get();
@@ -74,5 +70,3 @@ export const getUserDocument = async uid => {
     console.log(err);
   }
 };
-
-//export { firestore };

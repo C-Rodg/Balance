@@ -1,35 +1,26 @@
 // Libraries
-import React, { Fragment, Component } from 'react';
-import { SafeAreaView, StatusBar, Text } from 'react-native';
-// import auth from '@react-native-firebase/auth';
+import React, { Fragment, useEffect } from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
-class InitializingScreen extends Component {
-  _firebaseListener = null;
+// Services
+import { auth } from '../../services/firebase';
 
-  componentDidMount() {
-    // Determine if user is logged in or not
-    // this._firebaseListener = auth().onAuthStateChanged(user => {
-    //   console.log(user);
-    //   this.props.navigation.navigate(user ? 'App' : 'Auth');
-    // });
-  }
+function InitializingScreen({ navigation }) {
+  useEffect(() => {
+    const firebaseListener = auth.onAuthStateChanged(authUser => {
+      navigation.navigate(authUser ? 'App' : 'Auth');
+    });
+    return () => {
+      firebaseListener();
+    };
+  }, []);
 
-  componentWillUnmount() {
-    // unsubscribe on unmount
-    // this._firebaseListener && this._firebaseListener();
-  }
-
-  render() {
-    // Just display a blank screen while determining whether logged in or out
-    return (
-      <Fragment>
-        <StatusBar barStyle="light-content" />
-        <SafeAreaView>
-          <Text>Fooooooooooooooooo</Text>
-        </SafeAreaView>
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      <StatusBar barStyle="light-content" />
+      <SafeAreaView></SafeAreaView>
+    </Fragment>
+  );
 }
 
 export default InitializingScreen;

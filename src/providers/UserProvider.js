@@ -17,8 +17,8 @@ class UserProvider extends Component {
 
   componentDidMount = async () => {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      console.log('onAuthStateChanged', userAuth);
       const user = await createUserProfileDocument(userAuth);
+      console.log('PROVIDER(USER) is: ', user);
       this.setState({ user });
     });
   };
