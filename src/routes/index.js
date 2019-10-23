@@ -18,6 +18,10 @@ import CategoryListScreen from '../screens/CategoryListScreen';
 import CategoryConfigScreen from '../screens/CategoryConfigScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
+// Providers
+import UserProvider from '../providers/UserProvider';
+
+// Props
 import FONTS from '../styles/fonts';
 import COLORS from '../styles/colors';
 
@@ -73,5 +77,9 @@ const AppContainer = createAppContainer(
 );
 
 export default function Application() {
-  return <AppContainer />;
+  return (
+    <UserProvider>
+      <AppContainer />
+    </UserProvider>
+  );
 }

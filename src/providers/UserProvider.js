@@ -1,6 +1,9 @@
 // Libraries
 import React, { Component, createContext } from 'react';
 
+// Utils
+import { auth, createUserProfileDocument } from '../services/firebase';
+
 // Context
 export const UserContext = createContext({ user: null });
 
@@ -13,11 +16,11 @@ class UserProvider extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount = async () => {
-    this.unsubscribeFromAuth = () => {
-      // TODO: this is a firebase  method. What one?
-      // const user = await createUserProfileDocument();
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      console.log('onAuthStateChanged', userAuth);
+      const user = await createUserProfileDocument(userAuth);
       this.setState({ user });
-    };
+    });
   };
 
   componentWillUnmount = () => {

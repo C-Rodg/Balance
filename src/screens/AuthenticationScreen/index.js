@@ -8,6 +8,14 @@ import HeaderLogo from './HeaderLogo';
 import AuthActionSection from './AuthActionSection';
 import IconTextInput from '../Shared/IconTextInput';
 
+// Utils
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  createUserProfileDocument,
+} from '../../services/firebase';
+
 // Props
 import COLORS from '../../styles/colors';
 
@@ -24,7 +32,7 @@ class AuthenticationScreen extends Component {
     console.log('handle login!');
     const { email, password } = this.state;
     try {
-      await auth().signInWithEmailAndPassword(email, password);
+      await signInWithEmailAndPassword(email, password);
       this.props.navigation.navigate('App');
     } catch (err) {
       console.log(err.message);
@@ -36,7 +44,7 @@ class AuthenticationScreen extends Component {
     // TODO: verify the email
     const { email } = this.state;
     try {
-      await auth().sendPasswordResetEmail(email);
+      await sendPasswordResetEmail(email);
       // show some success
     } catch (err) {
       console.log(err.message);
@@ -52,7 +60,13 @@ class AuthenticationScreen extends Component {
       return false;
     }
     try {
-      await auth().createUserWithEmailAndPassword(email, password);
+      // Signup using the auth module
+      const { user } = await createUserWithEmailAndPassword(email, password);
+
+      // Create the user in the database
+      await createUserProfileDocument(user);
+
+      // Navigate to main application
       this.props.navigation.navigate('App');
     } catch (err) {
       console.log(err.message);
