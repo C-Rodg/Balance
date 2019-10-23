@@ -1,13 +1,9 @@
 // Libraries
 import React from 'react';
-import { Provider } from 'react-redux';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import 'intl';
 import 'intl/locale-data/jsonp/en-US';
-
-// Redux store
-import { store } from '../redux/store/';
 
 // Screens
 import InitializingScreen from '../screens/InitializingScreen';
@@ -77,9 +73,5 @@ const AppContainer = createAppContainer(
 );
 
 export default function Application() {
-  return (
-    <Provider store={store}>
-      <AppContainer />
-    </Provider>
-  );
+  return <AppContainer />;
 }
