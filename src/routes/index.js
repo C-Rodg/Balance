@@ -20,6 +20,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 // Providers
 import UserProvider from '../providers/UserProvider';
+import ExpenseProvider from '../providers/ExpenseProvider';
 
 // Props
 import FONTS from '../styles/fonts';
@@ -79,7 +80,9 @@ const AppContainer = createAppContainer(
 export default function Application() {
   return (
     <UserProvider>
-      <AppContainer />
+      <ExpenseProvider>
+        <AppContainer />
+      </ExpenseProvider>
     </UserProvider>
   );
 }
