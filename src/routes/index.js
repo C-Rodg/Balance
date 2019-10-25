@@ -19,8 +19,7 @@ import CategoryConfigScreen from '../screens/CategoryConfigScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 // Providers
-import UserProvider from '../providers/UserProvider';
-import ExpenseProvider from '../providers/ExpenseProvider';
+import FirebaseProvider from '../providers/FirebaseProvider';
 
 // Props
 import FONTS from '../styles/fonts';
@@ -79,10 +78,8 @@ const AppContainer = createAppContainer(
 
 export default function Application() {
   return (
-    <UserProvider>
-      <ExpenseProvider>
-        <AppContainer />
-      </ExpenseProvider>
-    </UserProvider>
+    <FirebaseProvider>
+      <AppContainer />
+    </FirebaseProvider>
   );
 }

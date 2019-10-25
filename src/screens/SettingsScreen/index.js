@@ -11,14 +11,8 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-// Providers
-import { UserContext } from '../../providers/UserProvider';
-
-// Services
-import {
-  getExpenseCollection,
-  createExpenseItem,
-} from '../../services/firebase';
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -43,8 +37,9 @@ class SettingsScreen extends Component {
   // Logout of the application
   handleLogout = async () => {
     try {
-      await auth().signOut();
-      this.props.navigation.navigate('Auth');
+      const { firebase, navigation } = this.props;
+      await firebase.auth.signOut();
+      navigation.navigate('Auth');
     } catch (err) {
       console.log(err.message);
     }
@@ -58,7 +53,7 @@ class SettingsScreen extends Component {
   testMethod = async uid => {
     console.log(uid);
     //await getExpenseCollection(uid);
-    await createExpenseItem();
+    //await createExpenseItem();
   };
 
   render() {
@@ -68,21 +63,6 @@ class SettingsScreen extends Component {
         <SafeAreaView>
           <View style={styles.container}>
             <Text>Settings and things...</Text>
-            <UserContext.Consumer>
-              {user => {
-                return (
-                  user && (
-                    <View>
-                      <Text>Logged in as: {user.email}</Text>
-                      <Button
-                        title="TESTTTTT THINGS"
-                        onPress={() => this.testMethod(user.uid)}
-                      />
-                    </View>
-                  )
-                );
-              }}
-            </UserContext.Consumer>
             <Button title="Logout" onPress={this.handleLogout} />
             <Button title="Reset Categories" onPress={this.resetCategoryList} />
           </View>
@@ -92,7 +72,7 @@ class SettingsScreen extends Component {
   }
 }
 
-export default SettingsScreen;
+export default withFirebase(SettingsScreen);
 
 const styles = StyleSheet.create({
   container: {

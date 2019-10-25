@@ -1,20 +1,14 @@
 // Libraries
 import React, { Component, Fragment } from 'react';
 import { SafeAreaView, StyleSheet, View, StatusBar } from 'react-native';
-import auth from '@react-native-firebase/auth';
 
 // Components
 import HeaderLogo from './HeaderLogo';
 import AuthActionSection from './AuthActionSection';
 import IconTextInput from '../Shared/IconTextInput';
 
-// Utils
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  createUserProfileDocument,
-} from '../../services/firebase';
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
 
 // Props
 import COLORS from '../../styles/colors';
@@ -32,8 +26,9 @@ class AuthenticationScreen extends Component {
     console.log('handle login!');
     const { email, password } = this.state;
     try {
-      await signInWithEmailAndPassword(email, password);
-      this.props.navigation.navigate('App');
+      const { firebase, navigation } = this.props;
+      await firebase.signInWithEmailAndPassword(email, password);
+      navigation.navigate('App');
     } catch (err) {
       console.log(err.message);
     }
@@ -44,8 +39,9 @@ class AuthenticationScreen extends Component {
     // TODO: verify the email
     const { email } = this.state;
     try {
-      await sendPasswordResetEmail(email);
-      // show some success
+      const { firebase } = this.props;
+      await firebase.sendPasswordResetEmail(email);
+      // TODO: show some success message
     } catch (err) {
       console.log(err.message);
     }
@@ -54,20 +50,24 @@ class AuthenticationScreen extends Component {
   // SIGN UP - register the new user
   handleSignUp = async () => {
     // TODO: verify valid email and password
-    console.log('handle login!');
+    console.log('handle signup!');
     const { email, password } = this.state;
     if (!email || !password) {
       return false;
     }
     try {
+      const { navigation, firebase } = this.props;
       // Signup using the auth module
-      const { user } = await createUserWithEmailAndPassword(email, password);
+      const { user } = await firebase.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
 
       // Create the user in the database
-      await createUserProfileDocument(user);
+      await firebase.createUserProfileDocument(user);
 
       // Navigate to main application
-      this.props.navigation.navigate('App');
+      navigation.navigate('App');
     } catch (err) {
       console.log(err.message);
     }
@@ -140,7 +140,7 @@ class AuthenticationScreen extends Component {
   }
 }
 
-export default AuthenticationScreen;
+export default withFirebase(AuthenticationScreen);
 
 const styles = StyleSheet.create({
   safeArea: {

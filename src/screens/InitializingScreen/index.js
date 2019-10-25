@@ -2,12 +2,12 @@
 import React, { Fragment, useEffect } from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
 
-// Services
-import { auth } from '../../services/firebase';
+// HOC
+import withFirebase from '../../hocs/withFirebase';
 
-function InitializingScreen({ navigation }) {
+function InitializingScreen({ navigation, firebase }) {
   useEffect(() => {
-    const firebaseListener = auth.onAuthStateChanged(authUser => {
+    const firebaseListener = firebase.auth.onAuthStateChanged(authUser => {
       navigation.navigate(authUser ? 'App' : 'Auth');
     });
     return () => {
@@ -23,4 +23,4 @@ function InitializingScreen({ navigation }) {
   );
 }
 
-export default InitializingScreen;
+export default withFirebase(InitializingScreen);

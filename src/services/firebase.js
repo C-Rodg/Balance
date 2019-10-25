@@ -2,124 +2,136 @@
 import authModule from '@react-native-firebase/auth';
 import firestoreModule from '@react-native-firebase/firestore';
 
-// ----------------- AUTHENTICATION ------------------------------ //
-// Auth module
-export const auth = authModule();
+export default class Firebase {
+  auth = null;
+  firestore = null;
 
-// Create user
-export const createUserWithEmailAndPassword = (email, password) =>
-  auth.createUserWithEmailAndPassword(email, password);
-
-// Sign in
-export const signInWithEmailAndPassword = (email, password) =>
-  auth.signInWithEmailAndPassword(email, password);
-
-// Sign out
-export const signOut = () => auth.signOut();
-
-// Send password reset
-export const sendPasswordResetEmail = email =>
-  auth.sendPasswordResetEmail(email);
-
-// Get user's UID
-export const getUserUID = () => {
-  if (!auth || !auth.currentUser) {
-    return null;
+  constructor() {
+    this.auth = authModule();
+    this.firestore = firestoreModule();
   }
-  return auth.currentUser.uid;
-};
 
-// ----------------- DATABASE ------------------------------ //
+  // Get user UID
+  getUserUID = () => {
+    if (!this.auth || !this.auth.currentUser) {
+      return null;
+    }
+    return this.auth.currentUser.uid;
+  };
 
-export const firestore = firestoreModule();
+  // ----------------- AUTHENTICATION ------------------------------ //
+  // Create user
+  createUserWithEmailAndPassword = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
 
-// USER - Create the user profile in the database and get it
-export const createUserProfileDocument = async (user, additionalData = {}) => {
-  if (!user) return;
+  // Sign in
+  signInWithEmailAndPassword = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
 
-  // Get a reference to the correct place in database
-  const userRef = firestore.doc(`users/${user.uid}`);
+  // Sign out
+  signOut = () => this.auth.signOut();
 
-  // Go fetch the document from that location
-  const snapshot = await userRef.get();
+  // Send password reset
+  sendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
 
-  if (!snapshot.exists) {
-    const { email } = user; // may want to pull off photoURL, displayName at some point
-    const createdAt = new Date();
+  // ----------------- DATABASE ------------------------------ //
+
+  // USERS - Get the user document
+  getUserDocument = async () => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+
     try {
-      await userRef.set({
-        email,
-        createdAt,
-        ...additionalData,
-      });
+      const userDocument = await this.firestore
+        .collection('users')
+        .doc(uid)
+        .get();
+
+      return {
+        uid,
+        ...userDocument.data(),
+      };
     } catch (err) {
       console.log(err);
     }
-  }
-
-  return getUserDocument(user.uid);
-};
-
-// USER - Get the user profile from the database
-export const getUserDocument = async uid => {
-  if (!uid) return null;
-
-  try {
-    const userDocument = await firestore
-      .collection('users')
-      .doc(uid)
-      .get();
-
-    return {
-      uid,
-      ...userDocument.data(),
-    };
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-// EXPENSES - Get the collection of expenses
-export const getExpenseCollection = async () => {
-  const uid = getUserUID();
-  if (!uid) return null;
-
-  try {
-    const expenseCollection = await firestore
-      .collection('users')
-      .doc(uid)
-      .collection('expenses')
-      .get();
-
-    console.log(expenseCollection);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-// EXPENSES - create a new expense
-export const createExpenseItem = async () => {
-  const uid = getUserUID();
-  if (!uid) return null;
-
-  // TEST
-  const expense = {
-    createdAt: new Date(),
-    expenseDate: '2019-10-24',
-    expenseTitle: 'Chipotleee & Guaco',
-    categoryId: 'alcohol-glass-cocktail-materialcommunityicons',
-    amount: 896,
   };
 
-  try {
-    const docRef = await firestore
-      .collection('users')
-      .doc(uid)
-      .collection('expenses')
-      .add(expense);
-    console.log('DOC REF IS:');
-    console.log(docRef);
-  } catch (err) {
-    console.log(err);
-  }
-};
+  // USERS - Create the user profile document if needed and then get it
+  createUserProfileDocument = async (user, additionalData = {}) => {
+    if (!user) return;
+
+    // Get a reference to the correct place in database
+    const userRef = this.firestore.doc(`users/${user.uid}`);
+
+    // Go fetch the document from that location
+    const snapshot = await userRef.get();
+
+    if (!snapshot.exists) {
+      const { email } = user; // may want to pull off photoURL, displayName at some point
+      const createdAt = new Date();
+      try {
+        await userRef.set({
+          email,
+          createdAt,
+          ...additionalData,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    return this.getUserDocument();
+  };
+
+  // EXPENSES - get expense collection reference
+  getExpensesCollectionRef = () => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+    return this.firestore.collection(`users/${uid}/expenses`);
+  };
+
+  // EXPENSES - get the collection of expenses
+  getExpenseCollection = async () => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+
+    try {
+      const expenseCollection = await this.firestore
+        .collection('users')
+        .doc(uid)
+        .collection('expenses')
+        .get();
+
+      console.log(expenseCollection);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // EXPENSES - create a new expense
+  createExpenseItem = async () => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+
+    // TEST
+    const expense = {
+      createdAt: new Date(),
+      expenseDate: '2019-10-24',
+      expenseTitle: 'Chipotleee & Guaco',
+      categoryId: 'alcohol-glass-cocktail-materialcommunityicons',
+      amount: 896,
+    };
+
+    try {
+      const docRef = await this.firestore
+        .collection('users')
+        .doc(uid)
+        .collection('expenses')
+        .add(expense);
+      console.log('DOC REF IS:');
+      console.log(docRef);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
