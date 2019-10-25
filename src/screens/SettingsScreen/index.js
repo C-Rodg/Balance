@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
+// Providers
+import { UserContext } from '../../providers/UserProvider';
+
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
 
@@ -53,6 +56,11 @@ class SettingsScreen extends Component {
         <SafeAreaView>
           <View style={styles.container}>
             <Text>Settings and things...</Text>
+            <UserContext.Consumer>
+              {user => {
+                return user && <Text>Logged in as: {user.email}</Text>;
+              }}
+            </UserContext.Consumer>
             <Button title="Logout" onPress={this.handleLogout} />
             <Button title="Reset Categories" onPress={this.resetCategoryList} />
           </View>

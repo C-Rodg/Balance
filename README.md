@@ -47,14 +47,16 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- pass data through navigating to show 'edit' routes
 - figure out how to structure state for categories, expenses, and budgets
+- pass data through navigating to show 'edit' routes
+- add in checks for invalid inputs - login, category names, etc.
 
 ---
 
 - hook up save (memory), edit, and delete today's expenses - firestore.
 - style and figure out settings screen
 - async storage?
+- database security rules (video #6!)
 
 ---
 

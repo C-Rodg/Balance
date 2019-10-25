@@ -29,7 +29,12 @@ const BUDGET = {
   amountBudgeted: 780,
 };
 
-// --------- FOOO --- //
+const USER = {
+  email: 'foo@test.com',
+  createdAt: new Date(),
+};
+
+// --------- FOOO - eventually delete --- //
 
 // Category Breakdown
 const CATEGORY_BREAKDOWN = {
@@ -47,18 +52,4 @@ const EXPENSE_LIST_ITEM = {
   categoryName: 'Shopping', // TODO: same as above?
   expenseTitle: 'Chipotle',
   amount: 896,
-};
-
-// ------ RE WORKED ------ //
-const CATEGORY = {
-  categoryId: 'categoryname-iconname-iconlibrary',
-  categoryName: 'Shopping',
-  iconLibrary: 'MaterialCommunityIcon',
-  iconName: 'cart',
-};
-
-const BUDGET = {
-  budgetId: '', // date?
-  categoryId: 'categoryname-iconname-iconlibrary', // ties it to a category
-  amountBudgeted: 200,
 };
