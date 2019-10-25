@@ -102,7 +102,23 @@ export const createExpenseItem = async () => {
   const uid = getUserUID();
   if (!uid) return null;
 
+  // TEST
+  const expense = {
+    createdAt: new Date(),
+    expenseDate: '2019-10-24',
+    expenseTitle: 'Chipotleee & Guaco',
+    categoryId: 'alcohol-glass-cocktail-materialcommunityicons',
+    amount: 896,
+  };
+
   try {
+    const docRef = await firestore
+      .collection('users')
+      .doc(uid)
+      .collection('expenses')
+      .add(expense);
+    console.log('DOC REF IS:');
+    console.log(docRef);
   } catch (err) {
     console.log(err);
   }

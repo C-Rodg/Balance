@@ -58,7 +58,7 @@ class SettingsScreen extends Component {
   testMethod = async uid => {
     console.log(uid);
     //await getExpenseCollection(uid);
-    await createExpenseItem(uid);
+    await createExpenseItem();
   };
 
   render() {
