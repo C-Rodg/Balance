@@ -14,6 +14,12 @@ import auth from '@react-native-firebase/auth';
 // Providers
 import { UserContext } from '../../providers/UserProvider';
 
+// Services
+import {
+  getExpenseCollection,
+  createExpenseItem,
+} from '../../services/firebase';
+
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
 
@@ -49,6 +55,12 @@ class SettingsScreen extends Component {
     // TODO:
   };
 
+  testMethod = async uid => {
+    console.log(uid);
+    //await getExpenseCollection(uid);
+    await createExpenseItem(uid);
+  };
+
   render() {
     return (
       <Fragment>
@@ -58,7 +70,17 @@ class SettingsScreen extends Component {
             <Text>Settings and things...</Text>
             <UserContext.Consumer>
               {user => {
-                return user && <Text>Logged in as: {user.email}</Text>;
+                return (
+                  user && (
+                    <View>
+                      <Text>Logged in as: {user.email}</Text>
+                      <Button
+                        title="TESTTTTT THINGS"
+                        onPress={() => this.testMethod(user.uid)}
+                      />
+                    </View>
+                  )
+                );
               }}
             </UserContext.Consumer>
             <Button title="Logout" onPress={this.handleLogout} />

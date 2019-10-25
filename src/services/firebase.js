@@ -21,11 +21,19 @@ export const signOut = () => auth.signOut();
 export const sendPasswordResetEmail = email =>
   auth.sendPasswordResetEmail(email);
 
+// Get user's UID
+export const getUserUID = () => {
+  if (!auth || !auth.currentUser) {
+    return null;
+  }
+  return auth.currentUser.uid;
+};
+
 // ----------------- DATABASE ------------------------------ //
 
 export const firestore = firestoreModule();
 
-// Create the user profile in the database and get it
+// USER - Create the user profile in the database and get it
 export const createUserProfileDocument = async (user, additionalData = {}) => {
   if (!user) return;
 
@@ -52,7 +60,7 @@ export const createUserProfileDocument = async (user, additionalData = {}) => {
   return getUserDocument(user.uid);
 };
 
-// Get the user profile from the database
+// USER - Get the user profile from the database
 export const getUserDocument = async uid => {
   if (!uid) return null;
 
@@ -66,6 +74,35 @@ export const getUserDocument = async uid => {
       uid,
       ...userDocument.data(),
     };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// EXPENSES - Get the collection of expenses
+export const getExpenseCollection = async () => {
+  const uid = getUserUID();
+  if (!uid) return null;
+
+  try {
+    const expenseCollection = await firestore
+      .collection('users')
+      .doc(uid)
+      .collection('expenses')
+      .get();
+
+    console.log(expenseCollection);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// EXPENSES - create a new expense
+export const createExpenseItem = async () => {
+  const uid = getUserUID();
+  if (!uid) return null;
+
+  try {
   } catch (err) {
     console.log(err);
   }

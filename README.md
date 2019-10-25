@@ -47,6 +47,8 @@ _:app:installDebug failed_
 
 ## TODO:
 
+- create expense
+- create budget, expense, category provider (vid React Context API)
 - figure out how to structure state for categories, expenses, and budgets
 - pass data through navigating to show 'edit' routes
 - add in checks for invalid inputs - login, category names, etc.
