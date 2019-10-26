@@ -47,16 +47,16 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- create budget, expense, category provider (vid React Context API)
-- figure out how to structure state for categories, expenses, and budgets
+- structure expenses state
+- structure budgets state
 - pass data through navigating to show 'edit' routes
-- add in checks for invalid inputs - login, category names, etc.
+- add in checks for invalid inputs - login, category names, expenses, etc.
 
 ---
 
 - hook up save (memory), edit, and delete today's expenses - firestore.
 - style and figure out settings screen
-- async storage?
+- async storage? may be handled automatically
 - database security rules (video #6!)
 
 ---
@@ -65,6 +65,8 @@ _:app:installDebug failed_
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - ENTIRE APP: currently hardcoded to USD/en-US
 - FIREBASE: Check if really querying twice or if once is from cache
+
+- helpful vids (Firebase dude #6), (React Context API)
 
 ## Notes
 

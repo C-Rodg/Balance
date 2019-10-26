@@ -412,7 +412,7 @@ const icons_materialCommunityList = [
   { iconLibrary: 'MaterialCommunityIcons', iconName: 'zodiac-virgo' },
 ];
 
-export const icons_ionicons = [
+const icons_ionicons = [
   { iconLibrary: 'Ionicons', iconName: 'md-add' },
   { iconLibrary: 'Ionicons', iconName: 'md-add-circle' },
   { iconLibrary: 'Ionicons', iconName: 'md-add-circle-outline' },
@@ -734,7 +734,7 @@ export const icons_ionicons = [
   { iconLibrary: 'Ionicons', iconName: 'logo-yen' },
 ];
 
-export const icons_feather = [
+const icons_feather = [
   { iconLibrary: 'Feather', iconName: 'activity' },
   { iconLibrary: 'Feather', iconName: 'alert-circle' },
   { iconLibrary: 'Feather', iconName: 'alert-octagon' },

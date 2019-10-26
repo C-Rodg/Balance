@@ -15,9 +15,6 @@ import BlockButton from '../Shared/BlockButton';
 import IconTextInput from '../Shared/IconTextInput';
 import SwipeableRow from '../Shared/SwipeableRow';
 
-// Config
-import { standardCategoryList } from '../../config/standardCategoryList';
-
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
 
@@ -70,7 +67,7 @@ class CategoryListScreen extends Component {
   // Render the category list
   _renderCategories = () => {
     const upperSearchTerm = this.state.searchTerm.toUpperCase();
-
+    const standardCategoryList = [];
     return standardCategoryList
       .filter(categoryObject => {
         const upperCategoryName = categoryObject.categoryName.toUpperCase();

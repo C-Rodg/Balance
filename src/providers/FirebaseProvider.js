@@ -5,7 +5,13 @@ import React, { Component, createContext } from 'react';
 import Firebase from '../services/firebase';
 
 // Utils
-import { collectIdsAndDocs } from '../utils/databaseHelpers';
+import {
+  collectIdsAndDocs,
+  convertCollectionToKeyedObject,
+} from '../utils/databaseHelpers';
+
+// Defaults
+import { defaultCategories } from '../config/defaultCategories';
 
 // Context
 export const FirebaseContext = createContext(null);
@@ -18,7 +24,9 @@ class FirebaseProvider extends Component {
     user: null,
     expenses: {},
     budgets: {},
-    categories: {},
+    categories: {
+      ...defaultCategories,
+    },
     firebase: new Firebase(),
   };
 
@@ -90,7 +98,7 @@ class FirebaseProvider extends Component {
     this.unsubscribeFromCategories = firebase
       .getCategoriesCollectionRef()
       .onSnapshot(snapshot => {
-        const categories = snapshot.docs.map(collectIdsAndDocs);
+        const categories = convertCollectionToKeyedObject(snapshot.docs);
         console.log('CATEGORIES');
         console.log(categories);
         this.setState({

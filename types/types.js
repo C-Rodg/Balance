@@ -21,6 +21,7 @@ const CATEGORY = {
   categoryName: 'Shopping',
   iconLibrary: 'MaterialCommunityIcon',
   iconName: 'cart',
+  isStandardCategory: false,
 };
 
 const BUDGET = {
