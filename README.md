@@ -64,6 +64,7 @@ _:app:installDebug failed_
 - DAY SCREEN: add day touch slider to day screen
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - ENTIRE APP: currently hardcoded to USD/en-US
+- FIREBASE: Check if really querying twice or if once is from cache
 
 ## Notes
 

@@ -9,7 +9,7 @@ const ICON = {
 };
 
 const EXPENSE = {
-  expenseId: '',
+  id: '',
   categoryId: '', // ties it to a category
   expenseTitle: 'Chipotle',
   amount: 896,
@@ -17,19 +17,20 @@ const EXPENSE = {
 };
 
 const CATEGORY = {
-  categoryId: 'categoryname-iconname-iconlibrary',
+  id: 'categoryname-iconname-iconlibrary', // need both?
   categoryName: 'Shopping',
   iconLibrary: 'MaterialCommunityIcon',
   iconName: 'cart',
 };
 
 const BUDGET = {
-  budgetId: '',
+  id: '',
   categoryId: 'categoryname-iconname-iconlibrary', // ties it to a category
   amountBudgeted: 780,
 };
 
 const USER = {
+  uid: 'auth-id',
   email: 'foo@test.com',
   createdAt: new Date(),
 };

@@ -90,48 +90,62 @@ export default class Firebase {
     return this.firestore.collection(`users/${uid}/expenses`);
   };
 
-  // EXPENSES - get the collection of expenses
-  getExpenseCollection = async () => {
+  // EXPENSES - get expense collection reference
+  getBudgetsCollectionRef = () => {
     const uid = this.getUserUID();
     if (!uid) return null;
-
-    try {
-      const expenseCollection = await this.firestore
-        .collection('users')
-        .doc(uid)
-        .collection('expenses')
-        .get();
-
-      console.log(expenseCollection);
-    } catch (err) {
-      console.log(err);
-    }
+    return this.firestore.collection(`users/${uid}/budgets`);
   };
+
+  // EXPENSES - get expense collection reference
+  getCategoriesCollectionRef = () => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+    return this.firestore.collection(`users/${uid}/categories`);
+  };
+
+  // EXPENSES - get the collection of expenses
+  // getExpenseCollection = async () => {
+  //   const uid = this.getUserUID();
+  //   if (!uid) return null;
+
+  //   try {
+  //     const expenseCollection = await this.firestore
+  //       .collection('users')
+  //       .doc(uid)
+  //       .collection('expenses')
+  //       .get();
+
+  //     console.log(expenseCollection);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // EXPENSES - create a new expense
-  createExpenseItem = async () => {
-    const uid = this.getUserUID();
-    if (!uid) return null;
+  // createExpenseItem = async () => {
+  //   const uid = this.getUserUID();
+  //   if (!uid) return null;
 
-    // TEST
-    const expense = {
-      createdAt: new Date(),
-      expenseDate: '2019-10-24',
-      expenseTitle: 'Chipotleee & Guaco',
-      categoryId: 'alcohol-glass-cocktail-materialcommunityicons',
-      amount: 896,
-    };
+  //   // TEST
+  //   const expense = {
+  //     createdAt: new Date(),
+  //     expenseDate: '2019-10-24',
+  //     expenseTitle: 'Chipotleee & Guaco',
+  //     categoryId: 'alcohol-glass-cocktail-materialcommunityicons',
+  //     amount: 896,
+  //   };
 
-    try {
-      const docRef = await this.firestore
-        .collection('users')
-        .doc(uid)
-        .collection('expenses')
-        .add(expense);
-      console.log('DOC REF IS:');
-      console.log(docRef);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //   try {
+  //     const docRef = await this.firestore
+  //       .collection('users')
+  //       .doc(uid)
+  //       .collection('expenses')
+  //       .add(expense);
+  //     console.log('DOC REF IS:');
+  //     console.log(docRef);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 }

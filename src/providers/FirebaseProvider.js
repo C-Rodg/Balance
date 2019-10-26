@@ -1,8 +1,11 @@
 // Libraries
 import React, { Component, createContext } from 'react';
 
-// Utils
+// Services
 import Firebase from '../services/firebase';
+
+// Utils
+import { collectIdsAndDocs } from '../utils/databaseHelpers';
 
 // Context
 export const FirebaseContext = createContext(null);
@@ -14,21 +17,25 @@ class FirebaseProvider extends Component {
   state = {
     user: null,
     expenses: {},
+    budgets: {},
+    categories: {},
     firebase: new Firebase(),
   };
 
   // Subscriptions
   unsubscribeFromAuth = null;
   unsubscribeFromExpenses = null;
+  unsubscribeFromCategories = null;
+  unsubscribeFromBudgets = null;
 
   componentDidMount = async () => {
-    console.log('FIREBASE PROVIDER MOUNTED!');
     const { firebase } = this.state;
     // Setup auth listener
     this.unsubscribeFromAuth = firebase.auth.onAuthStateChanged(
       async userAuth => {
         const user = await firebase.createUserProfileDocument(userAuth);
-        console.log('GOT USER - ', user);
+        console.log('USER:');
+        console.log(user);
 
         if (user) {
           // handle setup of expense and budget listeners
@@ -47,22 +54,56 @@ class FirebaseProvider extends Component {
     // Unsubscribe from everything
     this.unsubscribeFromAuth && this.unsubscribeFromAuth();
     this.unsubscribeFromExpenses && this.unsubscribeFromExpenses();
+    this.unsubscribeFromBudgets && this.unsubscribeFromBudgets();
+    this.unsubscribeFromCategories && this.unsubscribeFromCategories();
   };
 
   // Handle setup of listeners that depend on authentication
   handleDatabaseListenerSetup = () => {
     const { firebase } = this.state;
+
+    // Expenses
     this.unsubscribeFromExpenses = firebase
       .getExpensesCollectionRef()
       .onSnapshot(snapshot => {
-        console.log('EXPENSES CHANGED');
-        console.log(snapshot.docs); // TODO: why is this called twice?
+        const expenses = snapshot.docs.map(collectIdsAndDocs);
+        console.log('EXPENSES:');
+        console.log(expenses);
+        this.setState({
+          expenses,
+        });
+      });
+
+    // Budgets
+    this.unsubscribeFromBudgets = firebase
+      .getBudgetsCollectionRef()
+      .onSnapshot(snapshot => {
+        const budgets = snapshot.docs.map(collectIdsAndDocs);
+        console.log('BUDGETS:');
+        console.log(budgets);
+        this.setState({
+          budgets,
+        });
+      });
+
+    // Categories
+    this.unsubscribeFromCategories = firebase
+      .getCategoriesCollectionRef()
+      .onSnapshot(snapshot => {
+        const categories = snapshot.docs.map(collectIdsAndDocs);
+        console.log('CATEGORIES');
+        console.log(categories);
+        this.setState({
+          categories,
+        });
       });
   };
 
   // Handle teardown of listeners that depend on authentication
   handleDatabaseListenerTeardown = () => {
     this.unsubscribeFromExpenses && this.unsubscribeFromExpenses();
+    this.unsubscribeFromBudgets && this.unsubscribeFromBudgets();
+    this.unsubscribeFromCategories && this.unsubscribeFromCategories();
   };
 
   render() {
