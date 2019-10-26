@@ -47,8 +47,11 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- fill user with dummy data
+- display expenses
+- display expenses based off date -> create date provider
 - pass data through navigating to show 'edit' routes
+- hook up creating and deleting for expenses
+- hook up creating and deleting for categories
 - add in checks for invalid inputs - login, category names, expenses, etc.
 - structure budgets state
 
