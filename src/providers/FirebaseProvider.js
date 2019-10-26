@@ -7,7 +7,8 @@ import Firebase from '../services/firebase';
 // Utils
 import {
   collectIdsAndDocs,
-  convertCollectionToKeyedObject,
+  convertCollectionToKeyedObjectById,
+  convertCollectionToKeyedArrays,
 } from '../utils/databaseHelpers';
 
 // Defaults
@@ -74,11 +75,32 @@ class FirebaseProvider extends Component {
     this.unsubscribeFromExpenses = firebase
       .getExpensesCollectionRef()
       .onSnapshot(snapshot => {
-        const expenses = snapshot.docs.map(collectIdsAndDocs);
+        const expenses = convertCollectionToKeyedArrays(
+          snapshot.docs,
+          'expenseDate',
+        );
         console.log('EXPENSES:');
         console.log(expenses);
         this.setState({
           expenses,
+        });
+      });
+
+    // Categories
+    this.unsubscribeFromCategories = firebase
+      .getCategoriesCollectionRef()
+      .onSnapshot(snapshot => {
+        const customCategories = convertCollectionToKeyedObjectById(
+          snapshot.docs,
+        );
+        const { categories } = this.state;
+        console.log('CATEGORIES');
+        console.log(customCategories);
+        this.setState({
+          categories: {
+            ...categories,
+            ...customCategories,
+          },
         });
       });
 
@@ -91,18 +113,6 @@ class FirebaseProvider extends Component {
         console.log(budgets);
         this.setState({
           budgets,
-        });
-      });
-
-    // Categories
-    this.unsubscribeFromCategories = firebase
-      .getCategoriesCollectionRef()
-      .onSnapshot(snapshot => {
-        const categories = convertCollectionToKeyedObject(snapshot.docs);
-        console.log('CATEGORIES');
-        console.log(categories);
-        this.setState({
-          categories,
         });
       });
   };

@@ -104,24 +104,6 @@ export default class Firebase {
     return this.firestore.collection(`users/${uid}/categories`);
   };
 
-  // EXPENSES - get the collection of expenses
-  // getExpenseCollection = async () => {
-  //   const uid = this.getUserUID();
-  //   if (!uid) return null;
-
-  //   try {
-  //     const expenseCollection = await this.firestore
-  //       .collection('users')
-  //       .doc(uid)
-  //       .collection('expenses')
-  //       .get();
-
-  //     console.log(expenseCollection);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   // EXPENSES - create a new expense
   // createExpenseItem = async () => {
   //   const uid = this.getUserUID();

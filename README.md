@@ -47,10 +47,10 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- structure expenses state
-- structure budgets state
+- fill user with dummy data
 - pass data through navigating to show 'edit' routes
 - add in checks for invalid inputs - login, category names, expenses, etc.
+- structure budgets state
 
 ---
 
