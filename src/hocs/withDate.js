@@ -20,6 +20,7 @@ const withDate = Component => {
             currentMonthString={value.currentMonthString}
             currentDay={value.currentDay}
             currentDateKey={value.currentDateKey}
+            daysInMonth={value.daysInMonth}
             {...props}
           />
         )}

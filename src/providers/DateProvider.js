@@ -23,6 +23,12 @@ const monthMap = {
   '11': 'December',
 };
 
+// Helper - take in month (0 indexed) and a year and return days in month
+const daysInMonth = (month, year) => {
+  const incrementedMonth = parseInt(month, 10) + 1;
+  return new Date(year, incrementedMonth, 0).getDate();
+};
+
 // Helper - take in Date object and properly format
 const updateStateWithDateStrings = newDate => {
   const currentYear = newDate.getFullYear();
@@ -39,6 +45,7 @@ const updateStateWithDateStrings = newDate => {
     currentMonthString: monthMap[currentMonth],
     currentDay,
     currentDateKey,
+    daysInMonth: daysInMonth(currentMonth, currentYear),
   };
 };
 
@@ -78,6 +85,7 @@ class DateProvider extends Component {
       currentMonth: newMonthNum,
       currentMonthString: monthMap[newMonthNum],
       currentYear: newYear,
+      daysInMonth: daysInMonth(newMonthNum, newYear),
     });
   };
 
