@@ -9,6 +9,7 @@ const getDisplayName = WrappedComponent => {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 };
 
+// NOTE: HOCs seem to break navigation headers
 const withFirebase = Component => {
   const WrappedComponent = props => {
     return (
@@ -18,6 +19,8 @@ const withFirebase = Component => {
             firebase={value.firebase}
             user={value.user}
             expenses={value.expenses}
+            categories={value.categories}
+            budgets={value.budgets}
             {...props}
           />
         )}

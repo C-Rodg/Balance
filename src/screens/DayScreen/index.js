@@ -14,8 +14,12 @@ import {
 // Components
 import ExpenseListItem from './ExpenseListItem';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
@@ -29,27 +33,6 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 
 class DayScreen extends Component {
-  // Setup navigation bar
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Balance',
-    headerLeftContainerStyle: {
-      paddingLeft: 10,
-    },
-    headerLeft: getIcon({
-      name: 'settings-outline',
-      size: 32,
-      onPress: () => navigation.navigate('Settings'),
-    }),
-    headerRightContainerStyle: {
-      paddingRight: 10,
-    },
-    headerRight: getIcon({
-      name: 'calendar-text-outline',
-      size: 32,
-      onPress: () => navigation.navigate('BudgetsList'),
-    }),
-  });
-
   // Functionality - go to the previous or next month
   goToMonth = next => {
     console.log('NEXT MONTH');
@@ -71,49 +54,32 @@ class DayScreen extends Component {
     this.props.navigation.navigate('Expense');
   };
 
+  // Render - expenses total
+  _renderExpensesTotal = () => {
+    const currentDate = '2019-10-24';
+    const { expenses } = this.props;
+
+    // if no items, render empty text
+    if (!expenses[currentDate] || expenses[currentDate].length === 0) {
+      return '$00.00';
+    }
+
+    let sum = 0;
+    expenses[currentDate].forEach(expense => (sum += expense.amount));
+
+    return convertAmountToCurrencyString({
+      amount: sum,
+    });
+  };
+
   // Render - expenses list
   _renderExpensesList = () => {
-    const todaysExpenses = [
-      {
-        expenseId: 1,
-        categoryIcon: 'cart',
-        categoryName: 'Groceries',
-        expenseTitle: 'Ralphs',
-        amount: 3243,
-      },
-      {
-        expenseId: 2,
-        categoryIcon: 'food-fork-drink',
-        categoryName: 'Snacks',
-        expenseTitle: 'Seven Eleven',
-        amount: 178,
-      },
-      {
-        expenseId: 3,
-        categoryIcon: 'silverware-fork-knife',
-        categoryName: 'Restaurant',
-        expenseTitle: 'Fogo De Chao Restaurant',
-        amount: 7249,
-      },
-      {
-        expenseId: 5,
-        categoryIcon: 'check',
-        categoryName: 'Electronics',
-        expenseTitle: 'Whatever this is a super long name',
-        amount: 12812983,
-      },
-      {
-        expenseId: 4,
-        categoryIcon: 'cellphone-link',
-        categoryName: 'Electronics',
-        expenseTitle: 'Apple',
-        amount: 59962,
-      },
-    ];
-    // if no items, render text
-    if (todaysExpenses.length === 0) {
+    const currentDate = '2019-10-24';
+    const { expenses, categories } = this.props;
+    // if no items, render empty text
+    if (!expenses[currentDate] || expenses[currentDate].length === 0) {
       return (
-        <View style={styles.scrollViewExpenses}>
+        <View style={cardScrollViewSwipeableStyles}>
           <Text style={styles.noFoundExpenses}>Nothing yet...</Text>
         </View>
       );
@@ -121,14 +87,21 @@ class DayScreen extends Component {
 
     return (
       <ScrollView style={cardScrollViewSwipeableStyles}>
-        {todaysExpenses.map(item => (
-          <ExpenseListItem
-            key={item.expenseId}
-            {...item}
-            onDelete={this.handleDeleteExpense}
-            onEdit={this.handleEditExpense}
-          />
-        ))}
+        {expenses[currentDate].map(item => {
+          const mappedCategory = categories[item.categoryId] || {
+            iconLibrary: 'MaterialCommunityIcon',
+            iconName: 'help-circle-outline',
+          };
+          return (
+            <ExpenseListItem
+              key={item.id}
+              {...item}
+              category={mappedCategory}
+              onDelete={this.handleDeleteExpense}
+              onEdit={this.handleEditExpense}
+            />
+          );
+        })}
       </ScrollView>
     );
   };
@@ -185,7 +158,9 @@ class DayScreen extends Component {
               <Text style={[overlayCardTitleStyles, styles.cardPadSides]}>
                 Total:
               </Text>
-              <Text style={styles.expensesTotal}>$2,243.89</Text>
+              <Text style={styles.expensesTotal}>
+                {this._renderExpensesTotal()}
+              </Text>
             </View>
             <SafeAreaView />
           </View>
@@ -195,7 +170,29 @@ class DayScreen extends Component {
   }
 }
 
-export default DayScreen;
+// Apply navigation options
+const DayScreenWithFirebase = withFirebase(DayScreen);
+DayScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: 'Balance',
+  headerLeftContainerStyle: {
+    paddingLeft: 10,
+  },
+  headerLeft: getIcon({
+    name: 'settings-outline',
+    size: 32,
+    onPress: () => navigation.navigate('Settings'),
+  }),
+  headerRightContainerStyle: {
+    paddingRight: 10,
+  },
+  headerRight: getIcon({
+    name: 'calendar-text-outline',
+    size: 32,
+    onPress: () => navigation.navigate('BudgetsList'),
+  }),
+});
+
+export default DayScreenWithFirebase;
 
 const styles = StyleSheet.create({
   dateSection: {

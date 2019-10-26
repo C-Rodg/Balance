@@ -47,7 +47,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- display expenses
 - display expenses based off date -> create date provider
 - pass data through navigating to show 'edit' routes
 - hook up creating and deleting for expenses

@@ -14,10 +14,10 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
 
 function ExpenseListItem({
-  categoryIcon,
+  category,
   expenseTitle,
   amount,
-  expenseId,
+  id,
   onEdit,
   onDelete,
 }) {
@@ -26,9 +26,10 @@ function ExpenseListItem({
     minimumIntegerDigits: 1,
   });
   return (
-    <SwipeableRow rowId={expenseId} onEdit={onEdit} onDelete={onDelete}>
+    <SwipeableRow rowId={id} onEdit={onEdit} onDelete={onDelete}>
       {getIcon({
-        name: categoryIcon,
+        name: category.iconName,
+        library: category.iconLibrary,
         size: 21,
         color: COLORS.black,
       })}
