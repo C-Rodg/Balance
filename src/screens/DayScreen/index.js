@@ -13,6 +13,7 @@ import {
 
 // Components
 import ExpenseListItem from './ExpenseListItem';
+import DaySwiper from './DaySwiper';
 
 // HOCs
 import withFirebase from '../../hocs/withFirebase';
@@ -135,9 +136,8 @@ class DayScreen extends Component {
                 })}
               </TouchableOpacity>
             </View>
-            <View>
-              <Text style={styles.dayText}>{currentDay}</Text>
-            </View>
+            <DaySwiper currentDay={currentDay} />
+
             <TouchableOpacity
               style={styles.addExpenseButton}
               onPress={() => this.props.navigation.navigate('Expense')}>
