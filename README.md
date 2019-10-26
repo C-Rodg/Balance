@@ -47,23 +47,20 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- display expenses based off date -> create date provider
+- day touch slider
 - pass data through navigating to show 'edit' routes
 - hook up creating and deleting for expenses
 - hook up creating and deleting for categories
 - add in checks for invalid inputs - login, category names, expenses, etc.
 - structure budgets state
-
----
-
-- hook up save (memory), edit, and delete today's expenses - firestore.
-- style and figure out settings screen
-- async storage? may be handled automatically
+- hook up creating and deleting for budgets
+- style and implement settings screen
+- async storage? may be automatically handled
 - database security rules (video #6!)
 
 ---
 
-- DAY SCREEN: add day touch slider to day screen
+- DAY SCREEN: fix location of month left and right buttons
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - ENTIRE APP: currently hardcoded to USD/en-US
 - FIREBASE: Check if really querying twice or if once is from cache

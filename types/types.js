@@ -46,12 +46,3 @@ const CATEGORY_BREAKDOWN = {
   amountSpent: 178,
   amountBudgeted: 200, // null for unbudgeted
 };
-
-// Expense List Item
-const EXPENSE_LIST_ITEM = {
-  expenseId: 1,
-  categoryIcon: 'cart', // TODO: have this in duplicate places, maybe just have category ID instead and match?
-  categoryName: 'Shopping', // TODO: same as above?
-  expenseTitle: 'Chipotle',
-  amount: 896,
-};

@@ -20,6 +20,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 // Providers
 import FirebaseProvider from '../providers/FirebaseProvider';
+import DateProvider from '../providers/DateProvider';
 
 // Props
 import FONTS from '../styles/fonts';
@@ -79,7 +80,9 @@ const AppContainer = createAppContainer(
 export default function Application() {
   return (
     <FirebaseProvider>
-      <AppContainer />
+      <DateProvider>
+        <AppContainer />
+      </DateProvider>
     </FirebaseProvider>
   );
 }

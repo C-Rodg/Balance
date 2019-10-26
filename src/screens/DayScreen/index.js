@@ -16,6 +16,7 @@ import ExpenseListItem from './ExpenseListItem';
 
 // HOCs
 import withFirebase from '../../hocs/withFirebase';
+import withDate from '../../hocs/withDate';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
@@ -33,12 +34,6 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 
 class DayScreen extends Component {
-  // Functionality - go to the previous or next month
-  goToMonth = next => {
-    console.log('NEXT MONTH');
-    // TODO: navigate to next month or previous
-  };
-
   // Functionality - delete an expense
   handleDeleteExpense = expenseId => {
     console.log('DELETE');
@@ -56,16 +51,15 @@ class DayScreen extends Component {
 
   // Render - expenses total
   _renderExpensesTotal = () => {
-    const currentDate = '2019-10-24';
-    const { expenses } = this.props;
+    const { expenses, currentDateKey } = this.props;
 
     // if no items, render empty text
-    if (!expenses[currentDate] || expenses[currentDate].length === 0) {
+    if (!expenses[currentDateKey] || expenses[currentDateKey].length === 0) {
       return '$00.00';
     }
 
     let sum = 0;
-    expenses[currentDate].forEach(expense => (sum += expense.amount));
+    expenses[currentDateKey].forEach(expense => (sum += expense.amount));
 
     return convertAmountToCurrencyString({
       amount: sum,
@@ -74,10 +68,9 @@ class DayScreen extends Component {
 
   // Render - expenses list
   _renderExpensesList = () => {
-    const currentDate = '2019-10-24';
-    const { expenses, categories } = this.props;
+    const { expenses, categories, currentDateKey } = this.props;
     // if no items, render empty text
-    if (!expenses[currentDate] || expenses[currentDate].length === 0) {
+    if (!expenses[currentDateKey] || expenses[currentDateKey].length === 0) {
       return (
         <View style={cardScrollViewSwipeableStyles}>
           <Text style={styles.noFoundExpenses}>Nothing yet...</Text>
@@ -87,7 +80,7 @@ class DayScreen extends Component {
 
     return (
       <ScrollView style={cardScrollViewSwipeableStyles}>
-        {expenses[currentDate].map(item => {
+        {expenses[currentDateKey].map(item => {
           const mappedCategory = categories[item.categoryId] || {
             iconLibrary: 'MaterialCommunityIcon',
             iconName: 'help-circle-outline',
@@ -107,17 +100,23 @@ class DayScreen extends Component {
   };
 
   render() {
+    const {
+      currentYear,
+      currentMonthString,
+      currentDay,
+      onChangeMonth,
+    } = this.props;
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
         <SafeAreaView />
         <View style={offWhiteWrapperStyles}>
           <View style={styles.dateSection}>
-            <Text style={styles.yearText}>2020</Text>
+            <Text style={styles.yearText}>{currentYear}</Text>
             <View style={styles.monthSection}>
               <TouchableOpacity
                 style={styles.monthArrow}
-                onPress={() => this.goToMonth(false)}>
+                onPress={() => onChangeMonth(false)}>
                 {getIcon({
                   size: 38,
                   name: 'chevron-left',
@@ -125,11 +124,11 @@ class DayScreen extends Component {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Month')}>
-                <Text style={styles.monthText}>September</Text>
+                <Text style={styles.monthText}>{currentMonthString}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.monthArrow}
-                onPress={() => this.goToMonth(true)}>
+                onPress={() => onChangeMonth(true)}>
                 {getIcon({
                   size: 38,
                   name: 'chevron-right',
@@ -137,7 +136,7 @@ class DayScreen extends Component {
               </TouchableOpacity>
             </View>
             <View>
-              <Text style={styles.dayText}>29</Text>
+              <Text style={styles.dayText}>{currentDay}</Text>
             </View>
             <TouchableOpacity
               style={styles.addExpenseButton}
@@ -171,7 +170,7 @@ class DayScreen extends Component {
 }
 
 // Apply navigation options
-const DayScreenWithFirebase = withFirebase(DayScreen);
+const DayScreenWithFirebase = withFirebase(withDate(DayScreen));
 DayScreenWithFirebase.navigationOptions = ({ navigation }) => ({
   title: 'Balance',
   headerLeftContainerStyle: {
