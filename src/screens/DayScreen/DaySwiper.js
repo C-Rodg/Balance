@@ -6,6 +6,7 @@ import {
   FlingGestureHandler,
   LongPressGestureHandler,
   PanGestureHandler,
+  TapGestureHandler,
   Directions,
   State,
 } from 'react-native-gesture-handler';
@@ -13,69 +14,99 @@ import {
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
+// EVENTS GUIDE:
+// Swipe Left: Day - 1
+// Swipe Right: Day + 1
+// Double Tap: Reset date to today
+// Single Tap: Switch to fast date slider
+// Single Tap: Switch to normal date flinger
+
 class DaySwiper extends Component {
-  longPressRef = createRef();
-  panGestureRef = createRef();
+  doubleTapRef = createRef();
+
+  state = {
+    isFastSliderActive: false,
+  };
+
+  // Double tap - navigate to today's date
+  doubleTapHandler = ({ nativeEvent }) => {
+    if (nativeEvent.state === State.ACTIVE) {
+      console.log('DOUBLE TAP - reset date');
+      // TODO: reset date
+    }
+  };
 
   // Navigate to day before
   swipeLeftHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
       console.log("I'm flinged left!");
+      // TODO: day - 1
     }
   };
   // Navigate to day after
   swipeRightHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
       console.log("I'm flinged right!");
+      // TODO: day + 1
     }
   };
 
-  // Long press handler
-  longPressHandler = ({ nativeEvent }) => {
-    console.log('long press - state change');
+  // Toggle gesture handlers
+  toggleGestureHandlers = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
-      console.log('LONG PRESSS REACHED');
+      this.setState(prevState => {
+        return {
+          isFastSliderActive: !prevState.isFastSliderActive,
+        };
+      });
     }
   };
 
-  test1 = ({ nativeEvent }) => {
-    console.log('long press - gesture');
+  // Render - fast switch date slider
+  _renderFastSlider = () => {
+    // TODO: render some kind of slider
+    const { currentDay } = this.props;
+    return (
+      <TapGestureHandler onHandlerStateChange={this.toggleGestureHandlers}>
+        <Text style={[styles.dayText, { color: 'blue' }]}>{currentDay}</Text>
+      </TapGestureHandler>
+    );
   };
 
-  test2 = () => {
-    console.log('pan - gesture');
-  };
-
-  test3 = () => {
-    console.log('pan - state change');
+  // Render - normal fling date swiper
+  _renderSwipeSlider = () => {
+    const { currentDay } = this.props;
+    return (
+      <FlingGestureHandler
+        direction={Directions.RIGHT}
+        onHandlerStateChange={this.swipeRightHandler}>
+        <FlingGestureHandler
+          direction={Directions.LEFT}
+          onHandlerStateChange={this.swipeLeftHandler}>
+          <TapGestureHandler
+            onHandlerStateChange={this.toggleGestureHandlers}
+            waitFor={this.doubleTapRef}>
+            <TapGestureHandler
+              ref={this.doubleTapRef}
+              onHandlerStateChange={this.doubleTapHandler}
+              numberOfTaps={2}>
+              <Text style={[styles.dayText, { color: 'red' }]}>
+                {currentDay}
+              </Text>
+            </TapGestureHandler>
+          </TapGestureHandler>
+        </FlingGestureHandler>
+      </FlingGestureHandler>
+    );
   };
 
   render() {
-    const { currentDay } = this.props;
+    const { isFastSliderActive } = this.state;
     return (
       <View style={{ backgroundColor: 'lightblue' }}>
-        <FlingGestureHandler
-          direction={Directions.RIGHT}
-          onHandlerStateChange={this.swipeRightHandler}>
-          <FlingGestureHandler
-            direction={Directions.LEFT}
-            onHandlerStateChange={this.swipeLeftHandler}>
-            <PanGestureHandler
-              ref={this.panGestureRef}
-              onHandlerStateChange={this.test3}
-              onGestureEvent={this.test2}
-              waitFor={this.longPressRef}
-              simultaneousHandlers={this.longPressRef}>
-              <LongPressGestureHandler
-                ref={this.longPressRef}
-                onHandlerStateChange={this.longPressHandler}
-                onGestureEvent={this.test1}
-                simultaneousHandlers={this.panGestureRef}>
-                <Text style={styles.dayText}>{currentDay}</Text>
-              </LongPressGestureHandler>
-            </PanGestureHandler>
-          </FlingGestureHandler>
-        </FlingGestureHandler>
+        {isFastSliderActive
+          ? this._renderFastSlider()
+          : this._renderSwipeSlider()}
       </View>
     );
   }
