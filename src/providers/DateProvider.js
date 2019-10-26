@@ -24,9 +24,17 @@ const monthMap = {
 };
 
 // Helper - take in month (0 indexed) and a year and return days in month
-const daysInMonth = (month, year) => {
+const getDaysInMonth = (month, year) => {
   const incrementedMonth = parseInt(month, 10) + 1;
   return new Date(year, incrementedMonth, 0).getDate();
+};
+
+// Get Date Key
+const getDateKey = (year, month, day) => {
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(
+    2,
+    '0',
+  )}`;
 };
 
 // Helper - take in Date object and properly format
@@ -34,10 +42,7 @@ const updateStateWithDateStrings = newDate => {
   const currentYear = newDate.getFullYear();
   const currentMonth = newDate.getMonth();
   const currentDay = newDate.getDate();
-  const currentDateKey = `${currentYear}-${String(currentMonth + 1).padStart(
-    2,
-    '0',
-  )}-${String(newDate.getDate()).padStart(2, '0')}`;
+  const currentDateKey = getDateKey(currentYear, currentMonth + 1, currentDay);
 
   return {
     currentYear,
@@ -45,7 +50,7 @@ const updateStateWithDateStrings = newDate => {
     currentMonthString: monthMap[currentMonth],
     currentDay,
     currentDateKey,
-    daysInMonth: daysInMonth(currentMonth, currentYear),
+    daysInMonth: getDaysInMonth(currentMonth, currentYear),
   };
 };
 
@@ -54,16 +59,21 @@ class DateProvider extends Component {
     ...updateStateWithDateStrings(new Date()),
   };
 
-  // Set new current date
+  // EVENT - Set new current date
   onUpdateCurrentDate = newDate => {
     this.setState({
       ...updateStateWithDateStrings(newDate),
     });
   };
 
-  // Incrementing or decrementing the month
+  // EVENT - reset date
+  onResetDate = () => {
+    this.onUpdateCurrentDate(new Date());
+  };
+
+  // EVENT - Incrementing or decrementing the month
   onChangeMonth = isIncrement => {
-    const { currentMonth, currentYear } = this.state;
+    const { currentMonth, currentYear, currentDay } = this.state;
     let newMonthNum = currentMonth;
     let newYear = currentYear;
 
@@ -81,11 +91,65 @@ class DateProvider extends Component {
       newYear -= 1;
     }
 
+    let newDay = currentDay;
+    const daysInMonth = getDaysInMonth(newMonthNum, newYear);
+    if (daysInMonth < currentDay) {
+      newDay = daysInMonth;
+    }
+
+    const currentDateKey = getDateKey(newYear, currentMonth + 1, newDay);
+
     this.setState({
+      currentDateKey,
       currentMonth: newMonthNum,
       currentMonthString: monthMap[newMonthNum],
       currentYear: newYear,
-      daysInMonth: daysInMonth(newMonthNum, newYear),
+      daysInMonth,
+      currentDay: newDay,
+    });
+  };
+
+  // Event - change day only
+  onChangeDay = updatedDay => {
+    const { currentMonth, currentYear, daysInMonth } = this.state;
+
+    let newYear = currentYear;
+    let newMonth = currentMonth;
+    let newDay = updatedDay;
+    let newDaysInMonth = daysInMonth;
+
+    if (newDay > daysInMonth) {
+      // increment to next month
+      if (currentMonth === 11) {
+        // increment to next year
+        newYear += 1;
+        newMonth = 0;
+      } else {
+        newMonth += 1;
+      }
+      newDay = 1;
+      newDaysInMonth = getDaysInMonth(newMonth, newYear);
+    } else if (newDay < 1) {
+      // decrement to previous month
+      if (currentMonth === 0) {
+        // decrement to previous year
+        newYear -= 1;
+        newMonth = 11;
+      } else {
+        newMonth -= 1;
+      }
+      newDaysInMonth = getDaysInMonth(newMonth, newYear);
+      newDay = newDaysInMonth;
+    }
+
+    const currentDateKey = getDateKey(newYear, newMonth + 1, newDay);
+    this.setState({
+      currentDateKey,
+      currentDay: newDay,
+      currentYear: newYear,
+      currentMonth: newMonth,
+      currentMonthString: monthMap[newMonth],
+      daysInMonth: newDaysInMonth,
     });
   };
 
@@ -95,6 +159,8 @@ class DateProvider extends Component {
       ...this.state,
       onUpdateCurrentDate: this.onUpdateCurrentDate,
       onChangeMonth: this.onChangeMonth,
+      onChangeDay: this.onChangeDay,
+      onResetDate: this.onResetDate,
     };
 
     return (

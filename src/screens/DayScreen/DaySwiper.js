@@ -1,18 +1,17 @@
 // Libraries
 import React, { Component, createRef } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
 import {
   FlingGestureHandler,
-  LongPressGestureHandler,
-  PanGestureHandler,
   TapGestureHandler,
   Directions,
   State,
 } from 'react-native-gesture-handler';
+import Slider from '@react-native-community/slider';
 
 // Styling
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
+import COLORS from '../../styles/colors';
 
 // EVENTS GUIDE:
 // Swipe Left: Day - 1
@@ -26,28 +25,37 @@ class DaySwiper extends Component {
 
   state = {
     isFastSliderActive: false,
+    currentDay: this.props.currentDay,
+    currentMonthString: this.props.currentMonthString,
   };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.currentMonthString !== state.currentMonthString) {
+      return {
+        currentDay: props.currentDay,
+        currentMonthString: props.currentMonthString,
+      };
+    }
+    return null;
+  }
 
   // Double tap - navigate to today's date
   doubleTapHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
-      console.log('DOUBLE TAP - reset date');
-      // TODO: reset date
+      this.props.onResetDate();
     }
   };
 
   // Navigate to day before
   swipeLeftHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
-      console.log("I'm flinged left!");
-      // TODO: day - 1
+      this.props.onChangeDay(this.props.currentDay - 1);
     }
   };
   // Navigate to day after
   swipeRightHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
-      console.log("I'm flinged right!");
-      // TODO: day + 1
+      this.props.onChangeDay(this.props.currentDay + 1);
     }
   };
 
@@ -57,19 +65,38 @@ class DaySwiper extends Component {
       this.setState(prevState => {
         return {
           isFastSliderActive: !prevState.isFastSliderActive,
+          currentDay: this.props.currentDay,
         };
       });
     }
   };
 
+  // Set internal date
+  setInternalDay = currentDay => {
+    this.setState({
+      currentDay,
+    });
+  };
+
   // Render - fast switch date slider
   _renderFastSlider = () => {
-    // TODO: render some kind of slider
-    const { currentDay } = this.props;
+    const { daysInMonth } = this.props;
+    const { currentDay } = this.state;
     return (
-      <TapGestureHandler onHandlerStateChange={this.toggleGestureHandlers}>
-        <Text style={[styles.dayText, { color: 'blue' }]}>{currentDay}</Text>
-      </TapGestureHandler>
+      <View>
+        <TapGestureHandler onHandlerStateChange={this.toggleGestureHandlers}>
+          <Text style={[styles.dayText]}>{currentDay}</Text>
+        </TapGestureHandler>
+        <Slider
+          minimumTrackTintColor={COLORS.blueMain}
+          minimumValue={1}
+          maximumValue={daysInMonth}
+          step={1}
+          value={currentDay}
+          onValueChange={this.setInternalDay}
+          onSlidingComplete={this.props.onChangeDay}
+        />
+      </View>
     );
   };
 
@@ -90,9 +117,7 @@ class DaySwiper extends Component {
               ref={this.doubleTapRef}
               onHandlerStateChange={this.doubleTapHandler}
               numberOfTaps={2}>
-              <Text style={[styles.dayText, { color: 'red' }]}>
-                {currentDay}
-              </Text>
+              <Text style={[styles.dayText]}>{currentDay}</Text>
             </TapGestureHandler>
           </TapGestureHandler>
         </FlingGestureHandler>
@@ -103,7 +128,7 @@ class DaySwiper extends Component {
   render() {
     const { isFastSliderActive } = this.state;
     return (
-      <View style={{ backgroundColor: 'lightblue' }}>
+      <View>
         {isFastSliderActive
           ? this._renderFastSlider()
           : this._renderSwipeSlider()}

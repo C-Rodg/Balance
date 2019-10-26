@@ -923,6 +923,11 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
+"@react-native-community/slider@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-2.0.2.tgz#d7e8d098cbd3434e7dae783777086cbb9875680d"
+  integrity sha512-Hj1hATFe8jiS7b/vvLJ8HCgEq4P9TynWdQL2GrxD4NlUh6xFY2XFDcpmUAxpeUDAN+vbq3/JI+P5Q5nweC1FeQ==
+
 "@react-native-firebase/app-types@6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app-types/-/app-types-6.0.2.tgz#83097c4636e48b5c071a243fe35469c9ab3c38dc"

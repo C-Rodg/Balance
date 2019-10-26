@@ -106,7 +106,11 @@ class DayScreen extends Component {
       currentMonthString,
       currentDay,
       onChangeMonth,
+      daysInMonth,
+      onChangeDay,
+      onResetDate,
     } = this.props;
+
     return (
       <Fragment>
         <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
@@ -136,7 +140,13 @@ class DayScreen extends Component {
                 })}
               </TouchableOpacity>
             </View>
-            <DaySwiper currentDay={currentDay} />
+            <DaySwiper
+              currentDay={currentDay}
+              daysInMonth={daysInMonth}
+              onChangeDay={onChangeDay}
+              onResetDate={onResetDate}
+              currentMonthString={currentMonthString}
+            />
 
             <TouchableOpacity
               style={styles.addExpenseButton}
