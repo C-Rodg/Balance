@@ -1,6 +1,6 @@
 // Libraries
 import React, { Component, createRef } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Animated, Easing } from 'react-native';
 import {
   FlingGestureHandler,
   TapGestureHandler,
@@ -22,6 +22,7 @@ import COLORS from '../../styles/colors';
 
 class DaySwiper extends Component {
   doubleTapRef = createRef();
+  animatedValue = new Animated.Value(1);
 
   state = {
     isFastSliderActive: false,
@@ -60,14 +61,35 @@ class DaySwiper extends Component {
   };
 
   // Toggle gesture handlers
-  toggleGestureHandlers = ({ nativeEvent }) => {
+  toggleGestureHandlers = ({ nativeEvent }, showFastSlider) => {
     if (nativeEvent.state === State.ACTIVE) {
-      this.setState(prevState => {
-        return {
-          isFastSliderActive: !prevState.isFastSliderActive,
-          currentDay: this.props.currentDay,
-        };
-      });
+      if (showFastSlider) {
+        this.setState(
+          {
+            isFastSliderActive: showFastSlider,
+            currentDay: this.props.currentDay,
+          },
+          () => {
+            this.animatedValue.setValue(1);
+            Animated.spring(this.animatedValue, {
+              toValue: 0.7,
+              friction: 5,
+              tension: 55,
+            }).start();
+          },
+        );
+      } else {
+        Animated.spring(this.animatedValue, {
+          toValue: 1,
+          friction: 5,
+          tension: 70,
+        }).start(() => {
+          this.setState({
+            isFastSliderActive: showFastSlider,
+            currentDay: this.props.currentDay,
+          });
+        });
+      }
     }
   };
 
@@ -84,8 +106,15 @@ class DaySwiper extends Component {
     const { currentDay } = this.state;
     return (
       <View>
-        <TapGestureHandler onHandlerStateChange={this.toggleGestureHandlers}>
-          <Text style={[styles.dayText]}>{currentDay}</Text>
+        <TapGestureHandler
+          onHandlerStateChange={ev => this.toggleGestureHandlers(ev, false)}>
+          <Animated.Text
+            style={[
+              styles.dayText,
+              { transform: [{ scale: this.animatedValue }] },
+            ]}>
+            {currentDay}
+          </Animated.Text>
         </TapGestureHandler>
         <Slider
           minimumTrackTintColor={COLORS.blueMain}
@@ -111,7 +140,7 @@ class DaySwiper extends Component {
           direction={Directions.LEFT}
           onHandlerStateChange={this.swipeLeftHandler}>
           <TapGestureHandler
-            onHandlerStateChange={this.toggleGestureHandlers}
+            onHandlerStateChange={ev => this.toggleGestureHandlers(ev, true)}
             waitFor={this.doubleTapRef}>
             <TapGestureHandler
               ref={this.doubleTapRef}

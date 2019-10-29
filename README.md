@@ -47,7 +47,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- day touch slider
 - pass data through navigating to show 'edit' routes
 - hook up creating and deleting for expenses
 - hook up creating and deleting for categories
