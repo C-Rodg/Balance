@@ -47,12 +47,19 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- pass data through navigating to show 'edit' routes
-- hook up creating and deleting for expenses
-- hook up creating and deleting for categories
+- create for categories
+- pass route data with expenses
+- edit expenses
+- delete expenses
+- pass route data with categories
+- edit categories
+- delete custom categories
 - add in checks for invalid inputs - login, category names, expenses, etc.
+- - toast alerts?
 - structure budgets state
-- hook up creating and deleting for budgets
+- create budgets
+- edit budgets
+- delete budgets
 - style and implement settings screen
 - async storage? may be automatically handled
 - database security rules (video #6!)
