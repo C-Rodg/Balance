@@ -104,6 +104,42 @@ export default class Firebase {
     return this.firestore.collection(`users/${uid}/categories`);
   };
 
+  // CATEGORIES - create/set a new item
+  setNewCategoryItem = async ({ id, ...categoryObject }) => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+
+    try {
+      // Get a reference to the correct place in database
+      const categoryRef = this.firestore.doc(
+        `users/${user.uid}/categories/${id}`,
+      );
+
+      // create the category
+      return categoryRef.set(categoryObject);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // CATEGORIES - delete a custom category
+  deleteCustomCategory = async id => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+
+    try {
+      // Get a reference to the correct place in database
+      const categoryRef = this.firestore.doc(
+        `users/${user.uid}/categories/${id}`,
+      );
+
+      // NOTE: this won't resolve while offline. Will that cause problems?
+      return categoryRef.delete();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // EXPENSES - create a new expense
   // createExpenseItem = async () => {
   //   const uid = this.getUserUID();

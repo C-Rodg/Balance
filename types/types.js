@@ -14,6 +14,7 @@ const EXPENSE = {
   expenseTitle: 'Chipotle',
   amount: 896,
   expenseDate: '2019-08-06',
+  createdAt: new Date(),
 };
 
 const CATEGORY = {

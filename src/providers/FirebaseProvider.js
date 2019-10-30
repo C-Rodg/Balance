@@ -98,8 +98,8 @@ class FirebaseProvider extends Component {
         console.log(customCategories);
         this.setState({
           categories: {
-            ...categories,
             ...customCategories,
+            ...categories,
           },
         });
       });
