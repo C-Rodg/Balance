@@ -15,6 +15,9 @@ import BlockButton from '../Shared/BlockButton';
 import IconTextInput from '../Shared/IconTextInput';
 import SwipeableRow from '../Shared/SwipeableRow';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
 
@@ -35,19 +38,6 @@ class CategoryListScreen extends Component {
     searchTerm: '',
   };
 
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Select a Category',
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      size: 32,
-      color: COLORS.black,
-      onPress: () => navigation.goBack(null),
-    }),
-  });
-
   // Select a category from the list
   selectCategory = categoryId => {
     // TODO: SET CATEGORY
@@ -66,23 +56,29 @@ class CategoryListScreen extends Component {
 
   // Render the category list
   _renderCategories = () => {
+    const { categories } = this.props;
     const upperSearchTerm = this.state.searchTerm.toUpperCase();
-    const standardCategoryList = [];
-    return standardCategoryList
+    const categoryArray = Object.keys(categories).map(k => ({
+      ...categories[k],
+    }));
+    return categoryArray
       .filter(categoryObject => {
         const upperCategoryName = categoryObject.categoryName.toUpperCase();
         return upperCategoryName.indexOf(upperSearchTerm) > -1;
       })
       .map(categoryObject => {
+        const isStandardCategory = categoryObject.isStandardCategory;
         return (
           <SwipeableRow
-            rowId={categoryObject.categoryId}
-            key={categoryObject.categoryId}
+            rowId={categoryObject.id}
+            key={categoryObject.id}
             onEdit={this.onCategoryEdit}
-            onDelete={this.onCategoryDelete}>
+            onDelete={this.onCategoryDelete}
+            hideEdit={true}
+            hideDelete={isStandardCategory}>
             <TouchableHighlight
               underlayColor={COLORS.gray}
-              onPress={() => this.selectCategory(categoryObject.categoryId)}>
+              onPress={() => this.selectCategory(categoryObject.id)}>
               <View style={styles.categoryItemRow}>
                 {getIcon({
                   name: categoryObject.iconName,
@@ -141,8 +137,22 @@ class CategoryListScreen extends Component {
   }
 }
 
-export default CategoryListScreen;
+const CategoryListScreenWithFirebase = withFirebase(CategoryListScreen);
 
+CategoryListScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: 'Select a Category',
+  headerLeftContainerStyle: {
+    paddingLeft: 5,
+  },
+  headerLeft: getIcon({
+    name: 'arrow-left',
+    size: 32,
+    color: COLORS.black,
+    onPress: () => navigation.goBack(null),
+  }),
+});
+
+export default CategoryListScreenWithFirebase;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

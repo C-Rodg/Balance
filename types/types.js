@@ -17,7 +17,7 @@ const EXPENSE = {
 };
 
 const CATEGORY = {
-  id: 'categoryname-iconname-iconlibrary', // need both?
+  id: 'categoryname-iconname-iconlibrary',
   categoryName: 'Shopping',
   iconLibrary: 'MaterialCommunityIcon',
   iconName: 'cart',

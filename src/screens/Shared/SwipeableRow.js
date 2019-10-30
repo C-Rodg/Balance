@@ -42,26 +42,34 @@ class SwipeableRow extends Component {
   };
 
   // Render the actions on the right
-  _renderRightActions = (progress, dragX) => (
-    <View style={{ width: 128, flexDirection: 'row' }}>
-      {this._renderRightAction(
-        'EDIT',
-        'pencil',
-        '#feca57',
-        128,
-        progress,
-        dragX,
-      )}
-      {this._renderRightAction(
-        'DELETE',
-        'delete-forever',
-        '#ee5253',
-        64,
-        progress,
-        dragX,
-      )}
-    </View>
-  );
+  _renderRightActions = (progress, dragX) => {
+    const { hideEdit, hideDelete } = this.props;
+    if (hideEdit && hideDelete) {
+      return null;
+    }
+    return (
+      <View style={{ width: 128, flexDirection: 'row' }}>
+        {!hideEdit &&
+          this._renderRightAction(
+            'EDIT',
+            'pencil',
+            '#feca57',
+            128,
+            progress,
+            dragX,
+          )}
+        {!hideDelete &&
+          this._renderRightAction(
+            'DELETE',
+            'delete-forever',
+            '#ee5253',
+            64,
+            progress,
+            dragX,
+          )}
+      </View>
+    );
+  };
 
   // Update the Ref
   updateRef = ref => {
