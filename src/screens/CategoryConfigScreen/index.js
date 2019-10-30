@@ -13,6 +13,9 @@ import {
 import IconTextInput from '../Shared/IconTextInput';
 import IconSelectionSection from '../Shared/IconSelectionSection';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
 
@@ -34,23 +37,14 @@ class CategoryConfigScreen extends Component {
     newCategoryIconLibrary: '',
   };
 
-  static navigationOptions = ({ navigation }) => ({
-    title: 'New Category',
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      color: COLORS.black,
-      size: 32,
-      onPress: () => navigation.goBack(null),
-    }),
-    headerRight: (
-      <TouchableOpacity onPress={() => navigation.goBack(null)}>
-        <Text style={styles.navigationSaveText}>Save</Text>
-      </TouchableOpacity>
-    ),
-  });
+  componentDidMount() {
+    this.props.navigation.setParams({ saveCategory: this._saveCategory });
+  }
+
+  _saveCategory = () => {
+    console.log('SAVING!!!');
+    // TODO: save it, set selected, and then navigate back
+  };
 
   // Select an icon
   selectIcon = ({ iconName, iconLibrary }) => {
@@ -94,7 +88,27 @@ class CategoryConfigScreen extends Component {
   }
 }
 
-export default CategoryConfigScreen;
+const CategoryConfigScreenWithFirebase = withFirebase(CategoryConfigScreen);
+
+CategoryConfigScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: 'New Category',
+  headerLeftContainerStyle: {
+    paddingLeft: 5,
+  },
+  headerLeft: getIcon({
+    name: 'arrow-left',
+    color: COLORS.black,
+    size: 32,
+    onPress: () => navigation.goBack(null),
+  }),
+  headerRight: (
+    <TouchableOpacity onPress={navigation.getParam('saveCategory')}>
+      <Text style={styles.navigationSaveText}>Save</Text>
+    </TouchableOpacity>
+  ),
+});
+
+export default CategoryConfigScreenWithFirebase;
 
 const styles = StyleSheet.create({
   navigationSaveText: {

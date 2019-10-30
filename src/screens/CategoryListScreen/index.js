@@ -153,6 +153,7 @@ CategoryListScreenWithFirebase.navigationOptions = ({ navigation }) => ({
 });
 
 export default CategoryListScreenWithFirebase;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
