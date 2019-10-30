@@ -79,16 +79,15 @@ class DaySwiper extends Component {
           },
         );
       } else {
+        this.setState({
+          isFastSliderActive: showFastSlider,
+          currentDay: this.props.currentDay,
+        });
         Animated.spring(this.animatedValue, {
           toValue: 1,
           friction: 5,
           tension: 70,
-        }).start(() => {
-          this.setState({
-            isFastSliderActive: showFastSlider,
-            currentDay: this.props.currentDay,
-          });
-        });
+        }).start();
       }
     }
   };
@@ -146,7 +145,13 @@ class DaySwiper extends Component {
               ref={this.doubleTapRef}
               onHandlerStateChange={this.doubleTapHandler}
               numberOfTaps={2}>
-              <Text style={[styles.dayText]}>{currentDay}</Text>
+              <Animated.Text
+                style={[
+                  styles.dayText,
+                  { transform: [{ scale: this.animatedValue }] },
+                ]}>
+                {currentDay}
+              </Animated.Text>
             </TapGestureHandler>
           </TapGestureHandler>
         </FlingGestureHandler>
