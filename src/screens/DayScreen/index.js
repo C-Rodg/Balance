@@ -36,10 +36,14 @@ import { offWhiteWrapperStyles } from '../../styles/layout';
 
 class DayScreen extends Component {
   // Functionality - delete an expense
-  handleDeleteExpense = expenseId => {
-    console.log('DELETE');
-    console.log(expenseId);
-    // TODO: delete expense item
+  handleDeleteExpense = async expenseId => {
+    const { firebase } = this.props;
+    try {
+      await firebase.deleteExpenseItem(expenseId);
+    } catch (err) {
+      console.log('ERROR DELETING');
+      console.log(err.message);
+    }
   };
 
   // Functionality - edit an expense
@@ -83,7 +87,7 @@ class DayScreen extends Component {
       <ScrollView style={cardScrollViewSwipeableStyles}>
         {expenses[currentDateKey].map(item => {
           const mappedCategory = categories[item.categoryId] || {
-            iconLibrary: 'MaterialCommunityIcon',
+            iconLibrary: 'MaterialCommunityIcons',
             iconName: 'help-circle-outline',
           };
           return (
@@ -163,7 +167,7 @@ class DayScreen extends Component {
           </View>
           <View style={overlayCardStyles}>
             <Text style={[overlayCardTitleStyles, styles.cardPadSides]}>
-              Today's Expenses:
+              Expenses:
             </Text>
             {this._renderExpensesList()}
             <View style={styles.expensesTotalSection}>

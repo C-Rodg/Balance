@@ -83,14 +83,14 @@ export default class Firebase {
     return this.firestore.collection(`users/${uid}/expenses`);
   };
 
-  // EXPENSES - get expense collection reference
+  // Budgets - get budget collection reference
   getBudgetsCollectionRef = () => {
     const uid = this.getUserUID();
     if (!uid) return null;
     return this.firestore.collection(`users/${uid}/budgets`);
   };
 
-  // EXPENSES - get expense collection reference
+  // Categories - get category collection reference
   getCategoriesCollectionRef = () => {
     const uid = this.getUserUID();
     if (!uid) return null;
@@ -121,30 +121,35 @@ export default class Firebase {
     return categoryRef.delete();
   };
 
-  // EXPENSES - create a new expense
-  // createExpenseItem = async () => {
-  //   const uid = this.getUserUID();
-  //   if (!uid) return null;
+  // EXPENSES - create a new expense or edit an existing
+  setExpenseItem = async ({ id, ...expenseObject }) => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
 
-  //   // TEST
-  //   const expense = {
-  //     createdAt: new Date(),
-  //     expenseDate: '2019-10-24',
-  //     expenseTitle: 'Chipotleee & Guaco',
-  //     categoryId: 'alcohol-glass-cocktail-materialcommunityicons',
-  //     amount: 896,
-  //   };
+    if (!id) {
+      // create a new expense
+      expenseObject.createdAt = new Date();
+      return this.firestore
+        .collection('users')
+        .doc(uid)
+        .collection('expenses')
+        .add(expenseObject);
+    } else {
+      // update an exsiting
+      const expenseRef = this.firestore.doc(`users/${uid}/expenses/${id}`);
+      return expenseRef.set(expenseObject);
+    }
+  };
 
-  //   try {
-  //     const docRef = await this.firestore
-  //       .collection('users')
-  //       .doc(uid)
-  //       .collection('expenses')
-  //       .add(expense);
-  //     console.log('DOC REF IS:');
-  //     console.log(docRef);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  // EXPENSES - delete
+  deleteExpenseItem = async id => {
+    const uid = this.getUserUID();
+    if (!uid || !id) return null;
+
+    // Get a reference to the correct place in database
+    const expenseRef = this.firestore.doc(`users/${uid}/expenses/${id}`);
+
+    // NOTE: this won't resolve while offline. Will that cause problems?
+    return expenseRef.delete();
+  };
 }

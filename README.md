@@ -47,14 +47,11 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- create expense
 - edit expenses
-- delete expenses
 - pass route data with categories
 - edit categories
-- delete custom categories
 - add in checks for invalid inputs - login, category names, expenses, etc.
-- - toast alerts?
+- - toast alerts? for errors
 - structure budgets state
 - create budgets
 - edit budgets
@@ -62,7 +59,6 @@ _:app:installDebug failed_
 - style and implement settings screen
 - async storage? may be automatically handled
 - database security rules (video #6!)
-- handle errors
 
 ---
 

@@ -10,6 +10,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Components
 import IconTextInput from '../Shared/IconTextInput';
 import CalculatorSection from '../Shared/CalculatorSection';
@@ -33,18 +36,6 @@ class AddExpenseScreen extends Component {
     currentAmountString: '',
   };
 
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Add Expense',
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      size: 32,
-      onPress: () => navigation.goBack(null),
-    }),
-  });
-
   // Calculator section updated
   handleCalculatorChange = newValue => {
     this.setState({
@@ -53,16 +44,52 @@ class AddExpenseScreen extends Component {
   };
 
   // Calculator done with use
-  handleCalculatorDone = () => {
-    // TODO: verify - amount, name, and category? Or just send non-categorized to a default 'No Category'?
+  handleCalculatorDone = async () => {
     const { expenseTitle, currentAmountString } = this.state;
-    if (!expenseTitle || !currentAmountString) {
+    const { firebase } = this.props;
+    const amount = parseInt(currentAmountString);
+    const currentDateKey = this.props.navigation.getParam('currentDateKey', '');
+    const selectedCategory = this.props.navigation.getParam(
+      'selectedCategory',
+      '',
+    );
+    const expenseId = this.props.navigation.getParam('expenseId', '');
+    if (
+      !expenseTitle ||
+      !currentAmountString ||
+      !currentDateKey ||
+      isNaN(amount)
+    ) {
       // TODO: show some error
+      console.log('SOMETHING WRONGGGG!');
       return;
     }
-    const currentDateKey = this.props.navigation.getParam('currentDateKey', '');
-    console.log(currentDateKey);
-    this.props.navigation.pop();
+
+    const expenseObject = {
+      expenseTitle,
+      expenseDate: currentDateKey,
+      amount,
+    };
+
+    // Set the proper category
+    if (!selectedCategory) {
+      expenseObject.categoryId =
+        'no-category-help-circle-outline-materialcommunityicons';
+    } else {
+      expenseObject.categoryId = selectedCategory.id;
+    }
+
+    // Assign an expense id if we are editing
+    if (expenseId) {
+      expenseObject.id = expenseId;
+    }
+
+    try {
+      await firebase.setExpenseItem(expenseObject);
+      this.props.navigation.pop();
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   // Render the category icon
@@ -136,7 +163,24 @@ class AddExpenseScreen extends Component {
   }
 }
 
-export default AddExpenseScreen;
+// NavParams:
+// currentDateKey
+// selectedCategory
+
+const AddExpenseScreenWithFirebase = withFirebase(AddExpenseScreen);
+AddExpenseScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: 'Add Expense',
+  headerLeftContainerStyle: {
+    paddingLeft: 5,
+  },
+  headerLeft: getIcon({
+    name: 'arrow-left',
+    size: 32,
+    onPress: () => navigation.goBack(null),
+  }),
+});
+
+export default AddExpenseScreenWithFirebase;
 
 const styles = StyleSheet.create({
   overwriteCardStyles: {
