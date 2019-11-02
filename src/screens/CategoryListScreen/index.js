@@ -20,6 +20,7 @@ import withFirebase from '../../hocs/withFirebase';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { showErrorMessage } from '../../utils/toast';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -58,9 +59,9 @@ class CategoryListScreen extends Component {
       const { firebase } = this.props;
       await firebase.deleteCustomCategory(categoryId);
     } catch (err) {
-      // TODO: HANDLE ERRORS
-      console.log(err);
-      // this may not resolve offline. test
+      showErrorMessage('Unable to delete this category.');
+      console.log(err.message);
+      // TODO: TEST OFFLINE
     }
   };
 

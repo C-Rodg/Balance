@@ -52,8 +52,6 @@ _:app:installDebug failed_
 ## TODO:
 
 - month screen
-- add in checks for invalid inputs - login, category names, expenses, etc.
-- - toast alerts? for errors
 - structure budgets state
 - create budgets
 - edit budgets

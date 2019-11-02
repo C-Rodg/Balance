@@ -10,6 +10,9 @@ import IconTextInput from '../Shared/IconTextInput';
 // HOCs
 import withFirebase from '../../hocs/withFirebase';
 
+// Utils
+import { showErrorMessage, showSuccessMessage } from '../../utils/toast';
+
 // Props
 import COLORS from '../../styles/colors';
 
@@ -22,40 +25,67 @@ class AuthenticationScreen extends Component {
 
   // LOGIN - attempt to login with current user
   handleLogin = async () => {
-    // TODO: verify the email and password are valid
-    console.log('handle login!');
     const { email, password } = this.state;
+    let errorMessage = null;
+    if (!email) {
+      errorMessage = 'Please provide a valid email address.';
+    } else if (!password) {
+      errorMessage = 'Please provide a valid password.';
+    }
+
+    if (errorMessage) {
+      showErrorMessage(errorMessage);
+      return;
+    }
+
     try {
       const { firebase, navigation } = this.props;
       await firebase.signInWithEmailAndPassword(email, password);
       navigation.navigate('App');
     } catch (err) {
-      // TODO: HANDLE ERRORS
+      showErrorMessage(
+        'Unable to login. Please check your email and password to make sure they are correct.',
+      );
+      // TODO: TEST OFFLINE
       console.log(err.message);
     }
   };
 
   // LOGIN - send password reset
   handlePasswordReset = async () => {
-    // TODO: verify the email
     const { email } = this.state;
+    if (!email) {
+      showErrorMessage('Please enter a valid email address.');
+      return;
+    }
     try {
       const { firebase } = this.props;
       await firebase.sendPasswordResetEmail(email);
-      // TODO: show some success message
+      showSuccessMessage('Password reset sent.');
     } catch (err) {
+      showErrorMessage(
+        'Unable to send password reset. Please make sure you have a strong internet connection.',
+      );
+      // TODO: TEST OFFLINE
       console.log(err.message);
     }
   };
 
   // SIGN UP - register the new user
   handleSignUp = async () => {
-    // TODO: verify valid email and password
-    console.log('handle signup!');
     const { email, password } = this.state;
-    if (!email || !password) {
-      return false;
+    let errorMessage = null;
+    if (!email) {
+      errorMessage = 'Please provide a valid email address.';
+    } else if (!password) {
+      errorMessage = 'Please provide a valid password.';
     }
+
+    if (errorMessage) {
+      showErrorMessage(errorMessage);
+      return;
+    }
+
     try {
       const { navigation, firebase } = this.props;
       // Signup using the auth module
@@ -70,7 +100,8 @@ class AuthenticationScreen extends Component {
       // Navigate to main application
       navigation.navigate('App');
     } catch (err) {
-      // TODO: HANDLE ERRORS
+      showErrorMessage('Unable to register at this time.');
+      // TODO: TEST OFFLINE
       console.log(err.message);
     }
   };

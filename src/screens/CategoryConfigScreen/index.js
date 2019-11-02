@@ -18,6 +18,7 @@ import withFirebase from '../../hocs/withFirebase';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { showErrorMessage } from '../../utils/toast';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -61,9 +62,16 @@ class CategoryConfigScreen extends Component {
         newCategoryIconLibrary,
       } = this.state;
 
-      if (!newCategoryIconName || !newCategoryName) {
-        console.log('NOT COMPLETE');
-        // TODO: HANDLE ERRORS
+      let errorMessage = null;
+      if (!newCategoryName) {
+        errorMessage = 'Please provide a valid name for the category.';
+      } else if (!newCategoryIconName) {
+        errorMessage =
+          'Please select an icon to be associated with this category.';
+      }
+
+      if (errorMessage) {
+        showErrorMessage(errorMessage);
         return;
       }
 
@@ -93,8 +101,9 @@ class CategoryConfigScreen extends Component {
       // Navigate back
       this.props.navigation.goBack(null);
     } catch (err) {
-      console.log(err);
-      // TODO: HANDLE ERRORS
+      showErrorMessage('Unable to save the category at this time.');
+      console.log(err.message);
+      // TODO: TEST OFFLINE
     }
   };
 

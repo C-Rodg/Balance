@@ -21,6 +21,7 @@ import withDate from '../../hocs/withDate';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { showErrorMessage } from '../../utils/toast';
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 
 // Styling
@@ -41,9 +42,9 @@ class DayScreen extends Component {
     try {
       await firebase.deleteExpenseItem(expenseId);
     } catch (err) {
-      console.log('ERROR DELETING');
+      showErrorMessage('Unable to delete expense at this time.');
       console.log(err.message);
-      // TODO: HANDLE ERRORS
+      // TODO: TEST OFFLINE
     }
   };
 
