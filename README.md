@@ -60,6 +60,7 @@ _:app:installDebug failed_
 - async storage? may be automatically handled
 - database security rules (video #6!)
 - loading/startup screens
+- test Android
 
 ---
 
@@ -70,6 +71,8 @@ Minor Todos:
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - ENTIRE APP: currently hardcoded to USD/en-US
 - FIREBASE: Check if really querying twice or if once is from cache
+- TOASTS: Play sounds?
+- ALL SCREENS: Change sold blue to blue gradient?
 
 - helpful vids (Firebase dude #6), (React Context API)
 
