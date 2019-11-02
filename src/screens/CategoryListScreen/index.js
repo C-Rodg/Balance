@@ -42,6 +42,7 @@ class CategoryListScreen extends Component {
   selectCategory = categoryId => {
     // TODO: SET CATEGORY
     console.log(categoryId);
+    this.props.navigation.navigate('Expense');
   };
 
   // Category - Edit
@@ -81,22 +82,19 @@ class CategoryListScreen extends Component {
             onEdit={this.onCategoryEdit}
             onDelete={this.onCategoryDelete}
             hideEdit={true}
-            hideDelete={isStandardCategory}>
-            <TouchableHighlight
-              underlayColor={COLORS.gray}
-              onPress={() => this.selectCategory(categoryObject.id)}>
-              <View style={styles.categoryItemRow}>
-                {getIcon({
-                  name: categoryObject.iconName,
-                  library: categoryObject.iconLibrary,
-                  size: 24,
-                  color: COLORS.black,
-                })}
-                <Text style={styles.categoryItemText}>
-                  {categoryObject.categoryName}
-                </Text>
-              </View>
-            </TouchableHighlight>
+            hideDelete={isStandardCategory}
+            onRowPress={() => this.selectCategory(categoryObject.id)}>
+            <View style={styles.categoryItemRow}>
+              {getIcon({
+                name: categoryObject.iconName,
+                library: categoryObject.iconLibrary,
+                size: 24,
+                color: COLORS.black,
+              })}
+              <Text style={styles.categoryItemText}>
+                {categoryObject.categoryName}
+              </Text>
+            </View>
           </SwipeableRow>
         );
       });

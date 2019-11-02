@@ -1,6 +1,12 @@
 // Libraries
 import React, { Component } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Animated,
+  Text,
+  TouchableHighlight,
+} from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -82,6 +88,7 @@ class SwipeableRow extends Component {
   };
 
   render() {
+    const onRowPress = this.props.onRowPress || (() => {});
     const providedStyles = this.props.styles || {};
     return (
       <Swipeable
@@ -90,7 +97,9 @@ class SwipeableRow extends Component {
         leftThreshold={30}
         rightThreshold={40}
         renderRightActions={this._renderRightActions}>
-        <RectButton style={[styles.rectButton, providedStyles]}>
+        <RectButton
+          style={[styles.rectButton, providedStyles]}
+          onPress={onRowPress}>
           {this.props.children}
         </RectButton>
       </Swipeable>
