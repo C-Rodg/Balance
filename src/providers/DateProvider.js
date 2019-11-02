@@ -97,7 +97,7 @@ class DateProvider extends Component {
       newDay = daysInMonth;
     }
 
-    const currentDateKey = getDateKey(newYear, currentMonth + 1, newDay);
+    const currentDateKey = getDateKey(newYear, newMonthNum + 1, newDay);
 
     this.setState({
       currentDateKey,

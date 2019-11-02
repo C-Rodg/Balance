@@ -73,7 +73,10 @@ class DayScreen extends Component {
 
   // Render - expenses list
   _renderExpensesList = () => {
+    console.log('RE RENDER EXPENSE LIST');
     const { expenses, categories, currentDateKey } = this.props;
+    console.log(currentDateKey);
+    console.log(expenses[currentDateKey]);
     // if no items, render empty text
     if (!expenses[currentDateKey] || expenses[currentDateKey].length === 0) {
       return (
