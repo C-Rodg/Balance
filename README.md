@@ -47,7 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- pass route data with expenses
+- create expense
 - edit expenses
 - delete expenses
 - pass route data with categories

@@ -469,4 +469,11 @@ export const defaultCategories = {
     iconName: 'map',
     iconLibrary: 'Feather',
   },
+  'no-category-help-circle-outline-materialcommunityicons': {
+    isStandardCategory: true,
+    categoryName: 'No Category',
+    id: 'no-category-help-circle-outline-materialcommunityicons',
+    iconName: 'help-circle-outline',
+    iconLibrary: 'MaterialCommunityIcons',
+  },
 };

@@ -102,6 +102,7 @@ class DayScreen extends Component {
 
   render() {
     const {
+      currentDateKey,
       currentYear,
       currentMonthString,
       currentDay,
@@ -150,7 +151,9 @@ class DayScreen extends Component {
 
             <TouchableOpacity
               style={styles.addExpenseButton}
-              onPress={() => this.props.navigation.navigate('Expense')}>
+              onPress={() =>
+                this.props.navigation.navigate('Expense', { currentDateKey })
+              }>
               <Image
                 style={styles.addExpenseButtonImage}
                 resizeMode="contain"

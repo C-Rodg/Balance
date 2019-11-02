@@ -21,19 +21,6 @@ import { getIcon } from '../../utils/iconNormalizer';
 import COLORS from '../../styles/colors';
 
 class SettingsScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Settings',
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      size: 32,
-      color: COLORS.black,
-      onPress: () => navigation.goBack(null),
-    }),
-  });
-
   // Logout of the application
   handleLogout = async () => {
     try {
@@ -72,7 +59,22 @@ class SettingsScreen extends Component {
   }
 }
 
-export default withFirebase(SettingsScreen);
+const SettingsScreenWithFirebase = withFirebase(SettingsScreen);
+
+SettingsScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: 'Settings',
+  headerLeftContainerStyle: {
+    paddingLeft: 5,
+  },
+  headerLeft: getIcon({
+    name: 'arrow-left',
+    size: 32,
+    color: COLORS.black,
+    onPress: () => navigation.goBack(null),
+  }),
+});
+
+export default SettingsScreenWithFirebase;
 
 const styles = StyleSheet.create({
   container: {

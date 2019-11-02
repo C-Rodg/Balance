@@ -54,6 +54,14 @@ class AddExpenseScreen extends Component {
 
   // Calculator done with use
   handleCalculatorDone = () => {
+    // TODO: verify - amount, name, and category? Or just send non-categorized to a default 'No Category'?
+    const { expenseTitle, currentAmountString } = this.state;
+    if (!expenseTitle || !currentAmountString) {
+      // TODO: show some error
+      return;
+    }
+    const currentDateKey = this.props.navigation.getParam('currentDateKey', '');
+    console.log(currentDateKey);
     this.props.navigation.pop();
   };
 
@@ -62,6 +70,7 @@ class AddExpenseScreen extends Component {
     const selectedCategory = this.props.navigation.getParam(
       'selectedCategory',
       {
+        id: 'no-category-help-circle-outline-materialcommunityicons',
         iconName: 'help-circle-outline',
         iconLibrary: 'MaterialCommunityIcons',
       },
@@ -79,7 +88,10 @@ class AddExpenseScreen extends Component {
   _renderCategoryName = () => {
     const selectedCategory = this.props.navigation.getParam(
       'selectedCategory',
-      { categoryName: '-select a category-' },
+      {
+        id: 'no-category-help-circle-outline-materialcommunityicons',
+        categoryName: '-select a category-',
+      },
     );
     return selectedCategory.categoryName;
   };
