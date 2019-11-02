@@ -63,6 +63,7 @@ _:app:installDebug failed_
 - style and implement settings screen
 - async storage? may be automatically handled
 - database security rules (video #6!)
+- handle errors
 
 ---
 

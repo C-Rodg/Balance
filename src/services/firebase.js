@@ -41,19 +41,15 @@ export default class Firebase {
     const uid = this.getUserUID();
     if (!uid) return null;
 
-    try {
-      const userDocument = await this.firestore
-        .collection('users')
-        .doc(uid)
-        .get();
+    const userDocument = await this.firestore
+      .collection('users')
+      .doc(uid)
+      .get();
 
-      return {
-        uid,
-        ...userDocument.data(),
-      };
-    } catch (err) {
-      console.log(err);
-    }
+    return {
+      uid,
+      ...userDocument.data(),
+    };
   };
 
   // USERS - Create the user profile document if needed and then get it
@@ -69,15 +65,12 @@ export default class Firebase {
     if (!snapshot.exists) {
       const { email } = user; // may want to pull off photoURL, displayName at some point
       const createdAt = new Date();
-      try {
-        await userRef.set({
-          email,
-          createdAt,
-          ...additionalData,
-        });
-      } catch (err) {
-        console.log(err);
-      }
+
+      await userRef.set({
+        email,
+        createdAt,
+        ...additionalData,
+      });
     }
 
     return this.getUserDocument();
@@ -109,17 +102,11 @@ export default class Firebase {
     const uid = this.getUserUID();
     if (!uid) return null;
 
-    try {
-      // Get a reference to the correct place in database
-      const categoryRef = this.firestore.doc(
-        `users/${user.uid}/categories/${id}`,
-      );
+    // Get a reference to the correct place in database
+    const categoryRef = this.firestore.doc(`users/${uid}/categories/${id}`);
 
-      // create the category
-      return categoryRef.set(categoryObject);
-    } catch (err) {
-      console.log(err);
-    }
+    // create the category
+    return categoryRef.set(categoryObject);
   };
 
   // CATEGORIES - delete a custom category
@@ -127,17 +114,11 @@ export default class Firebase {
     const uid = this.getUserUID();
     if (!uid) return null;
 
-    try {
-      // Get a reference to the correct place in database
-      const categoryRef = this.firestore.doc(
-        `users/${user.uid}/categories/${id}`,
-      );
+    // Get a reference to the correct place in database
+    const categoryRef = this.firestore.doc(`users/${uid}/categories/${id}`);
 
-      // NOTE: this won't resolve while offline. Will that cause problems?
-      return categoryRef.delete();
-    } catch (err) {
-      console.log(err);
-    }
+    // NOTE: this won't resolve while offline. Will that cause problems?
+    return categoryRef.delete();
   };
 
   // EXPENSES - create a new expense

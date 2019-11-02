@@ -25,9 +25,7 @@ class FirebaseProvider extends Component {
     user: null,
     expenses: {},
     budgets: {},
-    categories: {
-      ...defaultCategories,
-    },
+    categories: {},
     firebase: new Firebase(),
   };
 
@@ -90,16 +88,17 @@ class FirebaseProvider extends Component {
     this.unsubscribeFromCategories = firebase
       .getCategoriesCollectionRef()
       .onSnapshot(snapshot => {
+        console.log('onSnapshot - Categories');
+        console.log(snapshot);
         const customCategories = convertCollectionToKeyedObjectById(
           snapshot.docs,
         );
-        const { categories } = this.state;
         console.log('CATEGORIES');
         console.log(customCategories);
         this.setState({
           categories: {
             ...customCategories,
-            ...categories,
+            ...defaultCategories,
           },
         });
       });

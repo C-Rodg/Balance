@@ -30,6 +30,7 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
+// NEEDS DONE: Error handling, loading in a editable category
 class CategoryConfigScreen extends Component {
   state = {
     newCategoryName: '',
@@ -41,9 +42,39 @@ class CategoryConfigScreen extends Component {
     this.props.navigation.setParams({ saveCategory: this._saveCategory });
   }
 
-  _saveCategory = () => {
-    console.log('SAVING!!!');
+  _saveCategory = async () => {
     // TODO: save it, set selected, and then navigate back
+    try {
+      const {
+        newCategoryName,
+        newCategoryIconName,
+        newCategoryIconLibrary,
+      } = this.state;
+
+      if (!newCategoryIconName || !newCategoryIconName) {
+        console.log('NOT COMPLETE');
+        // TODO: show some error message
+        return;
+      }
+
+      const { firebase } = this.props;
+      const categoryId = `${newCategoryName}-${newCategoryIconName}-${newCategoryIconLibrary}`.replace(
+        /[^a-zA-Z0-9-]/g,
+        '',
+      );
+      // Create custom category
+      await firebase.setNewCategoryItem({
+        id: categoryId,
+        categoryName: newCategoryName,
+        iconLibrary: newCategoryIconLibrary,
+        iconName: newCategoryIconName,
+      });
+
+      // Navigate back
+      this.props.navigation.goBack(null);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // Select an icon

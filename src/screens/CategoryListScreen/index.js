@@ -38,20 +38,26 @@ class CategoryListScreen extends Component {
     searchTerm: '',
   };
 
-  // Select a category from the list
+  // Category - Select
   selectCategory = categoryId => {
     // TODO: SET CATEGORY
     console.log(categoryId);
   };
 
+  // Category - Edit
   onCategoryEdit = categoryId => {
-    // TODO: EDIT CATEGORY
-    console.log(categoryId);
+    // Edit a category.  On pause for now.
   };
 
-  onCategoryDelete = categoryId => {
-    // TODO: DELETE CATEGORY
-    console.log(categoryId);
+  // Category - Delete
+  onCategoryDelete = async categoryId => {
+    try {
+      const { firebase } = this.props;
+      await firebase.deleteCustomCategory(categoryId);
+    } catch (err) {
+      console.log(err);
+      // this may not resolve offline. test
+    }
   };
 
   // Render the category list
