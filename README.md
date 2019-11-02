@@ -47,7 +47,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- edit expenses
 - pass route data with categories
 - edit categories
 - add in checks for invalid inputs - login, category names, expenses, etc.

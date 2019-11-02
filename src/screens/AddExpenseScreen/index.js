@@ -36,6 +36,20 @@ class AddExpenseScreen extends Component {
     currentAmountString: '',
   };
 
+  componentDidMount() {
+    // Editing an expense - load in the current data
+    const previousExpense = this.props.navigation.getParam(
+      'previousExpense',
+      null,
+    );
+    if (previousExpense) {
+      this.setState({
+        currentAmountString: String(previousExpense.amount),
+        expenseTitle: previousExpense.expenseTitle,
+      });
+    }
+  }
+
   // Calculator section updated
   handleCalculatorChange = newValue => {
     this.setState({
@@ -53,7 +67,10 @@ class AddExpenseScreen extends Component {
       'selectedCategory',
       '',
     );
-    const expenseId = this.props.navigation.getParam('expenseId', '');
+    const previousExpense = this.props.navigation.getParam(
+      'previousExpense',
+      {},
+    );
     if (
       !expenseTitle ||
       !currentAmountString ||
@@ -66,6 +83,7 @@ class AddExpenseScreen extends Component {
     }
 
     const expenseObject = {
+      ...previousExpense, // this adds 'id' and 'createdAt' if editing
       expenseTitle,
       expenseDate: currentDateKey,
       amount,
@@ -77,11 +95,6 @@ class AddExpenseScreen extends Component {
         'no-category-help-circle-outline-materialcommunityicons';
     } else {
       expenseObject.categoryId = selectedCategory.id;
-    }
-
-    // Assign an expense id if we are editing
-    if (expenseId) {
-      expenseObject.id = expenseId;
     }
 
     try {
@@ -166,19 +179,23 @@ class AddExpenseScreen extends Component {
 // NavParams:
 // currentDateKey
 // selectedCategory
+// previousExpense
 
 const AddExpenseScreenWithFirebase = withFirebase(AddExpenseScreen);
-AddExpenseScreenWithFirebase.navigationOptions = ({ navigation }) => ({
-  title: 'Add Expense',
-  headerLeftContainerStyle: {
-    paddingLeft: 5,
-  },
-  headerLeft: getIcon({
-    name: 'arrow-left',
-    size: 32,
-    onPress: () => navigation.goBack(null),
-  }),
-});
+AddExpenseScreenWithFirebase.navigationOptions = ({ navigation }) => {
+  const previousExpense = navigation.getParam('previousExpense', null);
+  return {
+    title: previousExpense ? 'Edit Expense' : 'Add Expense',
+    headerLeftContainerStyle: {
+      paddingLeft: 5,
+    },
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      size: 32,
+      onPress: () => navigation.goBack(null),
+    }),
+  };
+};
 
 export default AddExpenseScreenWithFirebase;
 

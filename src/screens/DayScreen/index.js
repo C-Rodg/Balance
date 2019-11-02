@@ -47,11 +47,13 @@ class DayScreen extends Component {
   };
 
   // Functionality - edit an expense
-  handleEditExpense = expenseId => {
-    console.log('EDIT');
-    console.log(expenseId);
-    // TODO: edit expense item
-    this.props.navigation.navigate('Expense');
+  handleEditExpense = (expenseObject, mappedCategory) => {
+    const { currentDateKey } = this.props;
+    this.props.navigation.navigate('Expense', {
+      currentDateKey,
+      selectedCategory: mappedCategory,
+      previousExpense: expenseObject,
+    });
   };
 
   // Render - expenses total
@@ -73,10 +75,7 @@ class DayScreen extends Component {
 
   // Render - expenses list
   _renderExpensesList = () => {
-    console.log('RE RENDER EXPENSE LIST');
     const { expenses, categories, currentDateKey } = this.props;
-    console.log(currentDateKey);
-    console.log(expenses[currentDateKey]);
     // if no items, render empty text
     if (!expenses[currentDateKey] || expenses[currentDateKey].length === 0) {
       return (
@@ -90,8 +89,10 @@ class DayScreen extends Component {
       <ScrollView style={cardScrollViewSwipeableStyles}>
         {expenses[currentDateKey].map(item => {
           const mappedCategory = categories[item.categoryId] || {
+            id: 'no-category-help-circle-outline-materialcommunityicons',
             iconLibrary: 'MaterialCommunityIcons',
             iconName: 'help-circle-outline',
+            categoryName: 'No Category',
           };
           return (
             <ExpenseListItem
@@ -99,7 +100,7 @@ class DayScreen extends Component {
               {...item}
               category={mappedCategory}
               onDelete={this.handleDeleteExpense}
-              onEdit={this.handleEditExpense}
+              onEdit={() => this.handleEditExpense(item, mappedCategory)}
             />
           );
         })}
