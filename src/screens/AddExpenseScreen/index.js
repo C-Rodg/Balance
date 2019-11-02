@@ -19,6 +19,7 @@ import CalculatorSection from '../Shared/CalculatorSection';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { showErrorMessage } from '../../utils/toast';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -71,14 +72,18 @@ class AddExpenseScreen extends Component {
       'previousExpense',
       {},
     );
-    if (
-      !expenseTitle ||
-      !currentAmountString ||
-      !currentDateKey ||
-      isNaN(amount)
-    ) {
-      // TODO: HANDLE ERRORS
-      console.log('SOMETHING WRONGGGG!');
+
+    let errorMessage = null;
+    if (!expenseTitle) {
+      errorMessage = 'Please provide a title for this expense.';
+    } else if (!currentAmountString) {
+      errorMessage = 'Please provide an amount for the expense.';
+    } else if (!currentDateKey || isNaN(amount)) {
+      errorMessage = 'Something is wrong. Please go back and try again.';
+    }
+
+    if (errorMessage) {
+      showErrorMessage(errorMessage);
       return;
     }
 
