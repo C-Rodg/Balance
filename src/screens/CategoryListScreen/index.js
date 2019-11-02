@@ -33,14 +33,12 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
-// START HERE:
-// STILL NEEDS DONE: verify amount is set and category is selected. Hook up create expense. Hook up date that we're adding expense to
 class CategoryListScreen extends Component {
   state = {
     searchTerm: '',
   };
 
-  // Category - Select
+  // Category - Select - go back
   selectCategory = categoryId => {
     const { categories } = this.props;
     const selectedCategory = { ...categories[categoryId] };
@@ -48,8 +46,10 @@ class CategoryListScreen extends Component {
   };
 
   // Category - Edit
-  onCategoryEdit = categoryId => {
-    // Edit a category.  On pause for now.
+  onCategoryEdit = categoryObject => {
+    this.props.navigation.navigate('CategoryConfig', {
+      previousCategory: categoryObject,
+    });
   };
 
   // Category - Delete
@@ -58,6 +58,7 @@ class CategoryListScreen extends Component {
       const { firebase } = this.props;
       await firebase.deleteCustomCategory(categoryId);
     } catch (err) {
+      // TODO: HANDLE ERRORS
       console.log(err);
       // this may not resolve offline. test
     }
@@ -81,9 +82,9 @@ class CategoryListScreen extends Component {
           <SwipeableRow
             rowId={categoryObject.id}
             key={categoryObject.id}
-            onEdit={this.onCategoryEdit}
+            onEdit={() => this.onCategoryEdit(categoryObject)}
             onDelete={this.onCategoryDelete}
-            hideEdit={true}
+            hideEdit={isStandardCategory}
             hideDelete={isStandardCategory}
             onRowPress={() => this.selectCategory(categoryObject.id)}>
             <View style={styles.categoryItemRow}>

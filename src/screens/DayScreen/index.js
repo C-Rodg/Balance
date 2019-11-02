@@ -43,6 +43,7 @@ class DayScreen extends Component {
     } catch (err) {
       console.log('ERROR DELETING');
       console.log(err.message);
+      // TODO: HANDLE ERRORS
     }
   };
 

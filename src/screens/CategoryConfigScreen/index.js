@@ -30,7 +30,6 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
-// NEEDS DONE: Error handling, loading in a editable category
 class CategoryConfigScreen extends Component {
   state = {
     newCategoryName: '',
@@ -40,10 +39,21 @@ class CategoryConfigScreen extends Component {
 
   componentDidMount() {
     this.props.navigation.setParams({ saveCategory: this._saveCategory });
+    const previousCategory = this.props.navigation.getParam(
+      'previousCategory',
+      null,
+    );
+    if (previousCategory) {
+      this.setState({
+        newCategoryName: previousCategory.categoryName,
+        newCategoryIconLibrary: previousCategory.iconLibrary,
+        newCategoryIconName: previousCategory.iconName,
+      });
+    }
   }
 
+  // Create New Category or Save over existing
   _saveCategory = async () => {
-    // TODO: save it, set selected, and then navigate back
     try {
       const {
         newCategoryName,
@@ -51,29 +61,40 @@ class CategoryConfigScreen extends Component {
         newCategoryIconLibrary,
       } = this.state;
 
-      if (!newCategoryIconName || !newCategoryIconName) {
+      if (!newCategoryIconName || !newCategoryName) {
         console.log('NOT COMPLETE');
-        // TODO: show some error message
+        // TODO: HANDLE ERRORS
         return;
       }
 
       const { firebase } = this.props;
-      const categoryId = `${newCategoryName}-${newCategoryIconName}-${newCategoryIconLibrary}`.replace(
-        /[^a-zA-Z0-9-]/g,
-        '',
+      const previousCategory = this.props.navigation.getParam(
+        'previousCategory',
+        {},
       );
-      // Create custom category
-      await firebase.setNewCategoryItem({
-        id: categoryId,
+      let id = previousCategory.id
+        ? previousCategory.id
+        : `${newCategoryName}-${newCategoryIconName}-${newCategoryIconLibrary}`.replace(
+            /[^a-zA-Z0-9-]/g,
+            '',
+          );
+
+      const categoryObject = {
+        ...previousCategory,
+        id,
         categoryName: newCategoryName,
         iconLibrary: newCategoryIconLibrary,
         iconName: newCategoryIconName,
-      });
+      };
+
+      // Create custom category
+      await firebase.setNewCategoryItem(categoryObject);
 
       // Navigate back
       this.props.navigation.goBack(null);
     } catch (err) {
       console.log(err);
+      // TODO: HANDLE ERRORS
     }
   };
 
@@ -122,7 +143,9 @@ class CategoryConfigScreen extends Component {
 const CategoryConfigScreenWithFirebase = withFirebase(CategoryConfigScreen);
 
 CategoryConfigScreenWithFirebase.navigationOptions = ({ navigation }) => ({
-  title: 'New Category',
+  title: navigation.getParam('previousCategory', null)
+    ? 'Edit Category'
+    : 'New Category',
   headerLeftContainerStyle: {
     paddingLeft: 5,
   },

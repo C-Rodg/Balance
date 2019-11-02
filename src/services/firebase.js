@@ -100,7 +100,7 @@ export default class Firebase {
   // CATEGORIES - create/set a new item
   setNewCategoryItem = async ({ id, ...categoryObject }) => {
     const uid = this.getUserUID();
-    if (!uid) return null;
+    if (!uid || !id) return null;
 
     // Get a reference to the correct place in database
     const categoryRef = this.firestore.doc(`users/${uid}/categories/${id}`);

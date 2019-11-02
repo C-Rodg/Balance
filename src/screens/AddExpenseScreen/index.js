@@ -77,7 +77,7 @@ class AddExpenseScreen extends Component {
       !currentDateKey ||
       isNaN(amount)
     ) {
-      // TODO: show some error
+      // TODO: HANDLE ERRORS
       console.log('SOMETHING WRONGGGG!');
       return;
     }

@@ -30,6 +30,7 @@ class AuthenticationScreen extends Component {
       await firebase.signInWithEmailAndPassword(email, password);
       navigation.navigate('App');
     } catch (err) {
+      // TODO: HANDLE ERRORS
       console.log(err.message);
     }
   };
@@ -69,6 +70,7 @@ class AuthenticationScreen extends Component {
       // Navigate to main application
       navigation.navigate('App');
     } catch (err) {
+      // TODO: HANDLE ERRORS
       console.log(err.message);
     }
   };

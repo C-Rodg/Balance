@@ -47,8 +47,7 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- pass route data with categories
-- edit categories
+- month screen
 - add in checks for invalid inputs - login, category names, expenses, etc.
 - - toast alerts? for errors
 - structure budgets state
@@ -58,9 +57,13 @@ _:app:installDebug failed_
 - style and implement settings screen
 - async storage? may be automatically handled
 - database security rules (video #6!)
+- loading/startup screens
 
 ---
 
+Minor Todos:
+
+- EDIT CATEGORY SCREEN: scroll to icon location of one that is selected
 - DAY SCREEN: fix location of month left and right buttons
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?
 - ENTIRE APP: currently hardcoded to USD/en-US
