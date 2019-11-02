@@ -47,7 +47,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- hookup create categories
 - pass route data with expenses
 - edit expenses
 - delete expenses

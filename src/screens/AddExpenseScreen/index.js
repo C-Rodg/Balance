@@ -57,6 +57,33 @@ class AddExpenseScreen extends Component {
     this.props.navigation.pop();
   };
 
+  // Render the category icon
+  _renderCategoryIcon = () => {
+    const selectedCategory = this.props.navigation.getParam(
+      'selectedCategory',
+      {
+        iconName: 'help-circle-outline',
+        iconLibrary: 'MaterialCommunityIcons',
+      },
+    );
+
+    return getIcon({
+      name: selectedCategory.iconName,
+      library: selectedCategory.iconLibrary,
+      color: COLORS.white,
+      size: 72,
+    });
+  };
+
+  // Render the category name
+  _renderCategoryName = () => {
+    const selectedCategory = this.props.navigation.getParam(
+      'selectedCategory',
+      { categoryName: '-select a category-' },
+    );
+    return selectedCategory.categoryName;
+  };
+
   render() {
     return (
       <Fragment>
@@ -64,15 +91,11 @@ class AddExpenseScreen extends Component {
         <SafeAreaView />
         <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
-            {getIcon({
-              name: 'headphones',
-              color: COLORS.white,
-              size: 72,
-            })}
+            {this._renderCategoryIcon()}
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('CategoryList')}>
-              <Text style={topContentSectionTitleLinkStyles}>
-                -select a category-
+              <Text style={topContentSectionTitleLinkStyles} numberOfLines={1}>
+                {this._renderCategoryName()}
               </Text>
             </TouchableOpacity>
             <Text style={topContentSectionSubTitleStyles}>

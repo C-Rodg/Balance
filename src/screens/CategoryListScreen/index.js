@@ -33,6 +33,8 @@ import {
 import { offWhiteWrapperStyles } from '../../styles/layout';
 import { horizontalSpacingStyles } from '../../styles/spacing';
 
+// START HERE:
+// STILL NEEDS DONE: verify amount is set and category is selected. Hook up create expense. Hook up date that we're adding expense to
 class CategoryListScreen extends Component {
   state = {
     searchTerm: '',
@@ -40,9 +42,9 @@ class CategoryListScreen extends Component {
 
   // Category - Select
   selectCategory = categoryId => {
-    // TODO: SET CATEGORY
-    console.log(categoryId);
-    this.props.navigation.navigate('Expense');
+    const { categories } = this.props;
+    const selectedCategory = { ...categories[categoryId] };
+    this.props.navigation.navigate('Expense', { selectedCategory });
   };
 
   // Category - Edit
