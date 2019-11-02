@@ -2,11 +2,15 @@
 
 balance your life
 
-## Libraries
+## Tools
+
+[React Native](https://facebook.github.io/react-native/)
+
+[Firebase](https://firebase.google.com/)
+
+[Reast Native Firebase](https://invertase.io/oss/react-native-firebase/)
 
 [React Navigation](https://reactnavigation.org)
-
-[Async-Storage](https://github.com/react-native-community/async-storage)
 
 [React-Native-Vector-Icons](https://github.com/oblador/react-native-vector-icons)
 
