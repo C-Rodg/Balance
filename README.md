@@ -55,7 +55,7 @@ _:app:installDebug failed_
 - Settings screen:
   - app tour
   - link for support (native module Linking)
-  - device info (native module)
+  - device info (native module-Version at bottom)
 - Data Management
   - delete categories
   - delete budgets

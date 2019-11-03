@@ -78,8 +78,9 @@ class SettingsScreen extends Component {
     // TODO: export to csv
   };
 
+  // Navigate to Data Management
   handleManageData = () => {
-    // TODO: navigate to data management
+    this.props.navigation.navigate('DataManagement');
   };
 
   handleAppTour = () => {

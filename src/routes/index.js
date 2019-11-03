@@ -17,6 +17,7 @@ import AddExpenseScreen from '../screens/AddExpenseScreen';
 import CategoryListScreen from '../screens/CategoryListScreen';
 import CategoryConfigScreen from '../screens/CategoryConfigScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import DataManagementScreen from '../screens/DataManagementScreen';
 
 // Providers
 import FirebaseProvider from '../providers/FirebaseProvider';
@@ -55,6 +56,7 @@ const HomeStack = createStackNavigator(
     BudgetsConfig: BudgetsConfigScreen,
     BudgetsAmount: BudgetsAmountScreen,
     Settings: SettingsScreen,
+    DataManagement: DataManagementScreen,
   },
   {
     initialRouteName: 'Day',
