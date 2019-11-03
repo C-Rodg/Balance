@@ -73,7 +73,6 @@ class BudgetsConfigScreen extends Component {
         return;
       }
 
-      console.log(selectedCategory);
       const previousBudget = navigation.getParam('previousBudget', {
         id: selectedCategory.id,
       });
@@ -108,9 +107,9 @@ class BudgetsConfigScreen extends Component {
     const { isEditingBudget } = this.state;
     const selectedCategory = navigation.getParam('selectedCategory', {});
     return {
+      ...selectedCategory,
       navigation,
       isDisabled: isEditingBudget,
-      ...selectedCategory,
       navigateWith: { navigateTo: 'BudgetsConfig' },
     };
   };
@@ -123,7 +122,7 @@ class BudgetsConfigScreen extends Component {
         <View style={blueWrapperStyles}>
           <CategoryLinkSection {...this.getCategoryLinkProps()} />
           <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
-            <Text style={overlayCardTitleStyles}>Set Amount Budgeted:</Text>
+            <Text style={overlayCardTitleStyles}>Monthly Budget:</Text>
             <CalculatorSection
               value={this.state.currentAmountString}
               onCalculatorChange={this.handleCalculatorChange}

@@ -9,6 +9,9 @@ import {
   StatusBar,
 } from 'react-native';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Components
 import BlockButton from '../Shared/BlockButton';
 import SwipeableRow from '../Shared/SwipeableRow';
@@ -17,6 +20,7 @@ import IconWrapper from '../Shared/IconWrapper';
 // Utils
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 import { getIcon } from '../../utils/iconNormalizer';
+import { showErrorMessage } from '../../utils/toast';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -35,98 +39,38 @@ import {
 } from '../../styles/layout';
 
 class BudgetsListScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Budgets',
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      size: 32,
-      color: COLORS.black,
-      onPress: () => navigation.goBack(null),
-    }),
-  });
-
   // Edit the selected budget
   onBudgetEdit = budgetId => {
-    // TODO: go to edit budget
-    console.log('EDITING BUDGET-' + budgetId);
-    this.props.navigation.navigate('BudgetsConfig');
+    const { budgets, categories, navigation } = this.props;
+    const currentBudget = budgets[budgetId];
+    const mappedCategory = categories[budgetId];
+    const navParams = mappedCategory
+      ? {
+          previousBudget: currentBudget,
+          selectedCategory: { ...mappedCategory },
+        }
+      : {};
+    navigation.navigate('BudgetsConfig', navParams);
   };
 
   // Delete the selected budget
-  onBudgetDelete = budgetId => {
-    // TODO: delete the budget
-    console.log('DELETING BUDGET-' + budgetId);
+  onBudgetDelete = async budgetId => {
+    try {
+      const { firebase } = this.props;
+      await firebase.deleteBudgetItem(budgetId);
+    } catch (err) {
+      showErrorMessage('Unable to delete this category.');
+      console.log(err.message);
+      // TODO: TEST OFFLINE
+    }
   };
 
   // Render the list of budgets
   _renderBudgetList = () => {
-    const SAMPLE_BUDGETS = [
-      {
-        iconName: 'cart',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Candy',
-        amountBudgeted: 200,
-      },
-      {
-        iconName: 'home-city',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Groceries',
-        amountBudgeted: 22500,
-      },
-      {
-        iconName: 'truck',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Snacks',
-        amountBudgeted: 1350,
-      },
-      {
-        iconName: 'silverware-fork-knife',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Restaurants',
-        amountBudgeted: 15000,
-      },
-      {
-        iconName: 'glass-cocktail',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Bars',
-        amountBudgeted: 4000,
-      },
-      {
-        iconName: 'airplane',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Traveling All Around the World',
-        amountBudgeted: 17300,
-      },
-      {
-        iconName: 'currency-usd',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Investments',
-        amountBudgeted: 5500,
-      },
-      {
-        iconName: 'home',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Rent',
-        amountBudgeted: 280000,
-      },
-      {
-        iconName: 'dumbbell',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Gym',
-        amountBudgeted: 500,
-      },
-      {
-        iconName: 'wallet-giftcard',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Wallets and clothes',
-        amountBudgeted: 120,
-      },
-    ];
+    const { categories, budgets } = this.props;
+    const budgetKeys = Object.keys(budgets);
 
-    if (SAMPLE_BUDGETS.length === 0) {
+    if (budgetKeys.length === 0) {
       return (
         <Text style={[simpleMessageStyles, styles.sidePadding]}>
           No budgets created...
@@ -134,28 +78,53 @@ class BudgetsListScreen extends Component {
       );
     }
 
-    return SAMPLE_BUDGETS.map(budgetObject => {
+    return budgetKeys.map(k => {
+      const currentBudget = budgets[k];
+      const mappedCategory = categories[k];
+      if (!mappedCategory) {
+        console.log('EMPTY CATEGORY!');
+        return null;
+      }
       return (
         <SwipeableRow
-          rowId={budgetObject.categoryName}
-          key={budgetObject.categoryName}
+          rowId={currentBudget.id}
+          key={currentBudget.id}
           onEdit={this.onBudgetEdit}
           onDelete={this.onBudgetDelete}
-          styles={{ marginBottom: 15 }}>
-          <IconWrapper iconName={budgetObject.iconName} />
+          styles={styles.budgetRow}>
+          <IconWrapper
+            iconName={mappedCategory.iconName}
+            iconLibrary={mappedCategory.iconLibrary}
+          />
           <View style={styles.budgetTextView}>
             <Text style={styles.budgetTitleText} numberOfLines={1}>
-              {budgetObject.categoryName}
+              {mappedCategory.categoryName}
             </Text>
             <Text style={styles.budgetSubtitleText}>
               {convertAmountToCurrencyString({
-                amount: budgetObject.amountBudgeted,
+                amount: currentBudget.amountBudgeted,
                 minimumIntegerDigits: 1,
               })}
             </Text>
           </View>
         </SwipeableRow>
       );
+    });
+  };
+
+  // Get the total for budgets
+  _renderBudgetsTotal = () => {
+    const { budgets } = this.props;
+
+    if (Object.keys(budgets).length === 0) {
+      return '$00.00';
+    }
+
+    let sum = 0;
+    Object.keys(budgets).forEach(k => (sum += budgets[k].amountBudgeted));
+
+    return convertAmountToCurrencyString({
+      amount: sum,
     });
   };
 
@@ -166,7 +135,9 @@ class BudgetsListScreen extends Component {
         <SafeAreaView />
         <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
-            <Text style={topContentSectionTitleStyles}>$3,598.45</Text>
+            <Text style={topContentSectionTitleStyles}>
+              {this._renderBudgetsTotal()}
+            </Text>
             <Text style={topContentSectionSubTitleStyles}>Total Budgeted</Text>
           </View>
           <View style={overlayCardStyles}>
@@ -193,7 +164,22 @@ class BudgetsListScreen extends Component {
   }
 }
 
-export default BudgetsListScreen;
+const BudgetsListScreenWithFirebase = withFirebase(BudgetsListScreen);
+
+BudgetsListScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: 'Budgets',
+  headerLeftContainerStyle: {
+    paddingLeft: 5,
+  },
+  headerLeft: getIcon({
+    name: 'arrow-left',
+    size: 32,
+    color: COLORS.black,
+    onPress: () => navigation.goBack(null),
+  }),
+});
+
+export default BudgetsListScreenWithFirebase;
 
 const styles = StyleSheet.create({
   sidePadding: {
@@ -213,5 +199,8 @@ const styles = StyleSheet.create({
     color: COLORS.grayDark,
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.p,
+  },
+  budgetRow: {
+    marginBottom: 15,
   },
 });

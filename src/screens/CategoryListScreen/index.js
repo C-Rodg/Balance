@@ -7,7 +7,6 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableHighlight,
 } from 'react-native';
 
 // Components

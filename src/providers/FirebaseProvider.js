@@ -88,8 +88,6 @@ class FirebaseProvider extends Component {
     this.unsubscribeFromCategories = firebase
       .getCategoriesCollectionRef()
       .onSnapshot(snapshot => {
-        console.log('onSnapshot - Categories');
-        console.log(snapshot);
         const customCategories = convertCollectionToKeyedObjectById(
           snapshot.docs,
         );
@@ -107,7 +105,7 @@ class FirebaseProvider extends Component {
     this.unsubscribeFromBudgets = firebase
       .getBudgetsCollectionRef()
       .onSnapshot(snapshot => {
-        const budgets = snapshot.docs.map(collectIdsAndDocs);
+        const budgets = convertCollectionToKeyedObjectById(snapshot.docs);
         console.log('BUDGETS:');
         console.log(budgets);
         this.setState({
