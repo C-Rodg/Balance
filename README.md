@@ -51,9 +51,9 @@ _:app:installDebug failed_
 
 ## TODO:
 
+- BUG: app freezing with toasts? (Login screen error)
 - Settings screen:
   - app tour
-  - expense total
   - link for support (native module Linking)
   - device info (native module)
 - Data Management

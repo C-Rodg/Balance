@@ -6,7 +6,6 @@ import Firebase from '../services/firebase';
 
 // Utils
 import {
-  collectIdsAndDocs,
   convertCollectionToKeyedObjectById,
   convertCollectionToKeyedArrays,
 } from '../utils/databaseHelpers';

@@ -16,6 +16,7 @@ import withFirebase from '../../hocs/withFirebase';
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
 import { showErrorMessage } from '../../utils/toast';
+import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 
 // Styling
 import { offWhiteWrapperStyles } from '../../styles/layout';
@@ -23,6 +24,44 @@ import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
 class SettingsScreen extends Component {
+  state = {
+    expenseTotal: '',
+  };
+
+  componentDidMount() {
+    this.calculateExpensesTotal();
+  }
+
+  // Calculate expense total
+  calculateExpensesTotal = () => {
+    const { expenses } = this.props;
+    let sum = 0;
+
+    // Loop over all expenses
+    const expenseKeys = Object.keys(expenses);
+    expenseKeys.forEach(k => {
+      const expenseDate = expenses[k];
+      if (Array.isArray(expenseDate)) {
+        expenseDate.forEach(expense => {
+          if (expense.amount) {
+            sum += expense.amount;
+          }
+        });
+      }
+    });
+
+    let sumString = '';
+    if (sum === 0) {
+      sumString = '$00.00';
+    } else {
+      sumString = convertAmountToCurrencyString({ amount: sum });
+    }
+
+    this.setState({
+      expenseTotal: sumString,
+    });
+  };
+
   // Logout of the application
   handleLogout = async () => {
     try {
@@ -99,7 +138,7 @@ class SettingsScreen extends Component {
                 <View style={[styles.actionRow, styles.bottomBorderStyles]}>
                   <Text style={styles.actionRowText}>Total Spent</Text>
                   <Text style={styles.actionRowSubText} numberOfLines={1}>
-                    TODO: SOME EXPENSE TOTAL
+                    {this.state.expenseTotal}
                   </Text>
                 </View>
               </View>
