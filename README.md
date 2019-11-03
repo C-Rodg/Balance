@@ -56,7 +56,10 @@ _:app:installDebug failed_
   - reset categories
   - how to use
   - clear all data
+  - device info
 - loading/startup screens
+- setup Linking module
+- alerts for over on budgets
 - hook up database security rules (video #6!)
 - test offline
 - test Android
