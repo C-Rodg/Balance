@@ -51,7 +51,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- month screen
 - style and implement settings screen
 - async storage? may be automatically handled
 - database security rules (video #6!)

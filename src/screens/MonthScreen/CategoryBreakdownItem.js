@@ -17,12 +17,12 @@ function CategoryBreakdownItem({
   iconName,
   iconLibrary,
   categoryName,
-  amountSpent,
+  amount,
   amountBudgeted,
 }) {
   const isBudgeted = amountBudgeted !== null;
   const amountSpentString = convertAmountToCurrencyString({
-    amount: amountSpent,
+    amount,
     minimumIntegerDigits: 1,
   });
   let budgetString = '';
@@ -38,7 +38,7 @@ function CategoryBreakdownItem({
     });
 
     // Determine if we are above or below the budget
-    difference = amountBudgeted - amountSpent;
+    difference = amountBudgeted - amount;
     differenceString = convertAmountToCurrencyString({
       amount: Math.abs(difference),
       minimumIntegerDigits: 1,
@@ -51,13 +51,13 @@ function CategoryBreakdownItem({
     }
 
     // Determine the percentage spent
-    percentageSpent = (amountSpent / amountBudgeted) * 100;
+    percentageSpent = (amount / amountBudgeted) * 100;
   }
 
   return (
     <View style={styles.contentWrapper}>
       <View style={styles.topRow}>
-        <IconWrapper iconName={iconName} />
+        <IconWrapper iconName={iconName} iconLibrary={iconLibrary} />
         <View style={styles.mainTextView}>
           <Text style={styles.categoryTitle} numberOfLines={1}>
             {categoryName}

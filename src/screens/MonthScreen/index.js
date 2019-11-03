@@ -35,74 +35,6 @@ import {
 } from '../../styles/layout';
 
 class MonthScreen extends Component {
-  // Render the list of category breakdowns
-  _renderCategoryBreakdown = () => {
-    const SAMPLE_BREAKDOWNS = [
-      {
-        iconName: 'bus',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Transportation',
-        amountSpent: 272,
-        amountBudgeted: 4000,
-      },
-      {
-        iconName: 'headphones',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Concerts',
-        amountSpent: 20000,
-        amountBudgeted: 15000,
-      },
-      {
-        iconName: 'laptop-chromebook',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Electronics',
-        amountSpent: 39900,
-        amountBudgeted: null,
-      },
-      {
-        iconName: 'cart',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Groceries about the USA of America',
-        amountSpent: 4800,
-        amountBudgeted: 5125,
-      },
-      {
-        iconName: 'silverware-fork-knife',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Restaurants',
-        amountSpent: 22399,
-        amountBudgeted: null,
-      },
-      {
-        iconName: 'home-city',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Rent',
-        amountSpent: 228979,
-        amountBudgeted: 9999,
-      },
-      {
-        iconName: 'glass-cocktail',
-        iconLibrary: 'MaterialCommunityIcons',
-        categoryName: 'Bars',
-        amountSpent: 1289,
-        amountBudgeted: 7324,
-      },
-    ];
-
-    if (SAMPLE_BREAKDOWNS.length === 0) {
-      return <Text style={simpleMessageStyles}>Nothing found...</Text>;
-    }
-
-    return SAMPLE_BREAKDOWNS.map(categoryBreakDown => {
-      return (
-        <CategoryBreakdownItem
-          key={`${categoryBreakDown.iconLibrary}-${categoryBreakDown.iconName}`}
-          {...categoryBreakDown}
-        />
-      );
-    });
-  };
-
   // Render - get the monthly expense total
   _renderMonthlyExpensesTotal = () => {
     const { expenses, navigation } = this.props;
@@ -129,6 +61,94 @@ class MonthScreen extends Component {
     return convertAmountToCurrencyString({
       amount: sum,
       minimumIntegerDigits: 1,
+    });
+  };
+
+  // Render the category breakdown
+  _renderCategoryBreakdown = () => {
+    const { expenses, categories, budgets, navigation } = this.props;
+    const currentDateKey = navigation.getParam('currentDateKey', '');
+
+    if (!currentDateKey) {
+      return <Text style={simpleMessageStyles}>Nothing found...</Text>;
+    }
+
+    // Loop through the days
+    const categorySpendingMap = {};
+    const dateKeyArray = currentDateKey.split('-');
+    const objectKeyPrefix = `${dateKeyArray[0]}-${dateKeyArray[1]}-`;
+    for (let i = 1; i < 32; i++) {
+      const dayKey = `${objectKeyPrefix}${String(i).padStart(2, '0')}`;
+      if (expenses[dayKey] && Array.isArray(expenses[dayKey])) {
+        // Found an expense array for this date, loop through it
+        expenses[dayKey].forEach(expenseItem => {
+          const categoryIdForExpense = expenseItem.categoryId;
+          if (categories.hasOwnProperty(categoryIdForExpense)) {
+            if (!categorySpendingMap[categoryIdForExpense]) {
+              categorySpendingMap[categoryIdForExpense] = 0;
+            }
+            categorySpendingMap[categoryIdForExpense] += expenseItem.amount;
+          } else {
+            // Handle categories that no longer exist
+            if (
+              !categorySpendingMap[
+                'no-category-help-circle-outline-materialcommunityicons'
+              ]
+            ) {
+              categorySpendingMap[
+                'no-category-help-circle-outline-materialcommunityicons'
+              ] = 0;
+            }
+            categorySpendingMap[
+              'no-category-help-circle-outline-materialcommunityicons'
+            ] += expenseItem.amount;
+          }
+        });
+      }
+    }
+
+    const categorySpendingKeys = Object.keys(categorySpendingMap);
+    if (categorySpendingKeys.length === 0) {
+      return <Text style={simpleMessageStyles}>Nothing found...</Text>;
+    }
+
+    const inorderCategoryKeys = categorySpendingKeys.sort((a, b) => {
+      const mappedCategoryA = categories[a];
+      const mappedCategoryB = categories[b];
+      if (!mappedCategoryA || !mappedCategoryB) {
+        return 0;
+      }
+
+      const categoryNameA = mappedCategoryA.categoryName.toUpperCase();
+      const categoryNameB = mappedCategoryB.categoryName.toUpperCase();
+
+      if (categoryNameA < categoryNameB) {
+        return -1;
+      } else if (categoryNameA > categoryNameB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return inorderCategoryKeys.map(k => {
+      const mappedCategory = categories[k];
+      if (!mappedCategory) {
+        console.log('UNMAPPED CATEGORY');
+        return null;
+      }
+
+      const mappedBudget = budgets[k] || {
+        amountBudgeted: null,
+      };
+
+      return (
+        <CategoryBreakdownItem
+          key={k}
+          {...mappedCategory}
+          {...mappedBudget}
+          amount={categorySpendingMap[k]}
+        />
+      );
     });
   };
 
