@@ -149,6 +149,9 @@ class CategoryConfigScreen extends Component {
   }
 }
 
+// NavParams:
+// previousCategory
+
 const CategoryConfigScreenWithFirebase = withFirebase(CategoryConfigScreen);
 
 CategoryConfigScreenWithFirebase.navigationOptions = ({ navigation }) => ({

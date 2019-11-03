@@ -53,52 +53,50 @@ class AddExpenseScreen extends Component {
 
   // Calculator done with use
   handleCalculatorDone = async () => {
-    const { expenseTitle, currentAmountString } = this.state;
-    const { firebase } = this.props;
-    const amount = parseInt(currentAmountString);
-    const currentDateKey = this.props.navigation.getParam('currentDateKey', '');
-    const selectedCategory = this.props.navigation.getParam(
-      'selectedCategory',
-      '',
-    );
-    const previousExpense = this.props.navigation.getParam(
-      'previousExpense',
-      {},
-    );
-
-    let errorMessage = null;
-    if (!expenseTitle) {
-      errorMessage = 'Please provide a title for this expense.';
-    } else if (!currentAmountString) {
-      errorMessage = 'Please provide an amount for the expense.';
-    } else if (!currentDateKey || isNaN(amount)) {
-      errorMessage = 'Something is wrong. Please go back and try again.';
-    }
-
-    if (errorMessage) {
-      showErrorMessage(errorMessage);
-      return;
-    }
-
-    const expenseObject = {
-      ...previousExpense, // this adds 'id' and 'createdAt' if editing
-      expenseTitle,
-      expenseDate: currentDateKey,
-      amount,
-    };
-
-    // Set the proper category
-    if (!selectedCategory) {
-      expenseObject.categoryId =
-        'no-category-help-circle-outline-materialcommunityicons';
-    } else {
-      expenseObject.categoryId = selectedCategory.id;
-    }
-
     try {
+      const { expenseTitle, currentAmountString } = this.state;
+      const { firebase, navigation } = this.props;
+      const amount = parseInt(currentAmountString);
+      const currentDateKey = navigation.getParam('currentDateKey', '');
+      const selectedCategory = navigation.getParam('selectedCategory', '');
+      const previousExpense = navigation.getParam('previousExpense', {});
+
+      let errorMessage = null;
+      if (!expenseTitle) {
+        errorMessage = 'Please provide a title for this expense.';
+      } else if (!currentAmountString || amount <= 0) {
+        errorMessage = 'Please provide an amount for the expense.';
+      } else if (!currentDateKey || isNaN(amount)) {
+        errorMessage = 'Something is wrong. Please go back and try again.';
+      }
+
+      if (errorMessage) {
+        showErrorMessage(errorMessage);
+        return;
+      }
+
+      const expenseObject = {
+        // this adds 'id' and 'createdAt' if editing
+        ...previousExpense,
+        expenseTitle,
+        expenseDate: currentDateKey,
+        amount,
+      };
+
+      // Set the proper category
+      if (!selectedCategory) {
+        expenseObject.categoryId =
+          'no-category-help-circle-outline-materialcommunityicons';
+      } else {
+        expenseObject.categoryId = selectedCategory.id;
+      }
+
+      // send firebase request
       await firebase.setExpenseItem(expenseObject);
-      this.props.navigation.pop();
+      navigation.pop();
     } catch (err) {
+      showErrorMessage('Unable to save the expense at this time.');
+      // TODO: HANDLE OFFLINE
       console.log(err.message);
     }
   };
@@ -144,9 +142,9 @@ class AddExpenseScreen extends Component {
 }
 
 // NavParams:
-// currentDateKey
-// selectedCategory
-// previousExpense
+// -> previousExpense
+// -> currentDateKey
+// <- selectedCategory
 
 const AddExpenseScreenWithFirebase = withFirebase(AddExpenseScreen);
 AddExpenseScreenWithFirebase.navigationOptions = ({ navigation }) => {

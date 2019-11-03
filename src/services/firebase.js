@@ -83,14 +83,14 @@ export default class Firebase {
     return this.firestore.collection(`users/${uid}/expenses`);
   };
 
-  // Budgets - get budget collection reference
+  // BUDGETS - get budget collection reference
   getBudgetsCollectionRef = () => {
     const uid = this.getUserUID();
     if (!uid) return null;
     return this.firestore.collection(`users/${uid}/budgets`);
   };
 
-  // Categories - get category collection reference
+  // CATEGORIES - get category collection reference
   getCategoriesCollectionRef = () => {
     const uid = this.getUserUID();
     if (!uid) return null;

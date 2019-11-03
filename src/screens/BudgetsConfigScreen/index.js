@@ -31,6 +31,7 @@ import { blueWrapperStyles } from '../../styles/layout';
 
 class BudgetsConfigScreen extends Component {
   state = {
+    isEditingBudget: false,
     currentAmountString: '',
   };
 
@@ -42,6 +43,7 @@ class BudgetsConfigScreen extends Component {
     );
     if (previousBudget) {
       this.setState({
+        isEditingBudget: true,
         currentAmountString: String(previousBudget.amountBudgeted),
       });
     }
@@ -49,7 +51,48 @@ class BudgetsConfigScreen extends Component {
 
   // Save the current budget
   _saveBudget = async () => {
-    console.log('SAVING BUDGET');
+    try {
+      const { firebase, navigation } = this.props;
+      const { currentAmountString } = this.state;
+      const amountBudgeted = parseInt(currentAmountString);
+      const selectedCategory = navigation.getParam('selectedCategory', '');
+
+      let errorMessage = null;
+      if (!selectedCategory) {
+        errorMessage = 'Please select a category to tie this budget to.';
+      } else if (
+        !currentAmountString ||
+        isNaN(amountBudgeted) ||
+        amountBudgeted <= 0
+      ) {
+        errorMessage = 'Please provide an amounted to be budgeted';
+      }
+
+      if (errorMessage) {
+        showErrorMessage(errorMessage);
+        return;
+      }
+
+      console.log(selectedCategory);
+      const previousBudget = navigation.getParam('previousBudget', {
+        id: selectedCategory.id,
+      });
+      const budgetObject = {
+        // adds 'id' if was previously created or new category id if not
+        ...previousBudget,
+        amountBudgeted,
+      };
+
+      // send firebase request
+      await firebase.setBudgetItem(budgetObject);
+
+      // Navigate back
+      navigation.goBack(null);
+    } catch (err) {
+      showErrorMessage('Unable to save the budget at this time.');
+      console.log(err.message);
+      // TODO: TEST OFFLINE
+    }
   };
 
   // Calculator section updated
@@ -62,9 +105,11 @@ class BudgetsConfigScreen extends Component {
   // Get the required category link section props
   getCategoryLinkProps = () => {
     const { navigation } = this.props;
+    const { isEditingBudget } = this.state;
     const selectedCategory = navigation.getParam('selectedCategory', {});
     return {
       navigation,
+      isDisabled: isEditingBudget,
       ...selectedCategory,
       navigateWith: { navigateTo: 'BudgetsConfig' },
     };
@@ -93,7 +138,8 @@ class BudgetsConfigScreen extends Component {
 }
 
 // NavParams:
-// previousBudget
+// -> previousBudget
+// <- selectedCategory
 
 const BudgetsConfigScreenWithFirebase = withFirebase(BudgetsConfigScreen);
 BudgetsConfigScreenWithFirebase.navigationOptions = ({ navigation }) => ({
