@@ -51,10 +51,6 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- structure budgets state
-- create budgets
-- edit budgets
-- delete budgets
 - month screen
 - style and implement settings screen
 - async storage? may be automatically handled

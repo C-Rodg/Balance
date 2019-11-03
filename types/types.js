@@ -38,14 +38,3 @@ const USER = {
   email: 'foo@test.com',
   createdAt: new Date(),
 };
-
-// --------- FOOO - eventually delete --- //
-
-// Category Breakdown
-const CATEGORY_BREAKDOWN = {
-  iconName: 'cart', // TODO:
-  iconLibrary: 'MaterialCommunityIcon', // used above, maybe just have an ID instead?
-  categoryName: 'Candy',
-  amountSpent: 178,
-  amountBudgeted: 200, // null for unbudgeted
-};

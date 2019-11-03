@@ -17,6 +17,7 @@ import CategoryBreakdownItem from './CategoryBreakdownItem';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 
 // Styling
 import COLORS from '../../styles/colors';
@@ -102,6 +103,34 @@ class MonthScreen extends Component {
     });
   };
 
+  // Render - get the monthly expense total
+  _renderMonthlyExpensesTotal = () => {
+    const { expenses, navigation } = this.props;
+    const currentDateKey = navigation.getParam('currentDateKey', '');
+
+    if (!currentDateKey) {
+      return '$00.00';
+    }
+
+    const dateKeyArray = currentDateKey.split('-');
+
+    const objectKeyPrefix = `${dateKeyArray[0]}-${dateKeyArray[1]}-`;
+
+    let sum = 0;
+    // Loop through the possible days in the month and sum the expenses
+    for (let i = 1; i < 32; i++) {
+      const dayKey = `${objectKeyPrefix}${String(i).padStart(2, '0')}`;
+
+      if (expenses[dayKey] && Array.isArray(expenses[dayKey])) {
+        expenses[dayKey].forEach(expense => (sum += expense.amount));
+      }
+    }
+
+    return convertAmountToCurrencyString({
+      amount: sum,
+    });
+  };
+
   render() {
     return (
       <Fragment>
@@ -109,7 +138,9 @@ class MonthScreen extends Component {
         <SafeAreaView />
         <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
-            <Text style={topContentSectionTitleStyles}>$2,592.50</Text>
+            <Text style={topContentSectionTitleStyles}>
+              {this._renderMonthlyExpensesTotal()}
+            </Text>
             <Text style={topContentSectionSubTitleStyles}>Total Spent</Text>
           </View>
           <View style={overlayCardStyles}>
