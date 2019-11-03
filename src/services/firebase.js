@@ -105,20 +105,44 @@ export default class Firebase {
     // Get a reference to the correct place in database
     const categoryRef = this.firestore.doc(`users/${uid}/categories/${id}`);
 
-    // create the category
+    // create/update the category
     return categoryRef.set(categoryObject);
   };
 
   // CATEGORIES - delete a custom category
   deleteCustomCategory = async id => {
     const uid = this.getUserUID();
-    if (!uid) return null;
+    if (!uid || !id) return null;
 
     // Get a reference to the correct place in database
     const categoryRef = this.firestore.doc(`users/${uid}/categories/${id}`);
 
     // NOTE: this won't resolve while offline. Will that cause problems?
     return categoryRef.delete();
+  };
+
+  // BUDGETS - create/set a new item
+  setBudgetItem = async ({ id, ...budgetObject }) => {
+    const uid = this.getUserUID();
+    if (!uid || !id) return null;
+
+    // Get a reference to the correct place in database
+    const budgetRef = this.firestore.doc(`users/${uid}/budgets/${id}`);
+
+    // Create/update the budget
+    return budgetRef.set(budgetObject);
+  };
+
+  // BUDGETS - delete a budget
+  deleteBudgetItem = async id => {
+    const uid = this.getUserUID();
+    if (!uid || !id) return null;
+
+    // Get a reference to the correct place in database
+    const budgetRef = this.firestore.doc(`users/${uid}/budgets/${id}`);
+
+    // NOTE: this won't resolve while offline. Will that cause problems?
+    return budgetRef.delete();
   };
 
   // EXPENSES - create a new expense or edit an existing
