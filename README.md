@@ -51,11 +51,16 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- style and implement settings screen
-- async storage? may be automatically handled
-- database security rules (video #6!)
+- Settings screen:
+  - logout
+  - reset categories
+  - how to use
+  - clear all data
 - loading/startup screens
+- hook up database security rules (video #6!)
+- test offline
 - test Android
+- async storage? may be automatically handled
 
 ---
 

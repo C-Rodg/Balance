@@ -14,8 +14,8 @@ import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import COLORS from '../../styles/colors';
 
 // EVENTS GUIDE:
-// Swipe Left: Day - 1
-// Swipe Right: Day + 1
+// Swipe Left: Day + 1
+// Swipe Right: Day - 1
 // Double Tap: Reset date to today
 // Single Tap: Switch to fast date slider
 // Single Tap: Switch to normal date flinger
@@ -50,13 +50,13 @@ class DaySwiper extends Component {
   // Navigate to day before
   swipeLeftHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
-      this.props.onChangeDay(this.props.currentDay - 1);
+      this.props.onChangeDay(this.props.currentDay + 1);
     }
   };
   // Navigate to day after
   swipeRightHandler = ({ nativeEvent }) => {
     if (nativeEvent.state === State.ACTIVE) {
-      this.props.onChangeDay(this.props.currentDay + 1);
+      this.props.onChangeDay(this.props.currentDay - 1);
     }
   };
 
