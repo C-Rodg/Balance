@@ -95,7 +95,7 @@ class CategoryListScreen extends Component {
                 size: 24,
                 color: COLORS.black,
               })}
-              <Text style={styles.categoryItemText}>
+              <Text style={styles.categoryItemText} numberOfLines={1}>
                 {categoryObject.categoryName}
               </Text>
             </View>
@@ -175,6 +175,8 @@ const styles = StyleSheet.create({
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.h6,
     marginLeft: 15,
+    paddingRight: 5,
+    flex: 1,
   },
   horizontalPadding: {
     paddingHorizontal: 15,
