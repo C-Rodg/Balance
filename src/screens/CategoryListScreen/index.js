@@ -41,9 +41,10 @@ class CategoryListScreen extends Component {
 
   // Category - Select - go back
   selectCategory = categoryId => {
-    const { categories } = this.props;
+    const { categories, navigation } = this.props;
     const selectedCategory = { ...categories[categoryId] };
-    this.props.navigation.navigate('Expense', { selectedCategory });
+    const navigateTo = navigation.getParam('navigateTo', 'Expense');
+    this.props.navigation.navigate(navigateTo, { selectedCategory });
   };
 
   // Category - Edit

@@ -9,59 +9,65 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Components
-import IconTextInput from '../Shared/IconTextInput';
-import IconSelectionSection from '../Shared/IconSelectionSection';
+import CategoryLinkSection from '../Shared/CategoryLinkSection';
+import CalculatorSection from '../Shared/CalculatorSection';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
+import { showErrorMessage } from '../../utils/toast';
 
 // Styling
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 import {
   overlayCardStyles,
-  overlayCardTitleWithPaddingStyles,
-  textInputStyles,
+  overlayCardTitleStyles,
 } from '../../styles/cardStyles';
-import {
-  blueWrapperStyles,
-  topContentSectionStyles,
-  topContentSectionTitleLinkStyles,
-} from '../../styles/layout';
-import { horizontalSpacingStyles } from '../../styles/spacing';
+import { blueWrapperStyles } from '../../styles/layout';
 
 class BudgetsConfigScreen extends Component {
   state = {
-    newBudgetName: '',
-    newBudgetIconName: '',
-    newBudgetIconLibrary: '',
+    currentAmountString: '',
   };
 
-  static navigationOptions = ({ navigation }) => ({
-    title: 'New Budget', // TODO: CHANGE TO EDIT OR NEW
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      color: COLORS.black,
-      size: 32,
-      onPress: () => navigation.goBack(null),
-    }),
-    headerRight: (
-      <TouchableOpacity onPress={() => navigation.goBack(null)}>
-        <Text style={styles.navigationSaveText}>Save</Text>
-      </TouchableOpacity>
-    ),
-  });
+  componentDidMount() {
+    this.props.navigation.setParams({ saveBudget: this._saveBudget });
+    const previousBudget = this.props.navigation.getParam(
+      'previousBudget',
+      null,
+    );
+    if (previousBudget) {
+      this.setState({
+        currentAmountString: String(previousBudget.amountBudgeted),
+      });
+    }
+  }
 
-  // Select an icon
-  selectIcon = ({ iconName, iconLibrary }) => {
+  // Save the current budget
+  _saveBudget = async () => {
+    console.log('SAVING BUDGET');
+  };
+
+  // Calculator section updated
+  handleCalculatorChange = newValue => {
     this.setState({
-      newBudgetIconName: iconName,
-      newBudgetIconLibrary: iconLibrary,
+      currentAmountString: newValue,
     });
+  };
+
+  // Get the required category link section props
+  getCategoryLinkProps = () => {
+    const { navigation } = this.props;
+    const selectedCategory = navigation.getParam('selectedCategory', {});
+    return {
+      navigation,
+      ...selectedCategory,
+      navigateWith: { navigateTo: 'BudgetsConfig' },
+    };
   };
 
   render() {
@@ -70,33 +76,13 @@ class BudgetsConfigScreen extends Component {
         <StatusBar barStyle="dark-content" />
         <SafeAreaView />
         <View style={blueWrapperStyles}>
-          <View style={topContentSectionStyles}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('BudgetsAmount')}>
-              <Text style={topContentSectionTitleLinkStyles}>
-                -set an amount-
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={overlayCardStyles}>
-            <Text style={overlayCardTitleWithPaddingStyles}>
-              Enter a Budget Name:
-            </Text>
-            <View style={horizontalSpacingStyles}>
-              <IconTextInput
-                value={this.state.newBudgetName}
-                label="Budget Name"
-                iconName="pencil"
-                style={textInputStyles}
-                onChange={ev =>
-                  this.setState({ newBudgetName: ev.nativeEvent.text })
-                }
-              />
-            </View>
-
-            <IconSelectionSection
-              selectedName={this.state.newBudgetIconName}
-              onIconSelect={this.selectIcon}
+          <CategoryLinkSection {...this.getCategoryLinkProps()} />
+          <View style={[overlayCardStyles, styles.overwriteCardStyles]}>
+            <Text style={overlayCardTitleStyles}>Set Amount Budgeted:</Text>
+            <CalculatorSection
+              value={this.state.currentAmountString}
+              onCalculatorChange={this.handleCalculatorChange}
+              onCalculatorDone={this._saveBudget}
             />
             <SafeAreaView />
           </View>
@@ -106,7 +92,31 @@ class BudgetsConfigScreen extends Component {
   }
 }
 
-export default BudgetsConfigScreen;
+// NavParams:
+// previousBudget
+
+const BudgetsConfigScreenWithFirebase = withFirebase(BudgetsConfigScreen);
+BudgetsConfigScreenWithFirebase.navigationOptions = ({ navigation }) => ({
+  title: navigation.getParam('previousBudget', null)
+    ? 'Edit Budget'
+    : 'New Budget',
+  headerLeftContainerStyle: {
+    paddingLeft: 5,
+  },
+  headerLeft: getIcon({
+    name: 'arrow-left',
+    color: COLORS.black,
+    size: 32,
+    onPress: () => navigation.goBack(null),
+  }),
+  headerRight: (
+    <TouchableOpacity onPress={navigation.getParam('saveBudget')}>
+      <Text style={styles.navigationSaveText}>Save</Text>
+    </TouchableOpacity>
+  ),
+});
+
+export default BudgetsConfigScreenWithFirebase;
 
 const styles = StyleSheet.create({
   navigationSaveText: {
@@ -115,8 +125,7 @@ const styles = StyleSheet.create({
     fontSize: FONTS.sizes.h6,
     paddingRight: 3,
   },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.offWhite,
+  overwriteCardStyles: {
+    paddingHorizontal: 15,
   },
 });
