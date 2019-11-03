@@ -128,6 +128,7 @@ class MonthScreen extends Component {
 
     return convertAmountToCurrencyString({
       amount: sum,
+      minimumIntegerDigits: 1,
     });
   };
 
