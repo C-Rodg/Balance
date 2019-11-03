@@ -109,7 +109,7 @@ class AuthenticationScreen extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.container}>
             <HeaderLogo />

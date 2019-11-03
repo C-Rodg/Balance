@@ -9,6 +9,9 @@ import {
   StatusBar,
 } from 'react-native';
 
+// HOCs
+import withFirebase from '../../hocs/withFirebase';
+
 // Components
 import CategoryBreakdownItem from './CategoryBreakdownItem';
 
@@ -31,20 +34,6 @@ import {
 } from '../../styles/layout';
 
 class MonthScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    // TODO: get this value from incoming props
-    title: "September '21",
-    headerLeftContainerStyle: {
-      paddingLeft: 5,
-    },
-    headerLeft: getIcon({
-      name: 'arrow-left',
-      color: COLORS.black,
-      size: 32,
-      onPress: () => navigation.goBack(null),
-    }),
-  });
-
   // Render the list of category breakdowns
   _renderCategoryBreakdown = () => {
     const SAMPLE_BREAKDOWNS = [
@@ -116,7 +105,7 @@ class MonthScreen extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView />
         <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>
@@ -136,6 +125,31 @@ class MonthScreen extends Component {
   }
 }
 
+// NavParams:
+// currentDateKey
+// currentMonthString
+
+const MonthScreenWithFirebase = withFirebase(MonthScreen);
+MonthScreenWithFirebase.navigationOptions = ({ navigation }) => {
+  const currentMonthString = navigation.getParam('currentMonthString', '');
+  const currentDateKey = navigation.getParam('currentDateKey', '--');
+  const headerTitle = `${currentMonthString} ${currentDateKey.split('-')[0]}`;
+  return {
+    title: headerTitle,
+    headerLeftContainerStyle: {
+      paddingLeft: 5,
+    },
+    headerLeft: getIcon({
+      name: 'arrow-left',
+      color: COLORS.black,
+      size: 32,
+      onPress: () => navigation.goBack(null),
+    }),
+  };
+};
+
+export default MonthScreenWithFirebase;
+
 const styles = StyleSheet.create({
   scrollTitles: {
     ...overlayCardTitleStyles,
@@ -143,5 +157,3 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
 });
-
-export default MonthScreen;

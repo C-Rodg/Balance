@@ -46,7 +46,7 @@ class SettingsScreen extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView>
           <View style={styles.container}>
             <Text>Settings and things...</Text>

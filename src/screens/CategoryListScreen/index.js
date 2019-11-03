@@ -107,7 +107,7 @@ class CategoryListScreen extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView />
         <View style={offWhiteWrapperStyles}>
           <View style={overlayCardWithTopMarginStyles}>

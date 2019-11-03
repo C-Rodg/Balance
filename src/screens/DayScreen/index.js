@@ -139,7 +139,12 @@ class DayScreen extends Component {
                 })}
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Month')}>
+                onPress={() =>
+                  this.props.navigation.navigate('Month', {
+                    currentMonthString,
+                    currentDateKey,
+                  })
+                }>
                 <Text style={styles.monthText}>{currentMonthString}</Text>
               </TouchableOpacity>
               <TouchableOpacity

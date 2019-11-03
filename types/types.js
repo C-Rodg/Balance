@@ -8,6 +8,7 @@ const ICON = {
   iconName: 'cart',
 };
 
+// /users/uid/expenses/expenseId
 const EXPENSE = {
   id: '',
   categoryId: '', // ties it to a category
@@ -17,6 +18,7 @@ const EXPENSE = {
   createdAt: new Date(),
 };
 
+// /users/uid/categories/categoryId
 const CATEGORY = {
   id: 'categoryname-iconname-iconlibrary',
   categoryName: 'Shopping',
@@ -25,8 +27,8 @@ const CATEGORY = {
   isStandardCategory: false,
 };
 
+// /users/uid/budgets/categoryId
 const BUDGET = {
-  id: '',
   categoryId: 'categoryname-iconname-iconlibrary', // ties it to a category
   amountBudgeted: 780,
 };

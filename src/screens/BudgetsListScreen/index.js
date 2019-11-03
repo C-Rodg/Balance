@@ -162,7 +162,7 @@ class BudgetsListScreen extends Component {
   render() {
     return (
       <Fragment>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <SafeAreaView />
         <View style={blueWrapperStyles}>
           <View style={topContentSectionStyles}>

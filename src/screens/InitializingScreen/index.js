@@ -17,7 +17,7 @@ function InitializingScreen({ navigation, firebase }) {
 
   return (
     <Fragment>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
       <SafeAreaView></SafeAreaView>
     </Fragment>
   );
