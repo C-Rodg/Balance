@@ -132,7 +132,7 @@ class SettingsScreen extends Component {
                   <Text style={[styles.actionRowText, { marginBottom: 10 }]}>
                     Balance's goal is to make expense tracking simplified. Setup
                     your personal categories & budgets and then start tracking
-                    to see where you spend so you can know where to save.
+                    to see where you spend, so you can know where to save.
                   </Text>
                   <Text style={[styles.actionRowText, { marginBottom: 12 }]}>
                     Have questions or comments? Feel free to reach out at:

@@ -52,13 +52,16 @@ _:app:installDebug failed_
 ## TODO:
 
 - Settings screen:
-  - logout
-  - reset categories
-  - how to use
-  - clear all data
-  - device info
+  - app tour
+  - expense total
+  - link for support (native module Linking)
+  - device info (native module)
+- Data Management
+  - delete categories
+  - delete budgets
+  - delete expenses
+  - delete user (all)
 - loading/startup screens
-- setup Linking module
 - alerts for over on budgets
 - hook up database security rules (video #6!)
 - test offline
