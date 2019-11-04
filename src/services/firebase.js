@@ -34,6 +34,13 @@ export default class Firebase {
   // Send password reset
   sendPasswordResetEmail = email => this.auth.sendPasswordResetEmail(email);
 
+  // Delete Auth scheme
+  deleteAuthenticatedUser = () => this.auth.currentUser.delete();
+
+  // Reauthenticate
+  reauthenticateUser = credential =>
+    this.auth.currentUser.reauthenticateWithCredential(credential);
+
   // ----------------- DATABASE ------------------------------ //
 
   // USERS - Get the user document
@@ -175,5 +182,59 @@ export default class Firebase {
 
     // NOTE: this won't resolve while offline. Will that cause problems?
     return expenseRef.delete();
+  };
+
+  // EXPENSES, CATEGORIES, BUDGETS - delete
+  deleteUsersCollectionItems = async itemsArray => {
+    const uid = this.getUserUID();
+    if (!uid || itemsArray.length === 0) return null;
+
+    const itemsToDelete = [];
+    for (let i = 0; i < itemsArray.length; i++) {
+      // Make a reference to the current collection item
+      const collectionItem = itemsArray[i];
+      const collectionRef = this.firestore
+        .collection('users')
+        .doc(uid)
+        .collection(collectionItem);
+
+      // Get the collection
+      const collectionSnapshot = await collectionRef.get();
+
+      // Go through each document and delete it
+      collectionSnapshot.forEach(documentSnapshot => {
+        itemsToDelete.push(collectionRef.doc(documentSnapshot.id).delete());
+      });
+    }
+    // NOTE: this won't resolve while offline. Will that cause problems?
+
+    return Promise.all(itemsToDelete);
+  };
+
+  // USERS - delete user docs, all sub items, and their authentication scheme
+  deleteCurrentUser = async () => {
+    const uid = this.getUserUID();
+    if (!uid) return null;
+
+    // Delete all of their items first
+    await this.deleteUsersCollectionItems([
+      'budgets',
+      'categories',
+      'expenses',
+    ]);
+
+    // Delete the user document
+    const userRef = this.firestore.collection('users').doc(uid);
+    await userRef.delete();
+
+    // Reauthenticate the user
+    const authCredential = authModule.EmailAuthProvider.credential(
+      'test@email.com',
+      'test123',
+    );
+    await this.reauthenticateUser(authCredential);
+
+    // Delete the auth user
+    return this.deleteAuthenticatedUser();
   };
 }

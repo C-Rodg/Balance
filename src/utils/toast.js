@@ -1,4 +1,5 @@
 // Libraries
+import { Alert } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 // Props
@@ -28,10 +29,31 @@ export const showMessage = message => {
   showToast(message);
 };
 
-// Show Toast
+// INTERNAL - Show Toast
 const showToast = (message, config = {}) => {
   Toast.show(message, {
     ...STANDARD_CONFIG,
     ...config,
   });
+};
+
+// Show confirmation - native
+// valid styles: default, cancel, destructive
+export const showConfirmation = ({
+  title = '',
+  body = '',
+  cancelText = 'Cancel',
+  okayText = 'OK',
+  okayStyle = 'default',
+  okayCallback = () => {},
+}) => {
+  Alert.alert(
+    title,
+    body,
+    [
+      { text: cancelText, style: 'cancel' },
+      { text: okayText, style: okayStyle, onPress: okayCallback },
+    ],
+    { cancelable: false },
+  );
 };

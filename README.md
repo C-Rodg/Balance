@@ -51,14 +51,12 @@ _:app:installDebug failed_
 
 ## TODO:
 
+- loading/startup screens
 - BUG: app freezing with toasts? (Login screen error)
 - Settings screen:
   - app tour
   - link for support (native module Linking)
   - device info (native module-Version at bottom)
-- Data Management
-  - hook up account, item deletion
-- loading/startup screens
 - alerts for over on budgets
 - hook up database security rules (video #6!)
 - test offline
@@ -69,6 +67,7 @@ _:app:installDebug failed_
 
 Minor Todos:
 
+- ALL SCREENS - show more informative errors. Login, etc. for invalid emails and things..
 - EDIT CATEGORY SCREEN: scroll to icon location of one that is selected
 - DAY SCREEN: fix location of month left and right buttons
 - SELECT CATEGORY: organize category list with "Overall Category" - "Sub category" ?

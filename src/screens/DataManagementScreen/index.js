@@ -7,6 +7,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 // HOCs
@@ -17,7 +18,11 @@ import BlockButton from '../Shared/BlockButton';
 
 // Utils
 import { getIcon } from '../../utils/iconNormalizer';
-import { showErrorMessage } from '../../utils/toast';
+import {
+  showConfirmation,
+  showErrorMessage,
+  showSuccessMessage,
+} from '../../utils/toast';
 
 // Styling
 import {
@@ -27,24 +32,75 @@ import {
   dataRowSectionActionRowStyles,
   dataRowSectionLastActionRowStyles,
   dataRowActionRowTextStyles,
-  dataRowActionRowSubTextStyles,
 } from '../../styles/layout';
 import COLORS from '../../styles/colors';
-import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
 class DataManagementScreen extends Component {
   state = {
     itemsToClear: [],
   };
 
+  // Delete account pressed
   handleDeleteAccount = () => {
-    // TODO: show some confirmation
-    // delete entire account
+    showConfirmation({
+      title: 'Delete Account?',
+      body:
+        'This will permanately delete all data associated with your account. Proceed?',
+      okayText: 'Delete',
+      okayStyle: 'destructive',
+      okayCallback: this.confirmDeleteAccount,
+    });
   };
 
+  // Delete account confirmed
+  confirmDeleteAccount = async () => {
+    const { firebase, navigation } = this.props;
+    try {
+      // TODO: capture credentials again
+      await firebase.deleteCurrentUser();
+      this.setState({ itemsToClear: [] });
+      showSuccessMessage(`Good bye :'(`);
+      navigation.navigate('Auth');
+    } catch (err) {
+      showErrorMessage('Unable to clear items.');
+      console.log(err.message);
+      // TODO: HANDLE OFFLINE
+    }
+  };
+
+  // Clear the selected items
   handleClearSelected = () => {
+    const { itemsToClear } = this.state;
+    if (!itemsToClear.length) {
+      showErrorMessage(`Please first select the items you'd like to clear.`);
+      return;
+    }
+
     // show confirmation
+    showConfirmation({
+      title: 'Clear items?',
+      body:
+        'This will permanately delete all data associated with these items. Proceed?',
+      okayText: 'Clear',
+      okayStyle: 'destructive',
+      okayCallback: this.confirmItemsCleared,
+    });
     // delete the selected items
+  };
+
+  // Items cleared confirmed
+  confirmItemsCleared = async () => {
+    const { firebase } = this.props;
+    const { itemsToClear } = this.state;
+    try {
+      await firebase.deleteUsersCollectionItems(itemsToClear);
+      showSuccessMessage('Items cleared!');
+      this.setState({ itemsToClear: [] });
+    } catch (err) {
+      showErrorMessage('Unable to clear items.');
+      console.log(err.message);
+      // TODO: HANDLE OFFLINE
+    }
   };
 
   // Add or remove clearable items
