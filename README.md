@@ -57,10 +57,7 @@ _:app:installDebug failed_
   - link for support (native module Linking)
   - device info (native module-Version at bottom)
 - Data Management
-  - delete categories
-  - delete budgets
-  - delete expenses
-  - delete user (all)
+  - hook up account, item deletion
 - loading/startup screens
 - alerts for over on budgets
 - hook up database security rules (video #6!)

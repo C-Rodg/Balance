@@ -6,13 +6,18 @@ import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
-function BlockButton({ title, onButtonPress }) {
+function BlockButton({
+  title,
+  onButtonPress,
+  buttonStyles = {},
+  textStyles = {},
+}) {
   return (
     <TouchableOpacity
       onPress={onButtonPress}
-      style={styles.buttonTouch}
+      style={[styles.buttonTouch, buttonStyles]}
       activeOpacity={0.8}>
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={[styles.buttonText, textStyles]}>{title}</Text>
     </TouchableOpacity>
   );
 }

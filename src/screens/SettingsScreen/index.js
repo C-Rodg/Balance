@@ -19,7 +19,15 @@ import { showErrorMessage } from '../../utils/toast';
 import { convertAmountToCurrencyString } from '../../utils/moneyFormatter';
 
 // Styling
-import { offWhiteWrapperStyles } from '../../styles/layout';
+import {
+  offWhiteWrapperStyles,
+  dataRowSectionStyles,
+  dataRowSectionTitleStyles,
+  dataRowSectionActionRowStyles,
+  dataRowSectionLastActionRowStyles,
+  dataRowActionRowTextStyles,
+  dataRowActionRowSubTextStyles,
+} from '../../styles/layout';
 import COLORS from '../../styles/colors';
 import FONTS, { getFontFamilyStyles } from '../../styles/fonts';
 
@@ -122,59 +130,63 @@ class SettingsScreen extends Component {
             <ScrollView
               style={styles.settingsWrapper}
               contentContainerStyle={{ flexGrow: 1 }}>
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>My Account</Text>
-                <View style={styles.actionRow}>
-                  <Text style={styles.actionRowText}>Email</Text>
-                  <Text style={styles.actionRowSubText} numberOfLines={1}>
+              <View style={dataRowSectionStyles}>
+                <Text style={dataRowSectionTitleStyles}>My Account</Text>
+                <View style={dataRowSectionActionRowStyles}>
+                  <Text style={dataRowActionRowTextStyles}>Email</Text>
+                  <Text style={dataRowActionRowSubTextStyles} numberOfLines={1}>
                     {userInfo.email}
                   </Text>
                 </View>
-                <View style={styles.actionRow}>
-                  <Text style={styles.actionRowText}>Account Created</Text>
-                  <Text style={styles.actionRowSubText} numberOfLines={1}>
+                <View style={dataRowSectionActionRowStyles}>
+                  <Text style={dataRowActionRowTextStyles}>
+                    Account Created
+                  </Text>
+                  <Text style={dataRowActionRowSubTextStyles} numberOfLines={1}>
                     {userInfo.createdAt}
                   </Text>
                 </View>
-                <View style={[styles.actionRow, styles.bottomBorderStyles]}>
-                  <Text style={styles.actionRowText}>Total Spent</Text>
-                  <Text style={styles.actionRowSubText} numberOfLines={1}>
+                <View style={dataRowSectionLastActionRowStyles}>
+                  <Text style={dataRowActionRowTextStyles}>Total Spent</Text>
+                  <Text style={dataRowActionRowSubTextStyles} numberOfLines={1}>
                     {this.state.expenseTotal}
                   </Text>
                 </View>
               </View>
 
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Data</Text>
+              <View style={dataRowSectionStyles}>
+                <Text style={dataRowSectionTitleStyles}>Data</Text>
                 <TouchableOpacity
                   activeOpacity={0.6}
                   onPress={this.handleExportData}
-                  style={styles.actionRow}>
-                  <Text style={styles.actionRowText}>Export to CSV</Text>
-                  <Text style={styles.actionRowSubText} numberOfLines={1}>
+                  style={dataRowSectionActionRowStyles}>
+                  <Text style={dataRowActionRowTextStyles}>Export to CSV</Text>
+                  <Text style={dataRowActionRowSubTextStyles} numberOfLines={1}>
                     {getIcon({ name: 'chevron-right', size: 21 })}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   activeOpacity={0.6}
                   onPress={this.handleManageData}
-                  style={[styles.actionRow, styles.bottomBorderStyles]}>
-                  <Text style={styles.actionRowText}>Manage Data</Text>
-                  <Text style={styles.actionRowSubText} numberOfLines={1}>
+                  style={dataRowSectionLastActionRowStyles}>
+                  <Text style={dataRowActionRowTextStyles}>Manage Data</Text>
+                  <Text style={dataRowActionRowSubTextStyles} numberOfLines={1}>
                     {getIcon({ name: 'chevron-right', size: 21 })}
                   </Text>
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>About</Text>
+              <View style={dataRowSectionStyles}>
+                <Text style={dataRowSectionTitleStyles}>About</Text>
                 <View style={styles.actionBlock}>
-                  <Text style={[styles.actionRowText, { marginBottom: 10 }]}>
+                  <Text
+                    style={[dataRowActionRowTextStyles, { marginBottom: 10 }]}>
                     Balance's goal is to make expense tracking simplified. Setup
                     your personal categories & budgets and then start tracking
                     to see where you spend, so you can know where to save.
                   </Text>
-                  <Text style={[styles.actionRowText, { marginBottom: 12 }]}>
+                  <Text
+                    style={[dataRowActionRowTextStyles, { marginBottom: 12 }]}>
                     Have questions or comments? Feel free to reach out at:
                   </Text>
 
@@ -190,21 +202,21 @@ class SettingsScreen extends Component {
                 <TouchableOpacity
                   activeOpacity={0.6}
                   onPress={this.handleAppTour}
-                  style={[styles.actionRow, styles.bottomBorderStyles]}>
-                  <Text style={styles.actionRowText}>
+                  style={dataRowSectionLastActionRowStyles}>
+                  <Text style={dataRowActionRowTextStyles}>
                     Take a tour of the app!
                   </Text>
-                  <Text style={styles.actionRowSubText} numberOfLines={1}>
+                  <Text style={dataRowActionRowSubTextStyles} numberOfLines={1}>
                     {getIcon({ name: 'chevron-right', size: 21 })}
                   </Text>
                 </TouchableOpacity>
               </View>
 
-              <View style={styles.section}>
+              <View style={dataRowSectionStyles}>
                 <TouchableOpacity
                   activeOpacity={0.6}
                   onPress={this.handleLogout}
-                  style={[styles.actionRow, styles.bottomBorderStyles]}>
+                  style={dataRowSectionLastActionRowStyles}>
                   <Text style={styles.linkText}>Log out</Text>
                 </TouchableOpacity>
               </View>
@@ -250,52 +262,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     flex: 1,
   },
-  section: {
-    marginBottom: 40,
-  },
-  sectionTitle: {
-    ...getFontFamilyStyles('medium'),
-    textTransform: 'uppercase',
-    paddingHorizontal: 15,
-    letterSpacing: 0.8,
-    fontSize: FONTS.sizes.s1,
-    color: COLORS.black,
-    marginBottom: 5,
-  },
-  actionRow: {
-    backgroundColor: COLORS.white,
-    paddingHorizontal: 15,
-    paddingVertical: 11,
-    borderTopColor: COLORS.gray,
-    borderTopWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'nowrap',
-  },
   actionBlock: {
     backgroundColor: COLORS.white,
     paddingHorizontal: 15,
     paddingVertical: 11,
     borderTopColor: COLORS.gray,
     borderTopWidth: 1,
-  },
-  bottomBorderStyles: {
-    borderBottomColor: COLORS.gray,
-    borderBottomWidth: 1,
-  },
-  actionRowText: {
-    ...getFontFamilyStyles('regular'),
-    fontSize: FONTS.sizes.p,
-    color: COLORS.black,
-    marginRight: 10,
-  },
-  actionRowSubText: {
-    ...getFontFamilyStyles('regular'),
-    fontSize: FONTS.sizes.p,
-    color: COLORS.black,
-    opacity: 0.6,
-    flexShrink: 1,
   },
   linkText: {
     ...getFontFamilyStyles('regular'),
