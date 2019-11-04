@@ -51,7 +51,10 @@ _:app:installDebug failed_
 
 ## TODO:
 
-- loading/startup screens
+- app icon
+  - android
+- startup screens
+  - android
 - BUG: app freezing with toasts? (Login screen error)
 - Settings screen:
   - app tour
@@ -67,6 +70,7 @@ _:app:installDebug failed_
 
 Minor Todos:
 
+- LAUNCH SCREEN - fix white flash
 - ALL SCREENS - show more informative errors. Login, etc. for invalid emails and things..
 - EDIT CATEGORY SCREEN: scroll to icon location of one that is selected
 - DAY SCREEN: fix location of month left and right buttons
