@@ -218,7 +218,8 @@ const styles = StyleSheet.create({
   },
   mainWrapper: {
     flex: 1,
-    marginVertical: 15,
+    marginTop: 45,
+    marginBottom: 15,
   },
   buttonWrapper: {
     margin: 15,

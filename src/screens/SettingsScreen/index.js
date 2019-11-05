@@ -129,7 +129,7 @@ class SettingsScreen extends Component {
           <SafeAreaView style={styles.container}>
             <ScrollView
               style={styles.settingsWrapper}
-              contentContainerStyle={{ flexGrow: 1 }}>
+              contentContainerStyle={styles.settingsScrollContent}>
               <View style={dataRowSectionStyles}>
                 <Text style={dataRowSectionTitleStyles}>My Account</Text>
                 <View style={dataRowSectionActionRowStyles}>
@@ -254,11 +254,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   settingsWrapper: {
-    paddingVertical: 15,
     flex: 1,
   },
+  settingsScrollContent: {
+    flexGrow: 1,
+    paddingTop: 40,
+    paddingBottom: 15,
+  },
   scrollViewEnd: {
-    marginBottom: 25,
+    marginBottom: 5,
     justifyContent: 'flex-end',
     flex: 1,
   },
