@@ -1,7 +1,11 @@
 // Libraries
 import React from 'react';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import {
+  createStackNavigator,
+  StackViewTransitionConfigs,
+  StackViewStyleInterpolator,
+} from 'react-navigation-stack';
 import 'intl';
 import 'intl/locale-data/jsonp/en-US';
 
@@ -44,6 +48,36 @@ const defaultNavigationOptions = {
   },
 };
 
+const dynamicModalTransition = (transitionProps, prevTransitionProps) => {
+  let isCustom = false;
+
+  if (
+    // Day -> Settings
+    (transitionProps.scene.route.routeName === 'Settings' &&
+      (prevTransitionProps &&
+        prevTransitionProps.scene.route.routeName === 'Day')) ||
+    // Settings -> Day
+    (transitionProps.scene.route.routeName === 'Day' &&
+      (prevTransitionProps &&
+        prevTransitionProps.scene.route.routeName === 'Settings')) ||
+    // Day -> Budgets
+    (transitionProps.scene.route.routeName === 'BudgetsList' &&
+      (prevTransitionProps &&
+        prevTransitionProps.scene.route.routeName === 'Day')) ||
+    // Budgets -> Day
+    (transitionProps.scene.route.routeName === 'Day' &&
+      (prevTransitionProps &&
+        prevTransitionProps.scene.route.routeName === 'BudgetsList'))
+  ) {
+    isCustom = true;
+  }
+  return StackViewTransitionConfigs.defaultTransitionConfig(
+    transitionProps,
+    prevTransitionProps,
+    isCustom,
+  );
+};
+
 // STACK - Main Application
 const HomeStack = createStackNavigator(
   {
@@ -62,6 +96,7 @@ const HomeStack = createStackNavigator(
     initialRouteName: 'Day',
     headerLayoutPreset: 'center',
     defaultNavigationOptions,
+    transitionConfig: dynamicModalTransition,
   },
 );
 
