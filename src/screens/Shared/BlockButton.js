@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.blueMain,
     borderRadius: 6,
     paddingHorizontal: 10,
-    paddingVertical: 17,
+    paddingVertical: 16,
   },
   buttonText: {
     ...getFontFamilyStyles('medium'),
     fontSize: FONTS.sizes.h5,
     color: COLORS.white,
     textAlign: 'center',
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
   },
 });

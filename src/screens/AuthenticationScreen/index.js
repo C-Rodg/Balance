@@ -121,9 +121,11 @@ class AuthenticationScreen extends Component {
                 iconColor={COLORS.grayDark}
                 autoCapitalize="none"
                 autoCompleteType="email"
-                autoCap
+                autoCorrect={false}
                 keyboardType="email-address"
                 textContentType="emailAddress"
+                returnKeyType="done"
+                returnKeyLabel="Done"
                 onChange={ev => this.setState({ email: ev.nativeEvent.text })}
               />
               <IconTextInput
@@ -133,10 +135,13 @@ class AuthenticationScreen extends Component {
                 iconColor={COLORS.grayDark}
                 autoCapitalize="none"
                 autoCompleteType="password"
+                autoCorrect={false}
                 textContentType={
                   this.state.isRegisteringAsNew ? 'newPassword' : 'password'
                 }
                 secureTextEntry={true}
+                returnKeyType="done"
+                returnKeyLabel="Done"
                 onChange={ev =>
                   this.setState({ password: ev.nativeEvent.text })
                 }

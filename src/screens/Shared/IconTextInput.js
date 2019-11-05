@@ -86,13 +86,13 @@ class IconTextInput extends Component {
   }
 
   _toggle(isActive) {
-    const { animationDuration, easing, useNativeDriver } = this.props;
+    const { animationDuration, easing } = this.props;
     this.isActive = isActive;
     Animated.timing(this.state.focusedAnim, {
       toValue: isActive ? 1 : 0,
       duration: animationDuration,
       easing,
-      useNativeDriver,
+      useNativeDriver: true,
     }).start();
   }
 

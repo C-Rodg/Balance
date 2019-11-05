@@ -55,7 +55,7 @@ _:app:installDebug failed_
   - android
 - startup screens
   - android
-- BUG: app freezing with toasts? (Login screen error)
+- BUG: app freezing with toasts? (Login screen error - seems fine?)
 - Settings screen:
   - app tour
   - link for support (native module Linking)
@@ -68,9 +68,19 @@ _:app:installDebug failed_
 
 ---
 
+Initial use todos:
+
+- settings - top margin increase. data management
+- icon select - very slow to rerender
+
+- check changes to auth keyboards. see if that works and apply to rest
+- check animation on text input on auth screen
+
+---
+
 Minor Todos:
 
-- LAUNCH SCREEN - fix white flash
+- LAUNCH SCREEN - fix white flash. Needed?
 - ALL SCREENS - show more informative errors. Login, etc. for invalid emails and things..
 - EDIT CATEGORY SCREEN: scroll to icon location of one that is selected
 - DAY SCREEN: fix location of month left and right buttons
