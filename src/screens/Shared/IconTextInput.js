@@ -92,7 +92,7 @@ class IconTextInput extends Component {
       toValue: isActive ? 1 : 0,
       duration: animationDuration,
       easing,
-      useNativeDriver: true,
+      //useNativeDriver: true,
     }).start();
   }
 
