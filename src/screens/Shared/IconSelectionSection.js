@@ -26,18 +26,28 @@ import COLORS from '../../styles/colors';
 // Calculate the number of columns to render
 const NumberOfColumns = Math.floor(Dimensions.get('screen').width / 60);
 
-class IconSelectionSection extends Component {
-  // Render the list of icons
-  _renderIconListItems = ({ item }) => {
-    const isSelected = item.iconName === this.props.selectedName;
+// Helpers
+const iconKeyExtractor = item => `${item.iconLibrary}-${item.iconName}`;
+
+// Icon list item
+class IconListItem extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props.selectedName === nextProps.selectedName) {
+      return false;
+    }
+    return true;
+  }
+
+  render() {
+    const { item, onSelect, selectedName } = this.props;
+    const isSelected = selectedName === item.iconName;
     const selectedStyles = isSelected
       ? { backgroundColor: COLORS.blueMain }
       : {};
-
     return (
       <TouchableHighlight
         underlayColor={!isSelected ? COLORS.gray : COLORS.blueBackground}
-        onPress={() => this.props.onIconSelect(item)}
+        onPress={() => onSelect(item)}
         style={[styles.iconItemStyles, selectedStyles]}>
         {getIcon({
           name: item.iconName,
@@ -46,6 +56,19 @@ class IconSelectionSection extends Component {
           library: item.iconLibrary,
         })}
       </TouchableHighlight>
+    );
+  }
+}
+
+// List component
+class IconSelectionSection extends Component {
+  _getIconItem = ({ item }) => {
+    return (
+      <IconListItem
+        item={item}
+        selectedName={this.props.selectedName}
+        onSelect={this.props.onIconSelect}
+      />
     );
   };
 
@@ -56,12 +79,11 @@ class IconSelectionSection extends Component {
         <FlatList
           style={cardScrollViewStyles}
           data={ICON_LIST}
-          renderItem={this._renderIconListItems}
+          renderItem={this._getIconItem}
           numColumns={NumberOfColumns}
           extraData={this.props.selectedName}
-          keyExtractor={item => {
-            return `${item.iconLibrary}-${item.iconName}`;
-          }}
+          keyExtractor={iconKeyExtractor}
+          getItemLayout={(data, index) => ({ length: 50, offset: 0, index })}
         />
       </Fragment>
     );

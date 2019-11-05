@@ -70,9 +70,9 @@ _:app:installDebug failed_
 
 Initial use todos:
 
-- icon select - very slow to rerender
 - check changes to auth keyboards. see if that works and apply to rest
 - check animation on text input on auth screen
+- check icon list performance when building with production
 
 ---
 
